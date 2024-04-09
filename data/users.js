@@ -81,7 +81,112 @@ const createUser = async (
 }
 
 const getUser = async (id) => {
+    checkString(id, 'id');
+    
+    id = id.trim();
+    
+    if (!ObjectId.isValid(id)){ 
+        throw 'Invalid object ID.';
+    }
 
+    const userCollection = await users();
+    const user = await userCollection.findOne({_id: new ObjectId(id)});
+  
+    if (user === null) {
+      throw 'No user with that id.';
+    }
+  
+    user._id = user._id.toString();
+    return user;
 }
 
-export default { createUser }
+const deleteUser = async (id) => {
+    checkString(id, 'id');
+    
+    id = id.trim();
+    
+    if (!ObjectId.isValid(id)){ 
+        throw 'invalid object ID';
+    }
+
+    const userCollection = await users();
+    const user = await userCollection.findOneAndDelete({_id: new ObjectId(id)});
+  
+    if (user === null) {
+      throw 'No user with that id.';
+    }
+    
+    //Implement deletion of the workouts and posts and liked posts
+    return `Successfully deleted user with id ${id}`;
+}
+
+const updateUser = async (id, obj) => {
+    console.log(id)
+    checkString(id, 'id');
+    
+    id = id.trim();
+    
+    if (!ObjectId.isValid(id)){ 
+        throw 'invalid object ID';
+    }
+
+    const keys = Object.keys(obj);
+  
+    if (keys.length === 0){
+      throw 'need to implement a field to change for a patch request'
+    }
+
+    keys.forEach((key) => {
+        if (key === 'username' || key === 'firstName' || key === 'lastname'){
+            checkString(obj[key], `updated${key}`);
+            obj[key] = obj[key].trim()
+        }
+        if (key === 'email'){
+            checkString(obj[key], "updatedEmail");
+            checkValidEmail(obj[key], "updatedEmail")
+        }
+        if (key === 'password'){
+            checkString(obj[key], "updatedPassword");
+            checkValidPassword(obj[key], "updatedPassword")
+        }
+        if (key === 'gender'){
+            checkString(obj[key], "updatedGender");
+            checkGender(obj[key], "updatedGender")
+        }
+        if (key === 'height'){
+            checkString(obj[key], "updatedGender");
+        }
+        if (key === 'heightUnit'){
+            checkString(obj[key], "updatedGender");
+        }
+        if (key === 'weight'){
+            checkString(obj[key], "updatedGender");
+        }
+        if (key === 'weightUnit'){
+            checkString(obj[key], "updatedGender");
+        }
+        if (key === 'sports'){
+            obj[key].forEach((sport) => {
+                checkString(sport, 'sport');
+            });
+        
+            obj[key] = obj[key].map(sport => sport.trim());
+        }
+    })
+
+    //not sure if you will update workouts, posts, and liked posts here
+
+    const userCollection = await users();
+    const user = await userCollection.findOneAndUpdate({_id: new ObjectId(id)},
+                                                       {$set: obj},
+                                                       {returnDocument: 'after'});
+  
+    if (user === null) {
+      throw 'No user with that id.';
+    }
+    
+    user._id = user._id.toString();
+    return user
+}
+
+export default { createUser, getUser, deleteUser, updateUser }
