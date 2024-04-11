@@ -130,4 +130,4 @@ export const updateWorkout = async(id, updateObject) => {
     workout._id = workout._id.toString();
     return workout;
 
-}
+};
