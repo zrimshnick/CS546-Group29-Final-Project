@@ -14,7 +14,7 @@ function checkString(param, name) {
 
 function checkArray(param, name) {
     if (param === undefined || !Array.isArray(param)) {
-        throw `${name} cannot be undefined and must be a string`;
+        throw `${name} cannot be undefined and must be an array`;
     }
 
     return param;
