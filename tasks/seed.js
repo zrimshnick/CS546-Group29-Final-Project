@@ -1,6 +1,7 @@
 import { dbConnection, closeConnection } from '../config/mongoConnection.js';
 import users from '../data/users.js';
 import * as workouts from '../data/workouts.js';
+import * as exercises from '../data/exercise.js';
 
 const db = await dbConnection();
 await db.dropDatabase();
@@ -75,6 +76,52 @@ try {
 // try{
 //     const u = await workouts.updateWorkout(workout1._id.toString(), {caloriesBurned: 100});
 //     console.log(u);
+// }catch(e){
+//     console.log(e);
+// }
+
+//exercises
+
+let exercise1 = undefined;
+let exercise2 = undefined;
+let exercise3 = undefined;
+
+
+try{
+    exercise1 = await exercises.createExercise(workout1._id.toString(), "weight training", "Bench Press", 3, [8, 8, 6], 225, "lbs", 0, "n/a", "00:14:31", "I felt really loose today with no pain");
+    console.log(exercise1);
+}catch(e){
+    console.log(e);
+}
+try{
+    exercise2 = await exercises.createExercise(workout1._id.toString(), "weight training", "Squat", 3, [10, 8, 8], 205, "lbs", 0, "n/a", "00:10:45", "I was able to keep good form and reach good depth");
+    console.log(exercise2);
+}catch(e){
+    console.log(e);
+}
+try{
+    exercise3 = await exercises.createExercise(workout2._id.toString(), "cardio", "Run", 0, [], 0, "n/a", 1.5, "mi", "00:14:31", "My wrists bothered me today");
+    console.log(exercise3);
+}catch(e){
+    console.log(3);
+}
+
+//use to test other data functions
+// try{
+//     const get = await exercises.getAllExercises(workout1._id.toString());
+//     console.log(get);
+// }catch(e){
+//     console.log(e);
+// }
+// try{
+//     const get1 = await exercises.getExercise(exercise1._id.toString());
+//     console.log(get1);
+// }catch(e){
+//     console.log(e);
+// }
+// try{
+//     const d = await exercises.deleteExercise(exercise1._id.toString());
+//     console.log(d);
 // }catch(e){
 //     console.log(e);
 // }
