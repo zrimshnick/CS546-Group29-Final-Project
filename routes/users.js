@@ -6,8 +6,4 @@ router.route("/").get(async (req, res) => {
   res.render("profilePage");
 });
 
-/* router.route("/profile").get(async (req, res) => {
-  res.render("profilePage");
-}); */
-
 export default router;
