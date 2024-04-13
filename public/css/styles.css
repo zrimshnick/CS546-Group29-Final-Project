@@ -137,11 +137,11 @@ body {
   border-radius: 0.5rem;
   background-color: #0e0e0e;
   padding: 0.2rem 0.5rem;
-  transition: 0.2s ease-in-out all;
+  transition: 0.1s ease-in-out all;
   &:hover {
     cursor: pointer;
     border-color: #77c9d4;
-    background-color: #181818;
+    background-color: #222121;
   }
 }
 #profile-personal-meta-container {
@@ -151,7 +151,17 @@ body {
   justify-content: center;
   gap: 1rem;
 }
-
+#profile-personal-meta-sport-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.profile-personal-meta-sport {
+  border: 1px solid #77c9d4;
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.9em;
+}
 #profile-posts {
   display: flex;
   flex-direction: column;

@@ -4,19 +4,21 @@
 <div id="profile-container">
     <div id="profile-personal-container">
         <div id="profile-personal-image"><img src="/public/images/profile-icon.png"></div>
-        <div id="profile-personal-fullname">Zack Rimshnick</div>
+        <div id="profile-personal-fullname">{{firstName}}&nbsp;{{lastName}}</div>
         <button id="profile-personal-edit-button">Edit Profile</button>
-        <div id="profile-personal-username">@zrimshni25</div>
+        <div id="profile-personal-username">@{{username}}</div>
         <div id="profile-personal-meta-container">
-            <div id="profile-personal-meta-age">
-                21
+            <div id="profile-personal-meta-height">
+                {{height}}
             </div>
             <div id="profile-personal-meta-weight">
-                180lbs
+                {{weight}}{{weightUnit}}
             </div>
         </div>
-        <div id="profile-personal-meta-sports">
-            Baseball
+        <div id="profile-personal-meta-sport-container">
+            {{#each sports}}
+            <div class="profile-personal-meta-sport">{{this}}</div>
+            {{/each}}
         </div>
     </div>
     <div id="profile-posts-container">

@@ -2,8 +2,20 @@ import { Router } from "express";
 const router = Router();
 import { createUser, getUser, deleteUser, updateUser } from "../data/users.js";
 
+const zackUserID = "661af4c95ad5e01f0ba853f1";
+
 router.route("/").get(async (req, res) => {
-  res.render("profilePage");
+  const currUserData = await getUser(zackUserID);
+  console.log(currUserData);
+  res.render("profilePage", {
+    firstName: currUserData.firstName,
+    lastName: currUserData.lastName,
+    username: currUserData.username,
+    height: currUserData.height,
+    weight: currUserData.weight,
+    weightUnit: currUserData.weightUnit,
+    sports: currUserData.sports,
+  });
 });
 
 export default router;
