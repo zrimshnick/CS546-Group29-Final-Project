@@ -6,7 +6,6 @@ const zackUserID = "661af4c95ad5e01f0ba853f1";
 
 router.route("/").get(async (req, res) => {
   const currUserData = await getUser(zackUserID);
-  console.log(currUserData);
   res.render("profilePage", {
     firstName: currUserData.firstName,
     lastName: currUserData.lastName,
