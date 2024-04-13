@@ -1,6 +1,7 @@
 //Location of all of the workouts data functions
 import { ObjectId } from "mongodb";
 import { workouts } from "../config/mongoCollections.js";
+import { users } from "../config/mongoCollections.js";
 import {
   checkString,
   checkArray,
@@ -50,6 +51,17 @@ export const createWorkout = async (
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
     throw `Error: could not add workout`;
   }
+
+  const userCollection = await users();
+  const user = await userCollection.findOneAndUpdate(
+    { _id: new ObjectId(userID) },
+    { $push: { workouts: workout._id } },
+    { returnDocument: "after" }
+  );
+  if (user === null) {
+    throw "No user with that id.";
+  }
+
   return workout;
 };
 
