@@ -73,15 +73,25 @@ body {
     padding: 0.1rem;
     border-bottom: 1px solid transparent;
     transition: 0.2s ease-in-out all;
+    img {
+      width: 2.5rem;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      transition: 0.2s ease-in-out all;
+    }
+    img:hover {
+      /* filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(200deg); */
+      border: 2px solid #77c9d4;
+    }
   }
-  li:after {
+  li:not(:has(> a > img)):after {
     display: block;
     content: "";
     border-bottom: solid 1px #77c9d4;
     transform: scaleX(0);
     transition: transform 250ms ease-in-out;
   }
-  li:hover:after {
+  li:not(:has(> a > img)):hover:after {
     transform: scaleX(1);
   }
 }
@@ -117,14 +127,15 @@ body {
 #profile-personal-edit-button {
   color: white;
   font-size: 0.75em;
-  border: 1px solid #015249;
+  border: 1px solid #77c9d4;
   border-radius: 0.5rem;
-  background-color: #015249;
+  background-color: #0e0e0e;
   padding: 0.2rem 0.5rem;
   transition: 0.2s ease-in-out all;
   &:hover {
     cursor: pointer;
     border-color: #77c9d4;
+    background-color: #181818;
   }
 }
 #profile-personal-meta-container {
@@ -150,7 +161,7 @@ body {
   gap: 0.2rem;
   transition: 0.2s ease-in-out all;
   &:hover {
-    border: 1px solid #015249;
+    border: 1px solid #77c9d4;
     scale: 101%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.638);
     box-shadow: 0 1px 3px #77c9d4;
