@@ -210,9 +210,15 @@ body {
 }
 .workouts-workout-type {
   text-align: left;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .workouts-workout-cals {
   text-align: right;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .workouts-workout-subtitle {
   display: flex;
@@ -220,7 +226,7 @@ body {
   justify-content: space-between;
   font-size: 0.9em;
   color: #9e9e9e;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 .workouts-workout-exercise-grid {
   display: grid;
@@ -247,6 +253,33 @@ body {
 
 .workouts-workout-exercise-grid-item-header {
   color: #9e9e9e;
+}
+.workouts-workout-edit-button {
+  width: 35%;
+  color: white;
+  font-size: 0.75em;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #77c9d4;
+  border-radius: 0.5rem;
+  background-color: #0e0e0e;
+  padding: 0.2rem 0.5rem;
+  transition: 0.1s ease-in-out all;
+  margin-top: 0.25rem;
+  align-self: flex-end;
+  /* display: flex; */
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    /* border-color: #77c9d4;
+    background-color: #222121; */
+    background-color: #77c9d4;
+    color: #0e0e0e;
+  }
+  img {
+    width: 1rem;
+  }
 }
 
 /************************************/
