@@ -2,6 +2,8 @@ import { dbConnection, closeConnection } from "../config/mongoConnection.js";
 import * as users from "../data/users.js";
 import * as workouts from "../data/workouts.js";
 import * as exercises from "../data/exercise.js";
+import * as posts from "../data/posts.js";
+import * as comments from "../data/comments.js";
 
 const db = await dbConnection();
 await db.dropDatabase();
@@ -359,6 +361,35 @@ try {
 // }catch(e){
 //     console.log(e);
 // }
+
+let post1 = undefined;
+let post2 = undefined;
+
+try{
+  post1 = await posts.createPost(user2._id.toString(), workout2._id.toString(), ["weight", "baseball"]);
+  await posts.likePost(post1._id.toString(), user1._id.toString());
+  console.log(post1);
+}catch(e){
+  console.log(e);
+}
+
+let comment1 = undefined;
+let comment2 = undefined;
+try{
+  comment1 = await comments.createComment('tlapinta', 'I like your workout plan', post1._id.toString());
+  comment2 = await comments.createComment('philliam', 'I am going to use this in my next workout', post1._id.toString());
+  console.log(comment1);
+  console.log(comment2);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  let d = await comments.updateComment(comment2._id.toString(), {comment: 'I like this idea'});
+  console.log(d);
+}catch(e){
+  console.log(e);
+}
 console.log("Done seeding database");
 
 await closeConnection();
