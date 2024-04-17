@@ -52,7 +52,7 @@ export const createExercise = async (
     const workoutCollection = await workouts();
     const workout = await workoutCollection.findOne({ _id: new ObjectId(workoutId) });
     if (workout === null) {
-        return `Error: no workout with that id`;
+        throw `Error: no workout with that id`;
     }
 
     let newExercise = {};
@@ -82,7 +82,6 @@ export const createExercise = async (
             throw `distanceUnits must be in mi or km`;
         }
         newExercise = {
-            _id: new ObjectId(),
             exerciseName: exerciseName,
             distance: distance,
             distanceUnits: distanceUnits,
@@ -164,7 +163,7 @@ export const updateExercise = async (exerciseId, updateObject) => {
         throw `Error: no workout with that exercise`;
     }
     const exercise = workout.exercises
-        .find((e) => e._id.toString() === reviewId);
+        .find((e) => e._id.toString() === exerciseId);
     if (!exercise) {
         throw `Error: no exercise found with that id`;
     }
@@ -260,4 +259,4 @@ export const deleteExercise = async (exerciseId) => {
     }
 
     return workout;
-}
+};
