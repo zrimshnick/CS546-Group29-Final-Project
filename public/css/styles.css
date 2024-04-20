@@ -14,6 +14,7 @@ main {
   width: 100vw;
   display: flex;
   justify-content: center;
+  padding-top: 5rem;
 }
 
 body {
@@ -31,6 +32,8 @@ body {
 
 /* NAVBAR STYLING */
 #navbar-container {
+  position: fixed;
+  z-index: 999;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -110,10 +113,10 @@ body {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-around;
-  gap: 4rem;
+  gap: 8rem;
   padding-left: 4rem;
   padding-right: 4rem;
-  max-width: 70rem;
+  max-width: 80rem;
 }
 #workouts-personal-container {
   min-width: auto;
@@ -291,10 +294,10 @@ body {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-around;
-  gap: 4rem;
+  gap: 8rem;
   padding-left: 4rem;
   padding-right: 4rem;
-  max-width: 70rem;
+  max-width: 80rem;
 }
 
 #profile-personal-container {
