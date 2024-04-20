@@ -1,6 +1,7 @@
 //Location of all the user data functions
 import { ObjectId } from "mongodb";
 import { users } from "../config/mongoCollections.js";
+import bcrypt from "bcrypt";
 import {
   checkString,
   checkArray,
@@ -20,7 +21,8 @@ export const createUser = async (
   height,
   heightUnit,
   weight,
-  weightUnit
+  weightUnit,
+  age
 ) => {
   // Error Checking Perfromance on Input Values
   checkString(username, "username");
@@ -58,18 +60,23 @@ export const createUser = async (
 
   sports = sports.map((sport) => sport.trim());
 
+  /////// HASHING THE PASSWORD ////////
+  const saltRounds = 16;
+  let hashedPassword = await bcrypt.hash(password, saltRounds);
+
   let newProd = {
     username: username,
     firstName: firstName,
     lastName: lastName,
     email: email,
-    password: password,
+    password: hashedPassword,
     gender: gender,
     sports: sports,
     height: height,
     heightUnit: heightUnit,
     weight: weight,
     weightUnit: weightUnit,
+    age: age,
     workouts: [],
     posts: [],
     likedPosts: [],
@@ -83,7 +90,8 @@ export const createUser = async (
 
   const user = await userCollection.findOne({ _id: insertInfo.insertedId });
   user._id = user._id.toString().trim();
-  return user;
+  /* return user; */
+  return { signupCompleted: true };
 };
 
 export const getUser = async (id) => {
@@ -195,6 +203,42 @@ export const updateUser = async (id, obj) => {
 
   user._id = user._id.toString();
   return user;
+};
+
+export const loginUser = async (username, password) => {
+  ////// do error checking //////
+
+  ///////////////////////////////
+  ////// get user
+  const userCollection = await users();
+  const foundUser = await userCollection.findOne({ username: username });
+  if (!foundUser) throw "Either the username or password is wrong";
+
+  if (foundUser) {
+    let compareToUser = false;
+    try {
+      compareToUser = await bcrypt.compare(password, foundUser.password);
+    } catch (e) {}
+    if (compareToUser) {
+      return {
+        firstName: foundUser.firstName,
+        lastName: foundUser.lastName,
+        username: foundUser.username,
+        email: foundUser.email,
+        gender: foundUser.gender,
+        sports: foundUser.sports,
+        height: foundUser.height,
+        weight: foundUser.weight,
+        weightUnit: foundUser.weightUnit,
+        age: foundUser.age,
+        workouts: foundUser.workouts,
+        posts: foundUser.posts,
+        likedPosts: foundUser.likedPosts,
+      };
+    } else {
+      throw "Either the username or password is wrong";
+    }
+  }
 };
 
 /* export default { createUser, getUser, deleteUser, updateUser }; */

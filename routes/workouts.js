@@ -8,7 +8,7 @@ import {
 } from "../data/workouts.js";
 
 router.route("/").get(async (req, res) => {
-  res.render("workoutsPage");
+  res.render("workoutsPage", { title: "Tracklete | Workouts" });
 });
 
 /* router.route("/workouts").get(async (req, res) => {
