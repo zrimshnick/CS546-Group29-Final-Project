@@ -36,12 +36,16 @@ export const createUser = async (
   checkString(weight, "weight");
   checkString(weightUnit, "weightUnit");
 
-  checkArray(sports, "sports");
+  if (sports !== undefined) {
+    checkArray(sports, "sports");
+  } else {
+    sports = [];
+  }
 
-  username = username.trim();
+  username = username.trim().toLowerCase();
   firstName = firstName.trim();
   lastName = lastName.trim();
-  email = email.trim();
+  email = email.trim().toLowerCase();
   password = password.trim();
   gender = gender.trim();
   height = height.trim();
@@ -54,11 +58,11 @@ export const createUser = async (
   checkValidEmail(email, "email");
   checkValidPassword(password, "password");
 
-  sports.forEach((sport) => {
+  /* sports.forEach((sport) => {
     checkString(sport, "sport");
-  });
+  }); */
 
-  sports = sports.map((sport) => sport.trim());
+  /* sports = sports.map((sport) => sport.trim()); */
 
   /////// HASHING THE PASSWORD ////////
   const saltRounds = 16;
@@ -83,10 +87,17 @@ export const createUser = async (
   };
 
   const userCollection = await users();
+
+  const foundUser = await userCollection.findOne({ username: username });
+  if (foundUser) throw "Username already taken";
+
+  const foundUserEmail = await userCollection.findOne({ email: email });
+  if (foundUserEmail)
+    throw "There's already an account registered with this email";
+
   const insertInfo = await userCollection.insertOne(newProd);
 
-  if (!insertInfo.acknowledged || !insertInfo.insertedId)
-    throw "Could not add prod";
+  if (!insertInfo.acknowledged || !insertInfo.insertedId) throw "Could not add";
 
   const user = await userCollection.findOne({ _id: insertInfo.insertedId });
   user._id = user._id.toString().trim();
@@ -207,7 +218,14 @@ export const updateUser = async (id, obj) => {
 
 export const loginUser = async (username, password) => {
   ////// do error checking //////
+  if (username === undefined) throw "Username is undefined";
+  if (password === undefined) throw "Password is undefined";
+  if (typeof username !== "string")
+    throw "Either the username or password is wrong";
+  if (typeof password !== "string")
+    throw "Either the username or password is wrong";
 
+  username.trim().toLowerCase();
   ///////////////////////////////
   ////// get user
   const userCollection = await users();

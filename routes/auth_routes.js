@@ -22,12 +22,19 @@ router
     let firstName = registerFormData.firstName;
     let lastName = registerFormData.lastName;
     let username = registerFormData.username;
+    username.trim().toLowerCase();
     let email = registerFormData.email;
+    email.trim().toLowerCase();
     let password = registerFormData.password;
     let confirmPassword = registerFormData.confirmPassword;
     let age = registerFormData.age;
     let gender = registerFormData.gender;
-    let sports = registerFormData.sports;
+    let sports;
+    if (!Array.isArray(registerFormData.sports)) {
+      sports = [registerFormData.sports];
+    } else {
+      sports = registerFormData.sports;
+    }
     let heightFt = registerFormData.heightFt;
     let heightIn = registerFormData.heightIn;
     let height = `${heightFt}'${heightIn}"`;
@@ -68,9 +75,10 @@ router
           .render("register", { errorMessage: "Internal Server Error" });
       }
     } catch (e) {
-      return res
-        .status(404)
-        .render("register", { errorMessage: e, title: "Tracklete | Register" });
+      return res.status(404).render("register", {
+        errorMessage: e,
+        title: "Tracklete | Register",
+      });
     }
   });
 
@@ -83,6 +91,7 @@ router
     const loginFormData = req.body;
     console.log(loginFormData);
     let username = loginFormData.username;
+    username.trim().toLowerCase();
     let password = loginFormData.password;
 
     let badFieldsArr = [];
@@ -96,7 +105,7 @@ router
       });
     }
     try {
-      let login = await loginUser(username, password);
+      let login = await loginUser(username.trim().toLowerCase(), password);
 
       if (login && login.firstName !== undefined) {
         req.session.user = {

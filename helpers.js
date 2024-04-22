@@ -1,151 +1,163 @@
-import {ObjectId} from 'mongodb';
+import { ObjectId } from "mongodb";
 
 function checkString(param, name) {
-    if (param === undefined || typeof param !== 'string') {
-        throw `${name} cannot be undefined and must be a string`;
-    }
+  if (param === undefined || typeof param !== "string") {
+    throw `${name} cannot be undefined and must be a string`;
+  }
 
-    if (param.trim() === '') {
-        throw `${name} cannot be an empty string`;
-    }
+  if (param.trim() === "") {
+    throw `${name} cannot be an empty string`;
+  }
 
-    return param;
+  return param;
 }
 
 function checkArray(param, name) {
-    if (param === undefined || !Array.isArray(param)) {
-        throw `${name} cannot be undefined and must be an array`;
-    }
+  if (param === undefined || !Array.isArray(param)) {
+    throw `${name} cannot be undefined and must be an array`;
+  }
 
-    return param;
+  return param;
 }
 
 function checkValidEmail(email, name) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailPattern.test(email)) {
-        throw `${name} cannot be a valid email.`;
-    }
+  if (!emailPattern.test(email)) {
+    throw `${name} cannot be a valid email.`;
+  }
 
-    return email;
+  return email;
 }
 
 function checkValidPassword(password, name) {
-    if (password.length <= 7) {
-        throw `${name} must be at leas eight characters long.`;
-    }
+  if (password.length <= 7) {
+    throw `${name} must be at least eight characters long.`;
+  }
 
-    const uppercaseRegex = /[A-Z]/;
-    const digitRegex = /\d/;
-    const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  const uppercaseRegex = /[A-Z]/;
+  const digitRegex = /\d/;
+  const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
-    if (!uppercaseRegex.test(password)) {
-        throw `${name} must contain at least one capital letter.`;
-    }
+  if (!uppercaseRegex.test(password)) {
+    throw `${name} must contain at least one capital letter.`;
+  }
 
-    if (!digitRegex.test(password)) {
-        throw `${name} must contain at least one digit.`;
-    }
+  if (!digitRegex.test(password)) {
+    throw `${name} must contain at least one digit.`;
+  }
 
-    if (!specialCharRegex.test(password)) {
-        throw `${name} must contain at least one special character.`;
-    }
+  if (!specialCharRegex.test(password)) {
+    throw `${name} must contain at least one special character.`;
+  }
 
-    return password;
+  return password;
 }
 
 function checkGender(gender, name) {
-    if (gender !== 'm' && gender !== 'f' && gender !== 'o') {
-        throw `${name} must be either male (m), female (f) or other (o).`
-    }
+  if (gender !== "m" && gender !== "f" && gender !== "o") {
+    throw `${name} must be either male (m), female (f) or other (o).`;
+  }
 
-    return gender;
+  return gender;
 }
 
 function checkNumber(param, name) {
-    if (typeof param != "number") {
-        throw `${name} must be a number`;
-    }
+  if (typeof param != "number") {
+    throw `${name} must be a number`;
+  }
 }
 
 function checkID(id, varName) {
-    if (!id) throw `Error: You must provide a ${varName}`;
-    if (typeof id !== 'string') throw `Error:${varName} must be a string`;
-    id = id.trim();
-    if (id.length === 0)
-        throw `Error: ${varName} cannot be an empty string or just spaces`;
-    if (!ObjectId.isValid(id)) throw `Error: ${varName} invalid object ID`;
-    return id;
+  if (!id) throw `Error: You must provide a ${varName}`;
+  if (typeof id !== "string") throw `Error:${varName} must be a string`;
+  id = id.trim();
+  if (id.length === 0)
+    throw `Error: ${varName} cannot be an empty string or just spaces`;
+  if (!ObjectId.isValid(id)) throw `Error: ${varName} invalid object ID`;
+  return id;
 }
 
-function checkDate(value, variableName){
-    const date = value.split('/');
-    if(date.length !== 3){
-        throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
-    }
-    const [month, day, year] = date.map(Number);
-    if(isNaN(month) || isNaN(day) || isNaN(year)){
-        throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
-    }
-    if(year > 2024 || year < 1000){
-        throw `Error: Invalid year`;
-    }
-    if(!((month >= 1 && month <= 12) && (day >= 1 && day <= 31))){
-        throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
-    }
-    if((month === 4 || month === 6 || month === 9 || month === 11) && day === 31){
-        throw `Error: Invalid date. There are not 31 days in this month`;
-    }
-    if(month === 2 && day > 29){
-        throw `Error: Invalid date. February doesn't have more than 29 days`;
-    }
+function checkDate(value, variableName) {
+  const date = value.split("/");
+  if (date.length !== 3) {
+    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  }
+  const [month, day, year] = date.map(Number);
+  if (isNaN(month) || isNaN(day) || isNaN(year)) {
+    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  }
+  if (year > 2024 || year < 1000) {
+    throw `Error: Invalid year`;
+  }
+  if (!(month >= 1 && month <= 12 && day >= 1 && day <= 31)) {
+    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  }
+  if (
+    (month === 4 || month === 6 || month === 9 || month === 11) &&
+    day === 31
+  ) {
+    throw `Error: Invalid date. There are not 31 days in this month`;
+  }
+  if (month === 2 && day > 29) {
+    throw `Error: Invalid date. February doesn't have more than 29 days`;
+  }
 }
 
-function checkTime(value, varName){
-    if(typeof value != "string"){
-        throw `Error: ${varName} must be a string`;
-    }
-    value = value.trim();
-    if(value.length === 0){
-        throw `Error: ${varName} can't be empty`;
-    }
-    const time = value.split(":");
-    if(time.length !== 3){
-        throw `Error: invalid time format. ${varName} must be a valid time in hour:min:sec format`;
-    }
-    const [hourStr, minuteStr, secondStr] = time;
-    let hour = parseInt(hourStr, 10);
-    let minute = parseInt(minuteStr, 10);
-    let second = parseInt(secondStr, 10);
+function checkTime(value, varName) {
+  if (typeof value != "string") {
+    throw `Error: ${varName} must be a string`;
+  }
+  value = value.trim();
+  if (value.length === 0) {
+    throw `Error: ${varName} can't be empty`;
+  }
+  const time = value.split(":");
+  if (time.length !== 3) {
+    throw `Error: invalid time format. ${varName} must be a valid time in hour:min:sec format`;
+  }
+  const [hourStr, minuteStr, secondStr] = time;
+  let hour = parseInt(hourStr, 10);
+  let minute = parseInt(minuteStr, 10);
+  let second = parseInt(secondStr, 10);
 
-    if(isNaN(hour)){
-        throw `Error: hour needs to be a number`;
-    }
-    if(isNaN(minute)){
-        throw `Error: minute needs to be a number`;
-    }
-    if(isNaN(second)){
-        throw `Error: second needs to be a number`;
-    }
-    if(minute > 59 || minute < 0){
-        throw `Error: minute must be a number less than 60 and greater than 0`;
-    }
-    if(second < 0 || second > 59){
-        throw 'Error: second must be a number less than 60 and greater than 0'
-    }
-    if(hour < 0){
-        throw `Error: hour must be a number greater than or equal to 0`;
-    }
-    if(hourStr !== hour.toString().padStart(2, '0')){
-        throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
-    }
-    if(minuteStr !== minute.toString().padStart(2, '0')){
-        throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
-    }
-    if(secondStr !== second.toString().padStart(2, '0')){
-        throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
-    }
+  if (isNaN(hour)) {
+    throw `Error: hour needs to be a number`;
+  }
+  if (isNaN(minute)) {
+    throw `Error: minute needs to be a number`;
+  }
+  if (isNaN(second)) {
+    throw `Error: second needs to be a number`;
+  }
+  if (minute > 59 || minute < 0) {
+    throw `Error: minute must be a number less than 60 and greater than 0`;
+  }
+  if (second < 0 || second > 59) {
+    throw "Error: second must be a number less than 60 and greater than 0";
+  }
+  if (hour < 0) {
+    throw `Error: hour must be a number greater than or equal to 0`;
+  }
+  if (hourStr !== hour.toString().padStart(2, "0")) {
+    throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
+  }
+  if (minuteStr !== minute.toString().padStart(2, "0")) {
+    throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
+  }
+  if (secondStr !== second.toString().padStart(2, "0")) {
+    throw `Error: invalid time formate. ${varName} must be in the format 00:00:00`;
+  }
 }
 
-
-export { checkString, checkArray, checkValidEmail, checkValidPassword, checkGender, checkNumber, checkID, checkDate, checkTime }
+export {
+  checkString,
+  checkArray,
+  checkValidEmail,
+  checkValidPassword,
+  checkGender,
+  checkNumber,
+  checkID,
+  checkDate,
+  checkTime,
+};

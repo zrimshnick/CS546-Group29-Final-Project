@@ -1,9 +1,7 @@
-
-<div class="registerError">{{errorMessage}}</div>
-
 <div id="register-container">
     <h1 id="register-welcome">Welcome to Tracklete!</h1>
     <h2 id="register-logInHere">Already have an account? <a id="register-logInHereButton" href="/login">Log in</a></h2>
+    <div class="registerError">{{errorMessage}}</div>
 
     <form action="/register" method="POST" name="signup-form" id="signup-form">
         <label for="firstName" id="firstNameLabel">First Name</label>

@@ -155,11 +155,12 @@ body {
   label {
     font-size: 0.85em;
     font-weight: 400;
+    margin-top: 0.5rem;
   }
   input {
     font-family: "Poppins", sans-serif;
     color: white;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     background-color: #0e0e0e;
     height: 1.5rem;
     border: 1px #222121 solid;
@@ -180,7 +181,7 @@ body {
     outline: none;
     font-family: "Poppins", sans-serif;
     color: white;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     background-color: #0e0e0e;
     height: 2rem;
     border: 1px #222121 solid;
@@ -243,10 +244,12 @@ body {
   }
 }
 
-#loginError {
+#loginError,
+.registerError {
   color: rgb(255, 74, 74);
   font-size: 0.8em;
   align-self: center;
+  text-align: center;
 }
 #username.loginError,
 #password.loginError {
