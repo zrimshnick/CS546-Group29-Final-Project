@@ -243,6 +243,16 @@ body {
   }
 }
 
+#loginError {
+  color: rgb(255, 74, 74);
+  font-size: 0.8em;
+  align-self: center;
+}
+#username.loginError,
+#password.loginError {
+  border-color: rgb(255, 74, 74);
+}
+
 /* ******************************** */
 /* WORKOUT PAGE */
 #workouts-container {

@@ -127,9 +127,11 @@ router
         });
       }
     } catch (e) {
-      return res
-        .status(404)
-        .render("login", { errorMessage: e, title: "Tracklete | Login" });
+      return res.status(404).render("login", {
+        errorMessage: e,
+        errorClass: "loginError",
+        title: "Tracklete | Login",
+      });
     }
   });
 
