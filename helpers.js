@@ -68,6 +68,20 @@ function checkNumber(param, name) {
   }
 }
 
+function checkValidAge(param){
+  let integerPattern = /^-?\d+$/;
+
+  if (!integerPattern.test(param)) {
+    throw 'age must be an integer';
+  }
+
+  if (param < 13 || param > 110){
+    throw "age must be between 13 and 110.";
+  }
+
+  return param;
+}
+
 function checkID(id, varName) {
   if (!id) throw `Error: You must provide a ${varName}`;
   if (typeof id !== "string") throw `Error:${varName} must be a string`;
@@ -160,4 +174,5 @@ export {
   checkID,
   checkDate,
   checkTime,
+  checkValidAge
 };
