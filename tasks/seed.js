@@ -19,7 +19,8 @@ const user1 = await users.createUser(
   "6'2\"",
   "standard",
   "175",
-  "lbs"
+  "lbs",
+  21
 );
 console.log(user1);
 
@@ -34,7 +35,8 @@ const user2 = await users.createUser(
   "5'10\"",
   "standard",
   "160",
-  "lbs"
+  "lbs",
+  45
 );
 
 console.log(user2);
@@ -50,7 +52,8 @@ const user3 = await users.createUser(
   "5'17\"",
   "standard",
   "120",
-  "lbs"
+  "lbs", 
+  38
 );
 
 console.log(user3);
@@ -66,7 +69,8 @@ const user4 = await users.createUser(
   "5'10\"",
   "standard",
   "180",
-  "lbs"
+  "lbs",
+  21
 );
 
 console.log(user4);
@@ -226,7 +230,7 @@ try {
   );
   console.log(exercise3);
 } catch (e) {
-  console.log(3);
+  console.log(e);
 }
 
 try {
@@ -245,7 +249,7 @@ try {
   );
   console.log(exercise4);
 } catch (e) {
-  console.log(3);
+  console.log(e);
 }
 try {
   exercise5 = await exercises.createExercise(
@@ -263,7 +267,7 @@ try {
   );
   console.log(exercise5);
 } catch (e) {
-  console.log(3);
+  console.log(e);
 }
 
 try {

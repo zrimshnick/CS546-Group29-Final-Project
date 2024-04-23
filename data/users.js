@@ -8,6 +8,7 @@ import {
   checkValidEmail,
   checkValidPassword,
   checkGender,
+  checkValidAge
 } from "../helpers.js";
 
 export const createUser = async (
@@ -35,6 +36,7 @@ export const createUser = async (
   checkString(heightUnit, "heightUnit");
   checkString(weight, "weight");
   checkString(weightUnit, "weightUnit");
+  checkString(age, "age");
 
   if (sports !== undefined) {
     checkArray(sports, "sports");
@@ -100,9 +102,9 @@ export const createUser = async (
   if (!insertInfo.acknowledged || !insertInfo.insertedId) throw "Could not add";
 
   const user = await userCollection.findOne({ _id: insertInfo.insertedId });
-  user._id = user._id.toString().trim();
+  user.signupCompleted = true;
   /* return user; */
-  return { signupCompleted: true };
+  return user;
 };
 
 export const getUser = async (id) => {
