@@ -75,6 +75,21 @@ const user4 = await users.createUser(
 
 console.log(user4);
 
+const user5 = await users.createUser(
+  "smaida",
+  'Sean',
+  'Maida',
+  'smaida@stevens.edu',
+  'Yankees$22',
+  'm',
+  ['baseball'],
+  "6'2\'",
+  'standard',
+  '140',
+  'lbs',
+  21
+);
+
 // Use to test other user data functions besides createUser
 // try {
 //     const getUser3 = await users.getUser(user3._id.toString());
@@ -95,6 +110,8 @@ let workout1 = undefined;
 let workout2 = undefined;
 let workout3 = undefined;
 let workout4 = undefined;
+let workout5 = undefined;
+let workout6 = undefined;
 
 try {
   workout1 = await workouts.createWorkout(
@@ -144,6 +161,31 @@ try {
 } catch (e) {
   console.log(e);
 }
+
+try{
+  workout5 = await workouts.createWorkout(
+    user5._id.toString(),
+    '4/16/2024',
+    '00:50:00',
+    'Weight Training',
+    200
+  );
+  console.log(workout4);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  workout6 = await workouts.createWorkout(
+    user3._id.toString(),
+    '04/20/2024',
+    '00:35:00',
+    'Cardio',
+    120
+  );
+}catch(e){
+  console.log(e);
+}
 //use to test other data functions like getWorkout, deleteWorkout, and updateWorkout
 // try{
 //     const get = await workouts.getWorkout(workout1._id.toString());
@@ -177,6 +219,12 @@ let exercise6 = undefined;
 let exercise7 = undefined;
 let exercise8 = undefined;
 let exercise9 = undefined;
+let exercise10 = undefined;
+let exercise11 = undefined;
+let exercise12 = undefined;
+let exercise13 = undefined;
+let exercise14 = undefined;
+let exercise15 = undefined;
 
 try {
   exercise1 = await exercises.createExercise(
@@ -346,6 +394,120 @@ try {
   console.log(e);
 }
 
+try{
+  exercise10 = await exercises.createExercise(
+    workout5._id.toString(),
+    'weight training',
+    'Linear Leg Press',
+    3,
+    [9, 9, 8],
+    388,
+    'lbs',
+    0,
+    'n/a',
+    '00:10:00',
+    "Knees felt good"
+  );
+  console.log(exercise10);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  exercise11 = await exercises.createExercise(
+    workout5._id.toString(),
+    'weight training',
+    'Seated Leg Curles',
+    3,
+    [9, 8, 7],
+    90,
+    'lbs',
+    0,
+    'n/a',
+    '00:10:00',
+    'Hamstrings felt good'
+  );
+  console.log(exercise11);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  exercise12 = await exercises.createExercise(
+    workout5._id.toString(),
+    'weight training',
+    'Squats',
+    4,
+    [8,8,8,6],
+    145,
+    'lbs',
+    0,
+    'n/a',
+    '00:10:00',
+    'Made sure I got good depth on each squat'
+  );
+  console.log(exercise12);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  exercise13 = await exercises.createExercise(
+    workout5._id.toString(),
+    'weight training',
+    'Leg Extensions',
+    3,
+    [10, 10, 8],
+    105,
+    'lbs',
+    0,
+    'n/a',
+    '00:10:00',
+    'Knees felt good'
+  );
+  console.log(exercise13);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  exercise14 = await exercises.createExercise(
+    workout5._id.toString(),
+    'weight training',
+    'Calf Raises',
+    3,
+    [10,10,10],
+    35,
+    'lbs',
+    0,
+    'n/a',
+    '00:10:00',
+    'n/a'
+  );
+  console.log(exercise14);
+}catch(e){
+  console.log(e);
+}
+
+try{
+  exercise15 = await exercises.createExercise(
+    workout6._id.toString(),
+    'Cardio',
+    'Running on Treadmill',
+    0,
+    [],
+    0,
+    'lbs',
+    2,
+    'mi',
+    '00:35:00',
+    'I was able to keep a good pace'
+  );
+    console.log(exercise15);
+}catch(e){
+  console.log(e);
+}
+
 //use to test other data functions
 // try{
 //     const get = await exercises.getAllExercises(workout1._id.toString());
@@ -372,13 +534,25 @@ let post2 = undefined;
 try{
   post1 = await posts.createPost(user2._id.toString(), workout2._id.toString(), ["weight", "baseball"]);
   await posts.likePost(post1._id.toString(), user1._id.toString());
+  await posts.likePost(post1._id.toString(), user2._id.toString());
   console.log(post1);
 }catch(e){
   console.log(e);
 }
 
+try{
+  post2 = await posts.createPost(user5._id.toString(), workout5._id.toString(), ['weight', 'baseball', 'legs']);
+  await posts.likePost(post2._id.toString(), user3._id.toString());
+  await posts.likePost(post2._id.toString(), user4._id.toString());
+  console.log(post2);
+}catch(e){
+  console.log(e);
+}
+
+
 let comment1 = undefined;
 let comment2 = undefined;
+let comment3 = undefined;
 try{
   comment1 = await comments.createComment('tlapinta', 'I like your workout plan', post1._id.toString());
   comment2 = await comments.createComment('philliam', 'I am going to use this in my next workout', post1._id.toString());
@@ -389,11 +563,20 @@ try{
 }
 
 try{
-  let d = await comments.updateComment(comment2._id.toString(), {comment: 'I like this idea'});
-  console.log(d);
+  comment3 = await comments.createComment('zrimshnick25', 'I like your leg day routine. I might use it.', post2._id.toString());
+  console.log(comment3);
 }catch(e){
   console.log(e);
 }
+
+//use to test other data functions like updateComment
+
+// try{
+//   let d = await comments.updateComment(comment2._id.toString(), {comment: 'I like this idea'});
+//   console.log(d);
+// }catch(e){
+//   console.log(e);
+// }
 console.log("Done seeding database");
 
 await closeConnection();
