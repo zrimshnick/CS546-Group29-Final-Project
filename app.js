@@ -4,6 +4,7 @@ const app = express();
 import configRoutes from "./routes/index.js";
 import exphbs from "express-handlebars";
 
+
 //// from lab 8 code
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   // If the user posts to the server with a property called _method, rewrite the request's method
@@ -36,6 +37,15 @@ app.use(rewriteUnsupportedBrowserMethods);
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// Route to handle 404 errors
+app.use((req, res, next) => {
+  res.status(404).render('404', {
+      title: '404 Not Found',
+      message: 'The page could not be found.',
+  });
+});
+
 //////// MIDDLEWARE FUNCTIONS /////////////////////////
 ///// middleware 1 - forces user to login before doing anything
 app.use(async (req, res, next) => {
