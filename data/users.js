@@ -36,7 +36,7 @@ export const createUser = async (
   checkString(heightUnit, "heightUnit");
   checkString(weight, "weight");
   checkString(weightUnit, "weightUnit");
-  checkString(age, "age");
+  checkValidAge(age, "age");
 
   if (sports !== undefined) {
     checkArray(sports, "sports");
