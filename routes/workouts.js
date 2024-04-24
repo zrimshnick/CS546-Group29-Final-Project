@@ -17,17 +17,22 @@ router
       );
       console.log(currUserData);
       let workoutsDataArray = [];
-      currUserData.workouts.forEach(async (workoutID) => {
-        const workoutData = await getWorkout(workoutID);
-        workoutsDataArray.push(workoutData);
+      const promises = currUserData.workouts.map(async (workoutID) => {
+        return await getWorkout(workoutID);
       });
+
+      await Promise.all(promises).then((workoutsData) => {
+        workoutsDataArray = workoutsData;
+      });
+
+      console.log(workoutsDataArray.reverse());
 
       res.render("workoutsPage", {
         title: "Tracklete | Workouts",
         firstName: currUserData.firstName,
         lastName: currUserData.lastName,
         username: currUserData.username,
-        workouts: workoutsDataArray.reverse(),
+        workouts: workoutsDataArray,
       });
     } catch (e) {
       console.log(e);
