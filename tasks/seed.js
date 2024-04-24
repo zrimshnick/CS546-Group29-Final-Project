@@ -42,28 +42,28 @@ const user2 = await users.createUser(
 console.log(user2);
 
 const user3 = await users.createUser(
-  "jRand586",
+  "jRando",
   "Jules",
   "Random",
   "jrandom@gmail.com",
   "123Rand!#**",
   "f",
   ["tennis"],
-  "5'17\"",
+  "5'10\"",
   "standard",
   "120",
-  "lbs", 
+  "lbs",
   38
 );
 
 console.log(user3);
 
 const user4 = await users.createUser(
-  "zrimshnick25",
+  "zrimshni",
   "Zack",
   "Rimshnick",
   "zrimshnick@gmail.com",
-  "Pa$$word123",
+  "PA$$W0RD",
   "m",
   ["baseball"],
   "5'10\"",
@@ -77,16 +77,16 @@ console.log(user4);
 
 const user5 = await users.createUser(
   "smaida",
-  'Sean',
-  'Maida',
-  'smaida@stevens.edu',
-  'Yankees$22',
-  'm',
-  ['baseball'],
-  "6'2\'",
-  'standard',
-  '140',
-  'lbs',
+  "Sean",
+  "Maida",
+  "smaida@stevens.edu",
+  "Yankees$22",
+  "m",
+  ["baseball"],
+  "6'2'",
+  "standard",
+  "140",
+  "lbs",
   21
 );
 
@@ -162,28 +162,28 @@ try {
   console.log(e);
 }
 
-try{
+try {
   workout5 = await workouts.createWorkout(
-    user5._id.toString(),
-    '4/16/2024',
-    '00:50:00',
-    'Weight Training',
+    user4._id.toString(),
+    "4/16/2024",
+    "00:50:00",
+    "Weight Training",
     200
   );
   console.log(workout4);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   workout6 = await workouts.createWorkout(
-    user3._id.toString(),
-    '04/20/2024',
-    '00:35:00',
-    'Cardio',
+    user4._id.toString(),
+    "04/20/2024",
+    "00:35:00",
+    "Cardio",
     120
   );
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 //use to test other data functions like getWorkout, deleteWorkout, and updateWorkout
@@ -394,117 +394,117 @@ try {
   console.log(e);
 }
 
-try{
+try {
   exercise10 = await exercises.createExercise(
     workout5._id.toString(),
-    'weight training',
-    'Linear Leg Press',
+    "weight training",
+    "Linear Leg Press",
     3,
     [9, 9, 8],
     388,
-    'lbs',
+    "lbs",
     0,
-    'n/a',
-    '00:10:00',
+    "n/a",
+    "00:10:00",
     "Knees felt good"
   );
   console.log(exercise10);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   exercise11 = await exercises.createExercise(
     workout5._id.toString(),
-    'weight training',
-    'Seated Leg Curles',
+    "weight training",
+    "Seated Leg Curles",
     3,
     [9, 8, 7],
     90,
-    'lbs',
+    "lbs",
     0,
-    'n/a',
-    '00:10:00',
-    'Hamstrings felt good'
+    "n/a",
+    "00:10:00",
+    "Hamstrings felt good"
   );
   console.log(exercise11);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   exercise12 = await exercises.createExercise(
     workout5._id.toString(),
-    'weight training',
-    'Squats',
+    "weight training",
+    "Squats",
     4,
-    [8,8,8,6],
+    [8, 8, 8, 6],
     145,
-    'lbs',
+    "lbs",
     0,
-    'n/a',
-    '00:10:00',
-    'Made sure I got good depth on each squat'
+    "n/a",
+    "00:10:00",
+    "Made sure I got good depth on each squat"
   );
   console.log(exercise12);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   exercise13 = await exercises.createExercise(
     workout5._id.toString(),
-    'weight training',
-    'Leg Extensions',
+    "weight training",
+    "Leg Extensions",
     3,
     [10, 10, 8],
     105,
-    'lbs',
+    "lbs",
     0,
-    'n/a',
-    '00:10:00',
-    'Knees felt good'
+    "n/a",
+    "00:10:00",
+    "Knees felt good"
   );
   console.log(exercise13);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   exercise14 = await exercises.createExercise(
     workout5._id.toString(),
-    'weight training',
-    'Calf Raises',
+    "weight training",
+    "Calf Raises",
     3,
-    [10,10,10],
+    [10, 10, 10],
     35,
-    'lbs',
+    "lbs",
     0,
-    'n/a',
-    '00:10:00',
-    'n/a'
+    "n/a",
+    "00:10:00",
+    "n/a"
   );
   console.log(exercise14);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
+try {
   exercise15 = await exercises.createExercise(
     workout6._id.toString(),
-    'Cardio',
-    'Running on Treadmill',
+    "Cardio",
+    "Running on Treadmill",
     0,
     [],
     0,
-    'lbs',
+    "lbs",
     2,
-    'mi',
-    '00:35:00',
-    'I was able to keep a good pace'
+    "mi",
+    "00:35:00",
+    "I was able to keep a good pace"
   );
-    console.log(exercise15);
-}catch(e){
+  console.log(exercise15);
+} catch (e) {
   console.log(e);
 }
 
@@ -530,42 +530,76 @@ try{
 
 let post1 = undefined;
 let post2 = undefined;
+let post3 = undefined;
 
-try{
-  post1 = await posts.createPost(user2._id.toString(), workout2._id.toString(), ["weight", "baseball"]);
+try {
+  post1 = await posts.createPost(
+    user4._id.toString(),
+    workout4._id.toString(),
+    ["weight", "baseball"]
+  );
   await posts.likePost(post1._id.toString(), user1._id.toString());
   await posts.likePost(post1._id.toString(), user2._id.toString());
   console.log(post1);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
-  post2 = await posts.createPost(user5._id.toString(), workout5._id.toString(), ['weight', 'baseball', 'legs']);
+try {
+  post2 = await posts.createPost(
+    user4._id.toString(),
+    workout5._id.toString(),
+    ["weight", "baseball", "legs"]
+  );
   await posts.likePost(post2._id.toString(), user3._id.toString());
-  await posts.likePost(post2._id.toString(), user4._id.toString());
+  await posts.likePost(post2._id.toString(), user2._id.toString());
   console.log(post2);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
+try {
+  post3 = await posts.createPost(
+    user4._id.toString(),
+    workout6._id.toString(),
+    ["running", "baseball"]
+  );
+  await posts.likePost(post3._id.toString(), user3._id.toString());
+  await posts.likePost(post3._id.toString(), user1._id.toString());
+  await posts.likePost(post3._id.toString(), user2._id.toString());
+  console.log(post3);
+} catch (e) {
+  console.log(e);
+}
 
 let comment1 = undefined;
 let comment2 = undefined;
 let comment3 = undefined;
-try{
-  comment1 = await comments.createComment('tlapinta', 'I like your workout plan', post1._id.toString());
-  comment2 = await comments.createComment('philliam', 'I am going to use this in my next workout', post1._id.toString());
+try {
+  comment1 = await comments.createComment(
+    "tlapinta",
+    "I like your workout plan",
+    post1._id.toString()
+  );
+  comment2 = await comments.createComment(
+    "philliam",
+    "I am going to use this in my next workout",
+    post1._id.toString()
+  );
   console.log(comment1);
   console.log(comment2);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 
-try{
-  comment3 = await comments.createComment('zrimshnick25', 'I like your leg day routine. I might use it.', post2._id.toString());
+try {
+  comment3 = await comments.createComment(
+    "philliam",
+    "I like your leg day routine. I might use it.",
+    post2._id.toString()
+  );
   console.log(comment3);
-}catch(e){
+} catch (e) {
   console.log(e);
 }
 

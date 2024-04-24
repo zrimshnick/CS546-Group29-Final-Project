@@ -1,12 +1,20 @@
 import { Router } from "express";
 const router = Router();
-import { createUser, getUser, deleteUser, updateUser } from "../data/users.js";
-
-const zackUserID = "661af4c95ad5e01f0ba853f1";
+import {
+  createUser,
+  getUser,
+  getUserByUsername,
+  deleteUser,
+  updateUser,
+} from "../data/users.js";
+import { ObjectId } from "mongodb";
 
 router.route("/").get(async (req, res) => {
-  try{
-    const currUserData = await getUser(zackUserID);
+  try {
+    //req.session.user.role
+    const currUserData = await getUserByUsername(
+      `${req.session.user.username}`
+    );
     res.render("profilePage", {
       title: "Tracklete | Profile",
       firstName: currUserData.firstName,
@@ -17,7 +25,7 @@ router.route("/").get(async (req, res) => {
       weightUnit: currUserData.weightUnit,
       sports: currUserData.sports,
     });
-  } catch (e){
+  } catch (e) {
     console.log(e);
   }
 });

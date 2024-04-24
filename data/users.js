@@ -8,7 +8,7 @@ import {
   checkValidEmail,
   checkValidPassword,
   checkGender,
-  checkValidAge
+  checkValidAge,
 } from "../helpers.js";
 
 export const createUser = async (
@@ -124,6 +124,21 @@ export const getUser = async (id) => {
   }
 
   user._id = user._id.toString();
+  return user;
+};
+
+export const getUserByUsername = async (username) => {
+  checkString(username, "username");
+
+  username = username.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ username: username });
+
+  if (user === null) {
+    throw "No user with that username";
+  }
+
   return user;
 };
 
