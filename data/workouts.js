@@ -94,6 +94,24 @@ export const deleteWorkout = async (id) => {
   }
 
   const workoutCollection = await workouts();
+  const userCollection = await users();
+  const workout = await workoutCollection.findOne({
+    _id: new ObjectId(id),
+  });
+
+  const deleteId = await userCollection.findOne({
+    _id: new ObjectId(workout.userID),
+  });
+  let updatedWorkouts = deleteId.workouts;
+  updatedWorkouts = updateWorkout.filter(function (item) {
+    return item !== id;
+  });
+
+  await userCollection.findOneAndUpdate(
+    { _id: new ObjectId(workout.userID) },
+    { $set: { workouts: updatedWorkouts } },
+    { returnDocument: "after" }
+  );
   const deleteInfo = await workoutCollection.findOneAndDelete({
     _id: new ObjectId(id),
   });

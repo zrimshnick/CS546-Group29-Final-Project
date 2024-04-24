@@ -3,15 +3,18 @@
 <div id="workouts-container">
     <div id="workouts-personal-container">
         <div id="workouts-personal-image"><img src="/public/images/profile-icon.png"></div>
-        <div id="workouts-personal-fullname">Zack Rimshnick</div>
+        <div id="workouts-personal-fullname">{{firstName}}&nbsp;{{lastName}}</div>
 
-        <div id="workouts-personal-username">@username</div>
+        <div id="workouts-personal-username">@{{username}}</div>
         <div id="workouts-personal-stats-container">
             <div id="workouts-personal-stats-workouts">
-                Workouts: 4
+                Workouts: {{workoutsTotal}}
             </div>
             <div id="workouts-personal-stats-time">
-                Time Spent: 3h 52m
+                Time Spent: XXh XXm
+            </div>
+            <div id="workouts-personal-stats-cal">
+                Calories Burned: XXXXcal
             </div>
         </div>
         
@@ -21,163 +24,75 @@
             <h1>Workouts</h1>
             <button id="workouts-workout-add-button">Add +</button>
         </div>
+
+        <div class="workouts-no-workouts-yet"></div>
         
         <div id="workouts-workout-grid">
+        {{#each workouts}}
             <div class="workouts-workout-individual">
                 <div class="workouts-workout-title">
-                    <div class="workouts-workout-type">Weight Training</div>
-                    <div class="workouts-workout-cals">300 cal</div>
+                    <div class="workouts-workout-type">{{this.workoutType}}</div>
+                    <div class="workouts-workout-cals">{{this.caloriesBurned}} cal</div>
                 </div>
                 <div class="workouts-workout-subtitle">
-                    <div class="workouts-workout-date">4/13/2024</div>
-                    <div class="workouts-workout-time">37:17</div>
+                    <div class="workouts-workout-date">{{this.date}}</div>
+                    <div class="workouts-workout-time">{{this.timeElapsed}}</div>
                 </div>
                 <div class="workouts-workout-exercise-grid">
-                        <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-sets">Sets</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-reps">Reps</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-weight">Weight</div>
+                    <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
+                    <div class="workouts-workout-exercise-grid-item-header grid-sets">S/d
+                    </div>
+                    <div class="workouts-workout-exercise-grid-item-header grid-reps">
+                    R/d
+                    </div>
+                    <div class="workouts-workout-exercise-grid-item-header grid-weight">
+                    W/
+                    </div>
 
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bench Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">225lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bicep Curls</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 10, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">35lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Tricep Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 10</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">30lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Shoulder Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 6</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">85lbs</div>
+                    {{#each this.exercises}}
+                    <div class="workouts-workout-exercise-grid-item grid-exercise">{{this.exerciseName}}</div>
+                    <div class="workouts-workout-exercise-grid-item grid-sets">
+                        {{#if this.distance}}
+                            {{this.distance}}
+                        {{else if this.sets}}
+                            {{this.sets}}
+                        {{else}}
+                            Else
+                        {{/if}}
+                    </div>
+                    <div class="workouts-workout-exercise-grid-item grid-reps">
+                        {{#if this.distanceUnits}}
+                            {{this.distanceUnits}}
+                        {{else if this.reps}}
+                            {{this.reps}}
+                        {{else}}
+                            Else
+                        {{/if}}
+                    </div>
+                    <div class="workouts-workout-exercise-grid-item grid-weight">
+                        {{#if this.distance}}
+                            {{this.timeElapsed}}
+                        {{else if this.weight}}
+                            {{this.weight}} {{this.weightUnits}}
+                        {{else}}
+                            Else
+                        {{/if}}
+                    </div>
+                    {{/each}}
 
                 </div>
-                <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
+                <div class="workouts-workout-button-container">
+                    <button class="workouts-workout-delete-button flex">
+                    <img src="/public/images/trashIcon.png">
+                    </button>
+                    <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
+                </div>
+                
+
             </div>
-            <div class="workouts-workout-individual">
-                <div class="workouts-workout-title">
-                    <div class="workouts-workout-type">Weight Training</div>
-                    <div class="workouts-workout-cals">275 cal</div>
-                </div>
-                <div class="workouts-workout-subtitle">
-                    <div class="workouts-workout-date">4/12/2024</div>
-                    <div class="workouts-workout-time">35:17</div>
-                </div>
-                <div class="workouts-workout-exercise-grid">
-                        
-                        <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-sets">Sets</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-reps">Reps</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-weight">Weight</div>
 
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bench Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">225lbs</div>
+        {{/each}}
 
-                        <div class="workouts-workout-exercise-grid-item grid-exercise ">Bicep Curls</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">35lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Tricep Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 10</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">30lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Shoulder Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 6</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">85lbs</div>
-
-                </div>
-                <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
-            </div>
-            <div class="workouts-workout-individual">
-                <div class="workouts-workout-title">
-                    <div class="workouts-workout-type">Weight Training</div>
-                    <div class="workouts-workout-cals">320 cal</div>
-                </div>
-                <div class="workouts-workout-subtitle">
-                    <div class="workouts-workout-date">4/11/2024</div>
-                    <div class="workouts-workout-time">57:17</div>
-                </div>
-                <div class="workouts-workout-exercise-grid">
-    
-                        <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-sets">Sets</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-reps">Reps</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-weight">Weight</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bench Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">225lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bicep Curls</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">35lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Tricep Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 10</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">30lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Shoulder Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 6</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">85lbs</div>
-
-                </div>
-                <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
-            </div>
-            <div class="workouts-workout-individual">
-                <div class="workouts-workout-title">
-                    <div class="workouts-workout-type">Weight Training</div>
-                    <div class="workouts-workout-cals">304 cal</div>
-                </div>
-                <div class="workouts-workout-subtitle">
-                    <div class="workouts-workout-date">4/10/2024</div>
-                    <div class="workouts-workout-time">48:17</div>
-                </div>
-                <div class="workouts-workout-exercise-grid">
-                                    
-                        <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-sets">Sets</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-reps">Reps</div>
-                        <div class="workouts-workout-exercise-grid-item-header grid-weight">Weight</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bench Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">225lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Bicep Curls</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 8</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">35lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Tricep Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">10, 10, 10</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">30lbs</div>
-
-                        <div class="workouts-workout-exercise-grid-item grid-exercise">Shoulder Press</div>
-                        <div class="workouts-workout-exercise-grid-item grid-sets">3</div>
-                        <div class="workouts-workout-exercise-grid-item grid-reps">8, 8, 6</div>
-                        <div class="workouts-workout-exercise-grid-item grid-weight">85lbs</div>
-
-                </div>
-                <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
-            </div>
         </div>
     </div>
 </div>  
