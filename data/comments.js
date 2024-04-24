@@ -1,7 +1,7 @@
 //Location of all of the comments data functions which is a sub-document of posts
 
 import { ObjectId } from "mongodb";
-import {posts} from "../config/mongoCollections.js";
+import {posts, users} from "../config/mongoCollections.js";
 import {checkID, checkString } from "../helpers.js";
 
 export const createComment = async(
@@ -22,6 +22,11 @@ export const createComment = async(
     const post = await postCollection.findOne({_id: new ObjectId(postId)});
     if(post === null){
         throw `no post with that id`;
+    }
+    const userCollection = await users();
+    const user = await userCollection.findOne({username: username});
+    if(user === null){
+        throw `no user with username ${username}`;
     }
 
     let newComment = {
