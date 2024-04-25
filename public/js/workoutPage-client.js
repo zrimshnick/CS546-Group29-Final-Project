@@ -59,7 +59,7 @@ addWorkoutButton.addEventListener("click", function () {
 
     </div>
     <div class="workouts-workout-button-container">
-        <button class="workouts-workout-delete-button flex">
+        <button id="cancelNewWorkoutButton" class="workouts-workout-delete-button flex">
         <img src="/public/images/trashIcon.png">
         </button>
         <button id="doneWorkoutButton" name="doneWorkoutButton" type="submit" class="workouts-workout-done-button flex">Done</button>
@@ -96,6 +96,17 @@ addWorkoutButton.addEventListener("click", function () {
       }
       openWorkoutForm = true;
       return;
+    });
+
+    const cancelNewWorkoutButton = document.getElementById(
+      "cancelNewWorkoutButton"
+    );
+
+    cancelNewWorkoutButton.addEventListener("click", function (event) {
+      openWorkoutForm = false;
+      event.preventDefault();
+      let newWorkoutForm = document.getElementById("new-workout-form");
+      newWorkoutForm.remove();
     });
 
     return;
