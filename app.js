@@ -19,6 +19,15 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   next();
 };
 
+const ensureAuthenticationMiddleware = (req, res, next) => {
+  const user = req.session.user;
+
+  if (!user){
+    res.redirect("/login");
+  } else{
+    next();
+  }
+}
 ////
 app.use("/public", express.static("public"));
 app.use(express.json());
@@ -37,15 +46,6 @@ app.use(rewriteUnsupportedBrowserMethods);
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-
-// Route to handle 404 errors
-app.use((req, res, next) => {
-  res.status(404).render('404', {
-      title: '404 Not Found',
-      message: 'The page could not be found.',
-  });
-});
-
 //////// MIDDLEWARE FUNCTIONS /////////////////////////
 ///// middleware 1 - forces user to login before doing anything
 app.use(async (req, res, next) => {
@@ -91,6 +91,10 @@ app.use(async (req, res, next) => {
 });
 
 /* more middlewares needed to block certain routes DONT BLOCK HOME */
+app.use('/feed', ensureAuthenticationMiddleware)
+app.use('/workouts', ensureAuthenticationMiddleware)
+app.use('/progress', ensureAuthenticationMiddleware)
+app.use('/profile', ensureAuthenticationMiddleware)
 
 ///////////////////////////////////////////////////////
 configRoutes(app);
