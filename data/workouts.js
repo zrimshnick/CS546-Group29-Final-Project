@@ -16,7 +16,8 @@ export const createWorkout = async (
   date,
   timeElapsed,
   workoutType,
-  caloriesBurned
+  caloriesBurned,
+  comments
 ) => {
   //Error checking
   if (
@@ -24,7 +25,8 @@ export const createWorkout = async (
     date === undefined ||
     timeElapsed === undefined ||
     workoutType === undefined ||
-    caloriesBurned === undefined
+    caloriesBurned === undefined ||
+    comments === undefined
   ) {
     throw `Error: all fields need to be supplied`;
   }
@@ -36,6 +38,8 @@ export const createWorkout = async (
   checkString(workoutType, "workoutType");
   workoutType = workoutType.trim();
   checkNumber(caloriesBurned, "caloriesBurned");
+  checkString(comments, 'comments');
+  comments = comments.trim();
 
   const workoutCollection = await workouts();
   let workout = {
@@ -44,6 +48,7 @@ export const createWorkout = async (
     timeElapsed: timeElapsed,
     workoutType: workoutType,
     caloriesBurned: caloriesBurned,
+    comments: comments,
     exercises: [],
   };
   const insertInfo = await workoutCollection.insertOne(workout);
@@ -156,6 +161,10 @@ export const updateWorkout = async (id, updateObject) => {
   if (updateObject.caloriesBurned) {
     checkNumber(updateObject.caloriesBurned, "caloriesBurned");
     workout.caloriesBurned = updateObject.caloriesBurned;
+  }
+  if(updateObject.comments){
+    checkString(updateObject.comments, 'comments');
+    workout.comments = updateObject.comments.trim();
   }
 
   await workoutCollection.findOneAndUpdate(

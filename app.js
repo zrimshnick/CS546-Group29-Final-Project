@@ -23,12 +23,12 @@ const ensureAuthenticationMiddleware = (req, res, next) => {
   const user = req.session.user;
 
   if (!user){
-    res.redirect("/login");
+    return res.redirect("/login");
   } else{
     next();
   }
 }
-////
+//
 app.use("/public", express.static("public"));
 app.use(express.json());
 ///// session /////

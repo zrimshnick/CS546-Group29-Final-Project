@@ -119,7 +119,8 @@ try {
     "04/09/2024",
     "01:05:25",
     "Weight Training",
-    200
+    200,
+    "I felt really loose today with no pain"
   );
   console.log(workout1);
 } catch (e) {
@@ -131,7 +132,8 @@ try {
     "04/01/2024",
     "00:30:00",
     "Cardio",
-    150
+    150,
+    "I kept a good pace throughout my run"
   );
   console.log(workout2);
 } catch (e) {
@@ -143,7 +145,8 @@ try {
     "04/13/2024",
     "00:33:00",
     "Cardio",
-    175
+    175,
+    'My knees were hurting today'
   );
   console.log(workout3);
 } catch (e) {
@@ -155,7 +158,8 @@ try {
     "04/13/2024",
     "01:15:45",
     "Weight Training",
-    205
+    205,
+    "Shoulder felt good"
   );
   console.log(workout4);
 } catch (e) {
@@ -168,7 +172,8 @@ try {
     "4/16/2024",
     "00:50:00",
     "Weight Training",
-    200
+    200,
+    "Knees felt good"
   );
   console.log(workout4);
 } catch (e) {
@@ -181,7 +186,8 @@ try {
     "04/20/2024",
     "00:35:00",
     "Cardio",
-    120
+    120,
+    "I was able to keep a good pace"
   );
 } catch (e) {
   console.log(e);
@@ -237,8 +243,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:14:31",
-    "I felt really loose today with no pain"
+    "00:14:31"
   );
   console.log(exercise1);
 } catch (e) {
@@ -255,8 +260,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:45",
-    "I was able to keep good form and reach good depth"
+    "00:10:45"
   );
   console.log(exercise2);
 } catch (e) {
@@ -273,8 +277,7 @@ try {
     "n/a",
     1.5,
     "mi",
-    "00:14:31",
-    "My wrists bothered me today"
+    "00:14:31"
   );
   console.log(exercise3);
 } catch (e) {
@@ -292,8 +295,7 @@ try {
     "n/a",
     2,
     "mi",
-    "00:20:31",
-    "My knees were hurting today"
+    "00:20:31"
   );
   console.log(exercise4);
 } catch (e) {
@@ -310,8 +312,7 @@ try {
     "n/a",
     1,
     "mi",
-    "00:10:31",
-    "My knees were hurting less on my jog"
+    "00:10:31"
   );
   console.log(exercise5);
 } catch (e) {
@@ -329,8 +330,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:14:31",
-    "Shoulder felt good"
+    "00:14:31"
   );
   console.log(exercise6);
 } catch (e) {
@@ -348,8 +348,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:31",
-    "Elbow felt good"
+    "00:10:31"
   );
   console.log(exercise7);
 } catch (e) {
@@ -367,8 +366,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:31",
-    "Shoulder felt good"
+    "00:10:31"
   );
   console.log(exercise8);
 } catch (e) {
@@ -386,8 +384,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:14:31",
-    "Elbow felt good"
+    "00:14:31"
   );
   console.log(exercise9);
 } catch (e) {
@@ -405,8 +402,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:00",
-    "Knees felt good"
+    "00:10:00"
   );
   console.log(exercise10);
 } catch (e) {
@@ -443,8 +439,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:00",
-    "Made sure I got good depth on each squat"
+    "00:10:00"
   );
   console.log(exercise12);
 } catch (e) {
@@ -462,8 +457,7 @@ try {
     "lbs",
     0,
     "n/a",
-    "00:10:00",
-    "Knees felt good"
+    "00:10:00"
   );
   console.log(exercise13);
 } catch (e) {
@@ -500,8 +494,7 @@ try {
     "lbs",
     2,
     "mi",
-    "00:35:00",
-    "I was able to keep a good pace"
+    "00:35:00"
   );
   console.log(exercise15);
 } catch (e) {
