@@ -36,6 +36,7 @@ addWorkoutButton.addEventListener("click", function () {
           </select>
           <input id="caloriesBurned" name="caloriesBurned" type="text" placeholder="" class="workouts-workout-cals">cal</input>
         </div>
+      <div id="workouts-caloriesBurnedError"></div>
       <div class="workouts-workout-subtitle">
         <input id="date" name="date" type="date" class="workouts-workout-date"></input>
         <div class=workouts-workout-time>
@@ -45,6 +46,11 @@ addWorkoutButton.addEventListener("click", function () {
             <input id="timeElapsedS" name="timeElapsedS" type="text" placeholder="SS" ></input>
         </div>
       </div>
+      <div id="workouts-subtitleError-container">
+        <div id="workouts-dateError"></div>
+        <div id="workouts-timeElapsedError"></div>
+      </div>
+      
       <button id="workouts-workout-add-exercise-button">Add an exercise +</button>
       <div class="workouts-workout-exercise-grid">
         <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
@@ -71,6 +77,8 @@ addWorkoutButton.addEventListener("click", function () {
       .getElementById("workouts-workout-grid")
       .insertAdjacentHTML("afterbegin", newWorkoutForm);
     openWorkoutForm = true;
+
+    //////////////////////////////////
 
     const addExerciseButton = document.getElementById(
       "workouts-workout-add-exercise-button"
@@ -108,6 +116,190 @@ addWorkoutButton.addEventListener("click", function () {
       let newWorkoutForm = document.getElementById("new-workout-form");
       newWorkoutForm.remove();
     });
+
+    ////// data validation for header
+    const newWorkoutFormElement = document.getElementById("new-workout-form");
+    console.log("checking form exists");
+    if (newWorkoutFormElement !== null) {
+      console.log("form exists");
+      newWorkoutFormElement.addEventListener("submit", (event) => {
+        console.log("form submitted");
+        console.log(isFormValid);
+        if (!isFormValid()) {
+          console.log("form has errors");
+          event.preventDefault();
+        }
+      });
+    }
+    /* const inputFields = document.querySelectorAll("input, select");
+    inputFields.forEach((inputField) => {
+      inputField.addEventListener("input", clearError);
+    }); */
+
+    function isFormValid() {
+      let badFields = false;
+
+      //// calories
+      const caloriesBurnedElement = document.getElementById("caloriesBurned");
+      if (caloriesBurnedElement !== null) {
+        let caloriesBurnedValue = caloriesBurnedElement.value;
+        let caloriesBurnedError = document.getElementById(
+          "workouts-caloriesBurnedError"
+        );
+        if (isNaN(caloriesBurnedValue)) {
+          caloriesBurnedError.textContent = "Calories must be a number";
+          caloriesBurnedElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        caloriesBurnedValue.trim();
+        if (caloriesBurnedValue === "") {
+          caloriesBurnedError.textContent = "Must enter calories burned";
+          caloriesBurnedElement.classList.add("errorBorder");
+          badFields = true;
+        }
+      }
+
+      ///// Date
+      const dateElement = document.getElementById("date");
+
+      if (dateElement !== null) {
+        let dateValue = dateElement.value;
+        let dateError = document.getElementById("workouts-dateError");
+        console.log(dateValue);
+
+        dateValue.trim();
+        if (dateValue === "") {
+          dateError.textContent = "Must enter a date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+
+        let dateArr = dateValue.split("-");
+        let dateY = parseInt(dateArr[0]);
+        let dateM = parseInt(dateArr[1]);
+        let dateD = parseInt(dateArr[2]);
+
+        if (dateY > 2024) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (dateY < 2014) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (dateM < 0) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (dateM > 12) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (dateD < 0) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (dateD > 31) {
+          dateError.textContent = "Invalid Date";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        }
+
+        let currentDate = new Date();
+        let currYear = currentDate.getFullYear();
+        let currMonth = currentDate.getMonth();
+        let currDay = currentDate.getDate();
+
+        if (dateY === currYear) {
+          if (dateM > currMonth) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          } else if (dateM === currMonth) {
+            if (dateD > currDay) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+          }
+        }
+      }
+
+      ///// Time Elapsed
+      const timeElementH = document.getElementById("timeElapsedH");
+      const timeElementM = document.getElementById("timeElapsedM");
+      const timeElementS = document.getElementById("timeElapsedS");
+
+      if (timeElementH !== null) {
+        let timeElementHValue = timeElementH.value;
+        let timeElementMValue = timeElementM.value;
+        let timeElementSValue = timeElementS.value;
+        let timeElapsedError = document.getElementById(
+          "workouts-timeElapsedError"
+        );
+
+        timeElementHValue.trim();
+        timeElementMValue.trim();
+        timeElementSValue.trim();
+        if (timeElementHValue === "") {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementH.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (timeElementMValue === "") {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementM.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (timeElementSValue === "") {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementS.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (isNaN(timeElementHValue)) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementH.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (isNaN(timeElementMValue)) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementM.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (isNaN(timeElementSValue)) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementS.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (timeElementHValue.length > 2) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementH.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (timeElementMValue.length > 2) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementM.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (timeElementSValue.length > 2) {
+          timeElapsedError.textContent = "Invalid time";
+          timeElementS.classList.add("errorBorder");
+          badFields = true;
+        }
+      }
+
+      ////////
+      if (badFields === true) {
+        return false;
+      } else {
+        return true;
+      }
+    }
 
     return;
   }

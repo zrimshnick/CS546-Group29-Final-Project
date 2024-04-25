@@ -71,7 +71,7 @@ router
       date = `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
 
       /// time elapsed
-      if (timeElapsedH === null) {
+      if (timeElapsedH === "") {
         timeElapsedH = "00";
       }
       if (
@@ -88,7 +88,7 @@ router
       ) {
         timeElapsedH = `0${timeElapsedH}`;
       }
-      if (timeElapsedM === null) {
+      if (timeElapsedM === "") {
         timeElapsedM = "00";
       }
       if (
@@ -105,7 +105,7 @@ router
       ) {
         timeElapsedM = `0${timeElapsedM}`;
       }
-      if (timeElapsedS === null) {
+      if (timeElapsedS === "") {
         timeElapsedS = "00";
       }
       if (
