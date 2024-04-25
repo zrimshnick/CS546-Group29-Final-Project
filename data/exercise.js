@@ -14,11 +14,10 @@ export const createExercise = async (
     weightUnits,
     distance,
     distanceUnits,
-    timeElapsed,
-    comments
+    timeElapsed
 ) => {
     if (workoutId === undefined || workoutType === undefined || exerciseName === undefined || sets === undefined || reps === undefined || weight === undefined ||
-        weightUnits === undefined || timeElapsed === undefined || comments === undefined || distance === undefined || distanceUnits === undefined) {
+        weightUnits === undefined || timeElapsed === undefined || distance === undefined || distanceUnits === undefined) {
         throw `Error: all fields need to be supplied`;
     }
     //Error checking
@@ -42,8 +41,6 @@ export const createExercise = async (
     weightUnits = weightUnits.trim();
     checkTime(timeElapsed, "timeElapsed");
     timeElapsed = timeElapsed.trim();
-    checkString(comments, "comments");
-    comments = comments.trim();
     checkNumber(distance, "distance");
     checkString(distanceUnits, "distanceUnits");
     distanceUnits = distanceUnits.trim();
@@ -73,8 +70,7 @@ export const createExercise = async (
             reps: reps,
             weight: weight,
             weightUnits: weightUnits,
-            timeElapsed: timeElapsed,
-            comments: comments
+            timeElapsed: timeElapsed
         }
     }
     else {
@@ -85,8 +81,7 @@ export const createExercise = async (
             exerciseName: exerciseName,
             distance: distance,
             distanceUnits: distanceUnits,
-            timeElapsed: timeElapsed,
-            comments: comments
+            timeElapsed: timeElapsed
         }
     }
 
@@ -200,10 +195,6 @@ export const updateExercise = async (exerciseId, updateObject) => {
     if (updateObject.timeElapsed) {
         checkTime(updateObject.timeElapsed, "timeElapsed");
         updatedExercise.timeElapsed = updateObject.timeElapsed.trim();
-    }
-    if (updateObject.comments) {
-        checkString(updateObject.comments, "comments");
-        updatedExercise.comments = updateObject.comments.trim();
     }
     if (updateObject.distance) {
         checkNumber(updateObject.distance, "distance");
