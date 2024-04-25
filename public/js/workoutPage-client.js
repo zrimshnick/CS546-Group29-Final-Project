@@ -126,15 +126,48 @@ addWorkoutButton.addEventListener("click", function () {
         console.log("form submitted");
         console.log(isFormValid);
         if (!isFormValid()) {
-          console.log("form has errors");
+          const caloriesBurnedInput = document.getElementById("caloriesBurned");
+          const caloriesBurnedError = document.getElementById(
+            "workouts-caloriesBurnedError"
+          );
+          if (caloriesBurnedError !== null) {
+            caloriesBurnedInput.addEventListener("input", function () {
+              caloriesBurnedError.textContent = "";
+              caloriesBurnedInput.classList.remove("errorBorder");
+            });
+          }
+          const dateInput = document.getElementById("date");
+          const dateError = document.getElementById("workouts-dateError");
+          if (dateError !== null) {
+            dateInput.addEventListener("input", function () {
+              dateError.textContent = "";
+              dateInput.classList.remove("errorBorder");
+            });
+          }
+          const timeInputH = document.getElementById("timeElapsedH");
+          const timeInputM = document.getElementById("timeElapsedM");
+          const timeInputS = document.getElementById("timeElapsedS");
+          const timeError = document.getElementById(
+            "workouts-timeElapsedError"
+          );
+          if (timeError !== null) {
+            timeInputH.addEventListener("input", function () {
+              timeError.textContent = "";
+              timeInputH.classList.remove("errorBorder");
+            });
+            timeInputM.addEventListener("input", function () {
+              timeError.textContent = "";
+              timeInputM.classList.remove("errorBorder");
+            });
+            timeInputS.addEventListener("input", function () {
+              timeError.textContent = "";
+              timeInputS.classList.remove("errorBorder");
+            });
+          }
           event.preventDefault();
         }
       });
     }
-    /* const inputFields = document.querySelectorAll("input, select");
-    inputFields.forEach((inputField) => {
-      inputField.addEventListener("input", clearError);
-    }); */
 
     function isFormValid() {
       let badFields = false;
@@ -212,8 +245,12 @@ addWorkoutButton.addEventListener("click", function () {
 
         let currentDate = new Date();
         let currYear = currentDate.getFullYear();
-        let currMonth = currentDate.getMonth();
+        let currMonth = currentDate.getMonth() + 1;
         let currDay = currentDate.getDate();
+
+        console.log(currYear);
+        console.log(currMonth);
+        console.log(currDay);
 
         if (dateY === currYear) {
           if (dateM > currMonth) {
