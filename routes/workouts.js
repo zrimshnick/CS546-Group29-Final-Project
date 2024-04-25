@@ -17,9 +17,12 @@ router
       );
       console.log(currUserData);
       let workoutsDataArray = [];
-      currUserData.workouts.forEach(async (workoutID) => {
-        const workoutData = await getWorkout(workoutID);
-        workoutsDataArray.push(workoutData);
+      const promises = currUserData.workouts.map(async (workoutID) => {
+        return await getWorkout(workoutID);
+      });
+
+      await Promise.all(promises).then((workoutsData) => {
+        workoutsDataArray = workoutsData;
       });
 
       res.render("workoutsPage", {
@@ -37,13 +40,101 @@ router
     const addWorkoutFormData = req.body;
     let workoutType = addWorkoutFormData.workoutType;
     let date = addWorkoutFormData.date;
-    let timeElapsed = addWorkoutFormData.timeElapsed;
+    let timeElapsedH = addWorkoutFormData.timeElapsedH;
+    let timeElapsedM = addWorkoutFormData.timeElapsedM;
+    let timeElapsedS = addWorkoutFormData.timeElapsedS;
+    let timeElapsed;
     let caloriesBurned = addWorkoutFormData.caloriesBurned;
+
+    ////////
 
     try {
       const currUserData = await getUserByUsername(
         `${req.session.user.username}`
       );
+
+      ///// error checking
+      /// calories
+      if (typeof caloriesBurned !== "string") {
+        throw "Calories must be a string";
+      }
+      caloriesBurned.trim();
+      if (parseInt(caloriesBurned) < 0) {
+        throw "Calories must be greater than 0";
+      }
+      if (isNaN(caloriesBurned)) {
+        throw "Calories must be a number";
+      }
+
+      /// date
+      let dateArr = date.split("-");
+      date = `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
+
+      /// time elapsed
+      if (timeElapsedH === "") {
+        timeElapsedH = "00";
+      }
+      if (
+        timeElapsedH === "0" ||
+        timeElapsedH === "1" ||
+        timeElapsedH === "2" ||
+        timeElapsedH === "3" ||
+        timeElapsedH === "4" ||
+        timeElapsedH === "5" ||
+        timeElapsedH === "6" ||
+        timeElapsedH === "7" ||
+        timeElapsedH === "8" ||
+        timeElapsedH === "9"
+      ) {
+        timeElapsedH = `0${timeElapsedH}`;
+      }
+      if (timeElapsedM === "") {
+        timeElapsedM = "00";
+      }
+      if (
+        timeElapsedM === "0" ||
+        timeElapsedM === "1" ||
+        timeElapsedM === "2" ||
+        timeElapsedM === "3" ||
+        timeElapsedM === "4" ||
+        timeElapsedM === "5" ||
+        timeElapsedM === "6" ||
+        timeElapsedM === "7" ||
+        timeElapsedM === "8" ||
+        timeElapsedM === "9"
+      ) {
+        timeElapsedM = `0${timeElapsedM}`;
+      }
+      if (timeElapsedS === "") {
+        timeElapsedS = "00";
+      }
+      if (
+        timeElapsedS === "0" ||
+        timeElapsedS === "1" ||
+        timeElapsedS === "2" ||
+        timeElapsedS === "3" ||
+        timeElapsedS === "4" ||
+        timeElapsedS === "5" ||
+        timeElapsedS === "6" ||
+        timeElapsedS === "7" ||
+        timeElapsedS === "8" ||
+        timeElapsedS === "9"
+      ) {
+        timeElapsedS = `0${timeElapsedS}`;
+      }
+
+      if (isNaN(timeElapsedH)) throw "Hours must be a number";
+      if (isNaN(timeElapsedM)) throw "Minutes must be a number";
+      if (isNaN(timeElapsedS)) throw "Seconds must be a number";
+
+      if (parseInt(timeElapsedH) < 0 || parseInt(timeElapsedH) > 99)
+        throw "Hours must be between 0 and 99";
+      if (parseInt(timeElapsedM) < 0 || parseInt(timeElapsedM) > 60)
+        throw "Minutes must be between 0 and 60";
+      if (parseInt(timeElapsedS) < 0 || parseInt(timeElapsedS) > 60)
+        throw "Seconds must be between 0 and 60";
+
+      timeElapsed = `${timeElapsedH}:${timeElapsedM}:${timeElapsedS}`;
 
       let currentDate = new Date();
       let year = currentDate.getFullYear();
