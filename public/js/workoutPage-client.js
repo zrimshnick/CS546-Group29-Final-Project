@@ -34,12 +34,18 @@ addWorkoutButton.addEventListener("click", function () {
             <option value="Weight Training">Weight Training</option>
             <option value="Cardio">Cardio</option>
           </select>
-          <input id="caloriesBurned" name="caloriesBurned" type="text" class="workouts-workout-cals"></input>
+          <input id="caloriesBurned" name="caloriesBurned" type="text" placeholder="" class="workouts-workout-cals">cal</input>
         </div>
       <div class="workouts-workout-subtitle">
-        <input id="date" name="date" type="text" class="workouts-workout-date"></input>
-        <input id="timeElapsed" name="timeElapsed" type="text" class="workouts-workout-time"></input>
+        <input id="date" name="date" type="date" class="workouts-workout-date"></input>
+        <div class=workouts-workout-time>
+            Time Elapsed:
+            <input id="timeElapsedH" name="timeElapsedH" type="text" placeholder="HH" >:</input>
+            <input id="timeElapsedM" name="timeElapsedM" type="text" placeholder="MM" >:</input>
+            <input id="timeElapsedS" name="timeElapsedS" type="text" placeholder="SS" ></input>
+        </div>
       </div>
+      <button id="workouts-workout-add-exercise-button">Add an exercise +</button>
       <div class="workouts-workout-exercise-grid">
         <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
         <div class="workouts-workout-exercise-grid-item-header grid-sets">S/d
@@ -49,17 +55,6 @@ addWorkoutButton.addEventListener("click", function () {
         </div>
         <div class="workouts-workout-exercise-grid-item-header grid-weight">
         W/
-        </div>
-
-        <div class="workouts-workout-exercise-grid-item grid-exercise">EXERCISE NAME</div>
-        <div class="workouts-workout-exercise-grid-item grid-sets">
-            SETS
-        </div>
-        <div class="workouts-workout-exercise-grid-item grid-reps">
-            REPS
-        </div>
-        <div class="workouts-workout-exercise-grid-item grid-weight">
-            WEIGHT
         </div>
 
     </div>
@@ -76,6 +71,33 @@ addWorkoutButton.addEventListener("click", function () {
       .getElementById("workouts-workout-grid")
       .insertAdjacentHTML("afterbegin", newWorkoutForm);
     openWorkoutForm = true;
+
+    const addExerciseButton = document.getElementById(
+      "workouts-workout-add-exercise-button"
+    );
+
+    addExerciseButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      let newWorkoutForm = document.getElementById("new-workout-form");
+      let newExerciseRow = `
+          <input type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+          <input type="text" class="workouts-workout-exercise-grid-item grid-sets">
+          </input>
+          <input type="text" class="workouts-workout-exercise-grid-item grid-reps">
+          </input>
+          <input type="text" class="workouts-workout-exercise-grid-item grid-weight">
+          </input>
+        `;
+      let workoutContainers = newWorkoutForm.getElementsByClassName(
+        "workouts-workout-exercise-grid"
+      );
+      for (let i = 0; i < workoutContainers.length; i++) {
+        workoutContainers[i].insertAdjacentHTML("beforeend", newExerciseRow);
+      }
+      openWorkoutForm = true;
+      return;
+    });
+
     return;
   }
 });
