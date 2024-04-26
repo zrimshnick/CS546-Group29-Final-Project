@@ -2,6 +2,7 @@ import workoutRoutes from "./workouts.js";
 import profileRoutes from "./users.js";
 import homeRoutes from "./home.js";
 import authRoutes from "./auth_routes.js";
+import leaderboardRoutes from "./leaderboard.js";
 import path from "path";
 
 const constructorMethod = (app) => {
@@ -10,7 +11,7 @@ const constructorMethod = (app) => {
   app.use("/workouts", workoutRoutes);
   app.use("/profile", profileRoutes);
   // app.use("/feed", feedRoutes);
-  // app.use("/leaderboard", leaderboardRoutes);
+  app.use("/leaderboard", leaderboardRoutes);
   // app.use("/progress", progressRoutes)
 
   app.use("*", (req, res) => {
