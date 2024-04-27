@@ -1,5 +1,6 @@
 import { Router } from "express";
 const router = Router();
+import xss from 'xss';
 import {
   createWorkout,
   getWorkout,
@@ -39,12 +40,18 @@ router
   .post(async (req, res) => {
     const addWorkoutFormData = req.body;
     let workoutType = addWorkoutFormData.workoutType;
+    workoutType = xss(workoutType.trim());
     let date = addWorkoutFormData.date;
+    date = xss(date);
     let timeElapsedH = addWorkoutFormData.timeElapsedH;
+    timeElapsedH = xss(timeElapsedH);
     let timeElapsedM = addWorkoutFormData.timeElapsedM;
+    timeElapsedM = xss(timeElapsedM);
     let timeElapsedS = addWorkoutFormData.timeElapsedS;
+    timeElapsedS = xss(timeElapsedS);
     let timeElapsed;
     let caloriesBurned = addWorkoutFormData.caloriesBurned;
+    caloriesBurned = xss(caloriesBurned);
 
     ////////
 

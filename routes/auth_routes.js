@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createUser, loginUser } from "../data/users.js";
+import xss from 'xss';
 
 const router = Router();
 
@@ -20,14 +21,17 @@ router
     const registerFormData = req.body;
     console.log(registerFormData);
     let firstName = registerFormData.firstName;
+    firstName = xss(firstName.trim());
     let lastName = registerFormData.lastName;
+    lastName = xss(lastName.trim());
     let username = registerFormData.username;
-    username.trim().toLowerCase();
+    username = xss(username.trim().toLowerCase());
     let email = registerFormData.email;
-    email.trim().toLowerCase();
+    email = xss(email.trim().toLowerCase());
     let password = registerFormData.password;
     let confirmPassword = registerFormData.confirmPassword;
     let age = registerFormData.age;
+    age = xss(age.trim());
     let gender = registerFormData.gender;
     let sports;
     if (!Array.isArray(registerFormData.sports)) {
@@ -91,7 +95,7 @@ router
     const loginFormData = req.body;
     console.log(loginFormData);
     let username = loginFormData.username;
-    username.trim().toLowerCase();
+    username = xss(username.trim().toLowerCase());
     let password = loginFormData.password;
 
     let badFieldsArr = [];
