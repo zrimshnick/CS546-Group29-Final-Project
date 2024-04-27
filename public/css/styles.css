@@ -808,6 +808,14 @@ input.grid-weight {
 }
 
 /*****************************************/
+/* LEADERBOARD STYLING */
+#leaderboard-container {
+  margin-top: 10rem;
+  color: red;
+  background-color: orange;
+}
+
+/* ************************************* */
 
 /* FOOTER STYLING */
 #footer-container {

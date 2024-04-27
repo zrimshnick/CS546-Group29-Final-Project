@@ -89,7 +89,6 @@ const user5 = await users.createUser(
   "lbs",
   21
 );
-console.log(user5);
 
 // Use to test other user data functions besides createUser
 // try {
@@ -169,7 +168,7 @@ try {
 
 try {
   workout5 = await workouts.createWorkout(
-    user5._id.toString(),
+    user4._id.toString(),
     "4/16/2024",
     "00:50:00",
     "Weight Training",
