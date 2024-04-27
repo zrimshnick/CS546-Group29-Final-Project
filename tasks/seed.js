@@ -146,7 +146,7 @@ try {
     "00:33:00",
     "Cardio",
     175,
-    'My knees were hurting today'
+    "My knees were hurting today"
   );
   console.log(workout3);
 } catch (e) {

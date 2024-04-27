@@ -38,7 +38,7 @@ export const createWorkout = async (
   checkString(workoutType, "workoutType");
   workoutType = workoutType.trim();
   checkNumber(caloriesBurned, "caloriesBurned");
-  checkString(comments, 'comments');
+  checkString(comments, "comments");
   comments = comments.trim();
 
   const workoutCollection = await workouts();
@@ -162,8 +162,8 @@ export const updateWorkout = async (id, updateObject) => {
     checkNumber(updateObject.caloriesBurned, "caloriesBurned");
     workout.caloriesBurned = updateObject.caloriesBurned;
   }
-  if(updateObject.comments){
-    checkString(updateObject.comments, 'comments');
+  if (updateObject.comments) {
+    checkString(updateObject.comments, "comments");
     workout.comments = updateObject.comments.trim();
   }
 
