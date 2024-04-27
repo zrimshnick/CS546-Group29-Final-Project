@@ -4,7 +4,6 @@ const app = express();
 import configRoutes from "./routes/index.js";
 import exphbs from "express-handlebars";
 
-
 //// from lab 8 code
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   // If the user posts to the server with a property called _method, rewrite the request's method
@@ -22,12 +21,12 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
 const ensureAuthenticationMiddleware = (req, res, next) => {
   const user = req.session.user;
 
-  if (!user){
+  if (!user) {
     return res.redirect("/login");
-  } else{
+  } else {
     next();
   }
-}
+};
 //
 app.use("/public", express.static("public"));
 app.use(express.json());
@@ -44,7 +43,16 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(rewriteUnsupportedBrowserMethods);
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+const hbs = exphbs.create({
+  defaultLayout: "main",
+  helpers: {
+    eq: function (a, b) {
+      return a === b;
+    },
+  },
+});
+
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 //////// MIDDLEWARE FUNCTIONS /////////////////////////
 ///// middleware 1 - forces user to login before doing anything
@@ -91,10 +99,10 @@ app.use(async (req, res, next) => {
 });
 
 /* more middlewares needed to block certain routes DONT BLOCK HOME */
-app.use('/feed', ensureAuthenticationMiddleware)
-app.use('/workouts', ensureAuthenticationMiddleware)
-app.use('/progress', ensureAuthenticationMiddleware)
-app.use('/profile', ensureAuthenticationMiddleware)
+app.use("/feed", ensureAuthenticationMiddleware);
+app.use("/workouts", ensureAuthenticationMiddleware);
+app.use("/progress", ensureAuthenticationMiddleware);
+app.use("/profile", ensureAuthenticationMiddleware);
 
 ///////////////////////////////////////////////////////
 configRoutes(app);

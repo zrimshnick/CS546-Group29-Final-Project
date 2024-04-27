@@ -40,13 +40,26 @@
                 </div>
                 <div class="workouts-workout-exercise-grid">
                     <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-                    <div class="workouts-workout-exercise-grid-item-header grid-sets">S/d
+                    <div class="workouts-workout-exercise-grid-item-header grid-sets">
+                        {{#if (eq this.workoutType "Weight Training")}}
+                            Sets
+                        {{else}}
+                            Dist
+                        {{/if}}
                     </div>
                     <div class="workouts-workout-exercise-grid-item-header grid-reps">
-                    R/d
+                        {{#if (eq this.workoutType "Weight Training")}}
+                            Reps
+                        {{else}}
+                            Units
+                        {{/if}}
                     </div>
                     <div class="workouts-workout-exercise-grid-item-header grid-weight">
-                    W/
+                        {{#if (eq this.workoutType "Weight Training")}}
+                            Weight
+                        {{else}}
+                            Time
+                        {{/if}}
                     </div>
 
                     {{#each this.exercises}}
@@ -80,6 +93,10 @@
                     </div>
                     {{/each}}
 
+                </div>
+                <div class="workouts-workout-comment-container">
+                    <div class="workouts-workout-comment-header">Notes</div>
+                    <div class="workouts-workout-comment-content">{{this.comments}}</div>
                 </div>
                 <div class="workouts-workout-button-container">
                     <button class="workouts-workout-delete-button flex">

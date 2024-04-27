@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import xss from 'xss';
+import xss from "xss";
 import {
   createWorkout,
   getWorkout,
@@ -39,6 +39,7 @@ router
   })
   .post(async (req, res) => {
     const addWorkoutFormData = req.body;
+    console.log(addWorkoutFormData);
     let workoutType = addWorkoutFormData.workoutType;
     workoutType = xss(workoutType.trim());
     let date = addWorkoutFormData.date;
@@ -52,6 +53,8 @@ router
     let timeElapsed;
     let caloriesBurned = addWorkoutFormData.caloriesBurned;
     caloriesBurned = xss(caloriesBurned);
+    let comments = addWorkoutFormData.comments;
+    comments = xss(comments);
 
     ////////
 
@@ -153,12 +156,20 @@ router
         (day < 10 ? "0" + day : day) +
         year;
 
+      /// comments
+      if (typeof comments !== "string") {
+        throw "Comments must be a string";
+      }
+      comments.trim();
+
+      /////////////////////////
       let newWorkout = await createWorkout(
         currUserData._id.toString(),
         date,
         timeElapsed,
         workoutType,
-        parseInt(caloriesBurned)
+        parseInt(caloriesBurned),
+        comments
       );
       console.log("redirecting");
       return res.redirect("/workouts");
@@ -166,9 +177,5 @@ router
       console.log(`CREATE WORKOUT DIDNT WORK ${e}`);
     }
   });
-
-/* router.route("/workouts").get(async (req, res) => {
-  res.render("workoutsPage");
-}); */
 
 export default router;
