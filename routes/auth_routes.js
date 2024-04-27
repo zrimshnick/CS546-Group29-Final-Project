@@ -14,7 +14,8 @@ router
   .get(async (req, res) => {
     res.render("register", {
       title: "Tracklete | Register",
-      test: "ROUTE WORKING",
+      navbarLogHREF: "login",
+      navbarLogDisplay: "Login",
     });
   })
   .post(async (req, res) => {
@@ -76,12 +77,18 @@ router
       } else {
         return res
           .status(500)
-          .render("register", { errorMessage: "Internal Server Error" });
+          .render("register", {
+            errorMessage: "Internal Server Error",
+            navbarLogHREF: "login",
+            navbarLogDisplay: "Login",
+          });
       }
     } catch (e) {
       return res.status(404).render("register", {
         errorMessage: e,
         title: "Tracklete | Register",
+        navbarLogHREF: "login",
+        navbarLogDisplay: "Login",
       });
     }
   });
@@ -89,7 +96,11 @@ router
 router
   .route("/login")
   .get(async (req, res) => {
-    res.render("login", { title: "Tracklete | Login", test: "WORKING" });
+    res.render("login", {
+      title: "Tracklete | Login",
+      navbarLogHREF: "login",
+      navbarLogDisplay: "Login",
+    });
   })
   .post(async (req, res) => {
     const loginFormData = req.body;
@@ -106,6 +117,8 @@ router
       return res.status(400).render("login", {
         errorMessage: "Invalid username or password",
         title: "Tracklete | Login",
+        navbarLogHREF: "login",
+        navbarLogDisplay: "Login",
       });
     }
     try {
@@ -137,6 +150,8 @@ router
         return res.status(500).render("login", {
           errorMessage: "Internal Server Error",
           title: "Tracklete | Login",
+          navbarLogHREF: "login",
+          navbarLogDisplay: "Login",
         });
       }
     } catch (e) {
@@ -144,13 +159,19 @@ router
         errorMessage: e,
         errorClass: "loginError",
         title: "Tracklete | Login",
+        navbarLogHREF: "login",
+        navbarLogDisplay: "Login",
       });
     }
   });
 
 router.route("/logout").get(async (req, res) => {
   req.session.destroy();
-  res.render("logout", { title: "Logged Out" });
+  res.render("logout", {
+    title: "Logged Out",
+    navbarLogHREF: "login",
+    navbarLogDisplay: "Login",
+  });
 });
 
 export default router;

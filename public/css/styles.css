@@ -85,7 +85,7 @@ body {
   gap: 1.75rem;
 
   li {
-    font-size: 1.05em;
+    font-size: 1em;
     width: auto;
     padding: 0.1rem;
     border-bottom: 1px solid transparent;
@@ -114,6 +114,9 @@ body {
 
   li:not(:has(> a > img)):hover:after {
     transform: scaleX(1);
+  }
+  .blue-link {
+    color: #77c9d4;
   }
 }
 
