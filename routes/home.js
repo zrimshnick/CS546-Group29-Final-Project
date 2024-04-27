@@ -1,8 +1,18 @@
 import { Router } from "express";
 const router = Router();
 
-router.route("/home").get(async (req, res) => {
-  res.render("home", { title: "Tracklete | Home page" });
+router.route("/").get(async (req, res) => {
+  if (req.session.user === undefined) {
+    res.render("home", {
+      title: "Tracklete | Home",
+      navbarLogHREF: "login",
+      navbarLogDisplay: "Login",
+    });
+  } else {
+    res.render("home", {
+      title: "Tracklete | Home",
+    });
+  }
 });
 
 export default router;
