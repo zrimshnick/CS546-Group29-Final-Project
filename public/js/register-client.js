@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $.ajax({
         type: 'POST',
         url: '/register',
+        dataType: json,
         data: {
           firstName: firstName,
           lastName: lastName,
