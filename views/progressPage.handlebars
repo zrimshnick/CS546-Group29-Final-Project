@@ -14,23 +14,10 @@
         let labels = [];
         let workoutElements = document.querySelectorAll('.workouts-workout-individual');
 
-        workoutElements.forEach((workoutElement) => {
-            let dateElement = workoutElement.querySelector(".workouts-workout-date");
-            let calorieElement = workoutElement.querySelector(".workouts-workout-cals");
-
-            if (dateElement && calorieElement) {
-                let date = dateElement.value; // Assuming value contains the date in a suitable format
-                let calories = parseInt(calorieElement.textContent);
-
-                labels.push(date);
-                item_data.push(calories);
-            }
-        });
-
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Calories Burned',
+                label: '',
                 data: item_data
             }]
         };

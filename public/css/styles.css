@@ -115,6 +115,7 @@ body {
   li:not(:has(> a > img)):hover:after {
     transform: scaleX(1);
   }
+
   .blue-link {
     color: #77c9d4;
   }
