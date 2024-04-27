@@ -3,6 +3,7 @@ import profileRoutes from "./users.js";
 import homeRoutes from "./home.js";
 import authRoutes from "./auth_routes.js";
 import leaderboardRoutes from "./leaderboard.js";
+import progressRoutes from "./progress.js";
 import path from "path";
 
 const constructorMethod = (app) => {
@@ -12,7 +13,7 @@ const constructorMethod = (app) => {
   app.use("/profile", profileRoutes);
   // app.use("/feed", feedRoutes);
   app.use("/leaderboard", leaderboardRoutes);
-  // app.use("/progress", progressRoutes)
+  app.use("/progress", progressRoutes)
 
   app.use("*", (req, res) => {
     const errorMessage = `404 Error: Route not found`;
