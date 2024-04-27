@@ -687,6 +687,20 @@ textarea.workouts-workout-comment-content {
     width: 1rem;
   }
 }
+.workouts-workout-comment-container {
+  display: flex;
+  flex-direction: column;
+}
+.workouts-workout-comment-header {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.9em;
+  width: 3rem;
+  border-bottom: 1px solid #77c9d4;
+}
+.workouts-workout-comment-content {
+  font-size: 0.9em;
+}
 
 .workouts-workout-done-button {
   width: 3rem;
