@@ -54,16 +54,16 @@ addWorkoutButton.addEventListener("click", function () {
       <button id="workouts-workout-add-exercise-button">Add an exercise +</button>
       <div class="workouts-workout-exercise-grid">
         <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
-        <div class="workouts-workout-exercise-grid-item-header grid-sets">S/d
-        </div>
-        <div class="workouts-workout-exercise-grid-item-header grid-reps">
-        R/d
-        </div>
-        <div class="workouts-workout-exercise-grid-item-header grid-weight">
-        W/
-        </div>
+        <div id="exercise-title-2" class="workouts-workout-exercise-grid-item-header grid-sets"></div>
+        <div id="exercise-title-3"  class="workouts-workout-exercise-grid-item-header grid-reps"></div>
+        <div id="exercise-title-4" class="workouts-workout-exercise-grid-item-header grid-weight"></div>
 
     </div>
+    <div class="workouts-workout-comment-container">
+      <div class="workouts-workout-comment-header">Notes</div>
+      <textarea name="comments" id="comments" class="workouts-workout-comment-content"></textarea>
+    </div>
+    <div id="workouts-commentsError"></div>
     <div class="workouts-workout-button-container">
         <button id="cancelNewWorkoutButton" class="workouts-workout-delete-button flex">
         <img src="/public/images/trashIcon.png">
@@ -77,6 +77,35 @@ addWorkoutButton.addEventListener("click", function () {
       .getElementById("workouts-workout-grid")
       .insertAdjacentHTML("afterbegin", newWorkoutForm);
     openWorkoutForm = true;
+
+    const workoutTypeSelect = document.getElementById("workoutType");
+    const exerciseHeader2 = document.getElementById("exercise-title-2");
+    const exerciseHeader3 = document.getElementById("exercise-title-3");
+    const exerciseHeader4 = document.getElementById("exercise-title-4");
+    if (workoutTypeSelect.value === "Weight Training") {
+      exerciseHeader2.textContent = "Sets";
+      exerciseHeader3.textContent = "Reps";
+      exerciseHeader4.textContent = "Weight";
+    } else if (workoutTypeSelect.value === "Cardio") {
+      exerciseHeader2.textContent = "Dist";
+      exerciseHeader3.textContent = "Units";
+      exerciseHeader4.textContent = "Time";
+    } else {
+      console.log(`CANT GET WORKOUT TYPE:${workoutTypeSelect.value}`);
+    }
+    workoutTypeSelect.addEventListener("change", function () {
+      if (workoutTypeSelect.value === "Weight Training") {
+        exerciseHeader2.textContent = "Sets";
+        exerciseHeader3.textContent = "Reps";
+        exerciseHeader4.textContent = "Weight";
+      } else if (workoutTypeSelect.value === "Cardio") {
+        exerciseHeader2.textContent = "Dist";
+        exerciseHeader3.textContent = "Units";
+        exerciseHeader4.textContent = "Time";
+      } else {
+        console.log(`CANT GET WORKOUT TYPE:${workoutTypeSelect.value}`);
+      }
+    });
 
     //////////////////////////////////
 
@@ -162,6 +191,16 @@ addWorkoutButton.addEventListener("click", function () {
             timeInputS.addEventListener("input", function () {
               timeError.textContent = "";
               timeInputS.classList.remove("errorBorder");
+            });
+          }
+          const commentsInput = document.getElementById("comments");
+          const commentsError = document.getElementById(
+            "workouts-commentsError"
+          );
+          if (commentsError !== null) {
+            commentsInput.addEventListener("input", function () {
+              commentsError.textContent = "";
+              commentsInput.classList.remove("errorBorder");
             });
           }
           event.preventDefault();
@@ -328,6 +367,19 @@ addWorkoutButton.addEventListener("click", function () {
           timeElementS.classList.add("errorBorder");
           badFields = true;
         }
+      }
+
+      //// comments
+      const commentsElement = document.getElementById("comments");
+      if (commentsElement !== null) {
+        let commentsValue = commentsElement.value;
+        let commentsError = document.getElementById("workouts-commentsError");
+        if (typeof commentsValue !== "string") {
+          commentsError.textContent = "Comments must be a string";
+          commentsElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        commentsValue.trim();
       }
 
       ////////
