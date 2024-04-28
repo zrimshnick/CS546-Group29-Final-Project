@@ -21,30 +21,30 @@ router
   .post(async (req, res) => {
     const registerFormData = req.body;
     console.log(registerFormData);
-    let firstName = registerFormData.firstName;
-    firstName = xss(firstName.trim());
-    let lastName = registerFormData.lastName;
-    lastName = xss(lastName.trim());
-    let username = registerFormData.username;
-    username = xss(username.trim().toLowerCase());
-    let email = registerFormData.email;
-    email = xss(email.trim().toLowerCase());
-    let password = registerFormData.password;
-    let confirmPassword = registerFormData.confirmPassword;
-    let age = registerFormData.age;
-    age = xss(age.trim());
-    let gender = registerFormData.gender;
+    let firstName = xss(registerFormData.firstName);
+    firstName = firstName.trim();
+    let lastName = xss(registerFormData.lastName);
+    lastName = lastName.trim();
+    let username = xss(registerFormData.username);
+    username = username.trim().toLowerCase();
+    let email = xss(registerFormData.email);
+    email = email.trim().toLowerCase();
+    let password = xss(registerFormData.password);
+    let confirmPassword = xss(registerFormData.confirmPassword);
+    let age = xss(registerFormData.age);
+    age = age.trim();
+    let gender = xss(registerFormData.gender);
     let sports;
     if (!Array.isArray(registerFormData.sports)) {
       sports = [registerFormData.sports];
     } else {
       sports = registerFormData.sports;
     }
-    let heightFt = registerFormData.heightFt;
-    let heightIn = registerFormData.heightIn;
+    let heightFt = xss(registerFormData.heightFt);
+    let heightIn = xss(registerFormData.heightIn);
     let height = `${heightFt}'${heightIn}"`;
     let heightUnit = "standard";
-    let weight = registerFormData.weightNum;
+    let weight = xss(registerFormData.weightNum);
     let weightUnit = registerFormData.weightUnit;
 
     let badFieldsArr = [];
@@ -105,9 +105,9 @@ router
   .post(async (req, res) => {
     const loginFormData = req.body;
     console.log(loginFormData);
-    let username = loginFormData.username;
-    username = xss(username.trim().toLowerCase());
-    let password = loginFormData.password;
+    let username = xss(loginFormData.username);
+    username = username.trim().toLowerCase();
+    let password = xss(loginFormData.password);
 
     let badFieldsArr = [];
     ///// error checking /////
