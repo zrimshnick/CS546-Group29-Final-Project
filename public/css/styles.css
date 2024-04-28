@@ -1025,10 +1025,10 @@ textarea.workouts-workout-comment-content {
   padding: 20px;
 }
 
-#progressChart {
+#time-chart,
+#calories-chart {
   width: 100%;
   height: 400px;
   margin-top: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
 }

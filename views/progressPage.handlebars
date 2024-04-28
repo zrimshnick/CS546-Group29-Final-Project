@@ -1,47 +1,18 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    
+    <script src="/public/js/caloriesChart.js"></script>
 </head>
 
 <div class="progressContainer">
     <h1>Progress Page</h1>
 
     <div>
-        <canvas id="progressChart"></canvas>
+        <canvas id="calories-chart"></canvas>
     </div>
-
-    <script>
-        let item_data = [];
-        let labels = [];
-        let workoutElements = document.querySelectorAll('.workouts-workout-individual');
-
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: '',
-                data: item_data
-            }]
-        };
-
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        text: ''
-                    }
-                }
-            }
-        };
-
-        const chart = new Chart(
-            document.getElementById('progressChart'),
-            config
-        );
-    </script>
+    <div>
+        <canvas id="time-chart"></canvas>
+    </div>
 </div>
-<script src="/public/js/workoutPage-client.js"></script>

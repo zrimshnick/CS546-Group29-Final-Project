@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import session from "express-session";
 const app = express();
 import configRoutes from "./routes/index.js";
@@ -29,6 +30,7 @@ const ensureAuthenticationMiddleware = (req, res, next) => {
 };
 //
 app.use("/public", express.static("public"));
+app.use(cors())
 app.use(express.json());
 ///// session /////
 app.use(
@@ -67,6 +69,7 @@ app.use(async (req, res, next) => {
     "/workouts",
     "/progress",
     "/profile",
+    '/calorie-data'
   ];
   const currentRoute = req.originalUrl;
 
@@ -102,6 +105,7 @@ app.use(async (req, res, next) => {
 app.use("/feed", ensureAuthenticationMiddleware);
 app.use("/workouts", ensureAuthenticationMiddleware);
 app.use("/progress", ensureAuthenticationMiddleware);
+app.use("/calorie-data", ensureAuthenticationMiddleware);
 app.use("/profile", ensureAuthenticationMiddleware);
 
 ///////////////////////////////////////////////////////
