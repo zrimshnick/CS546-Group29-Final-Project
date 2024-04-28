@@ -1,4 +1,5 @@
 console.log("workout page js linked");
+let exerciseRowCount = 0;
 
 let workoutElements = document.querySelectorAll(".workouts-workout-individual");
 let workoutCountElement = document.getElementById(
@@ -52,13 +53,14 @@ addWorkoutButton.addEventListener("click", function () {
       </div>
       
       <button id="workouts-workout-add-exercise-button">Add an exercise +</button>
-      <div class="workouts-workout-exercise-grid">
+      <div id="workouts-new-workout-exercise-grid" class="workouts-workout-exercise-grid">
         <div class="workouts-workout-exercise-grid-item-header grid-exercise">Exercise</div>
         <div id="exercise-title-2" class="workouts-workout-exercise-grid-item-header grid-sets"></div>
         <div id="exercise-title-3"  class="workouts-workout-exercise-grid-item-header grid-reps"></div>
         <div id="exercise-title-4" class="workouts-workout-exercise-grid-item-header grid-weight"></div>
 
     </div>
+    <div id="workouts-exerciseError"></div>
     <div class="workouts-workout-comment-container">
       <div class="workouts-workout-comment-header">Notes</div>
       <textarea name="comments" id="comments" class="workouts-workout-comment-content"></textarea>
@@ -115,24 +117,85 @@ addWorkoutButton.addEventListener("click", function () {
 
     addExerciseButton.addEventListener("click", function (event) {
       event.preventDefault();
-      let newWorkoutForm = document.getElementById("new-workout-form");
-      let newExerciseRow = `
-          <input type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
-          <input type="text" class="workouts-workout-exercise-grid-item grid-sets">
+      const priorRowOne = document.getElementById(`1row${exerciseRowCount}`);
+      const priorRowTwo = document.getElementById(`2row${exerciseRowCount}`);
+      const priorRowThree = document.getElementById(`3row${exerciseRowCount}`);
+      const priorRowFour = document.getElementById(`4row${exerciseRowCount}`);
+      const exerciseError = document.getElementById("workouts-exerciseError");
+
+      if (exerciseRowCount === 0) {
+        exerciseRowCount = exerciseRowCount + 1;
+        let newWorkoutForm = document.getElementById("new-workout-form");
+        let newExerciseRow = `
+          <input name="1row${exerciseRowCount}" id="1row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+          <input name="2row${exerciseRowCount}" id="2row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-sets">
           </input>
-          <input type="text" class="workouts-workout-exercise-grid-item grid-reps">
+          <input name="3row${exerciseRowCount}" id="3row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-reps">
           </input>
-          <input type="text" class="workouts-workout-exercise-grid-item grid-weight">
+          <input name="4row${exerciseRowCount}" id="4row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-weight">
           </input>
         `;
-      let workoutContainers = newWorkoutForm.getElementsByClassName(
-        "workouts-workout-exercise-grid"
-      );
-      for (let i = 0; i < workoutContainers.length; i++) {
-        workoutContainers[i].insertAdjacentHTML("beforeend", newExerciseRow);
+        let workoutContainers = newWorkoutForm.getElementsByClassName(
+          "workouts-workout-exercise-grid"
+        );
+        for (let i = 0; i < workoutContainers.length; i++) {
+          workoutContainers[i].insertAdjacentHTML("beforeend", newExerciseRow);
+        }
+        openWorkoutForm = true;
+        return;
+      } else {
+        if (priorRowOne.value.trim() === "") {
+          priorRowOne.classList.add("errorBorder");
+          exerciseError.textContent = "Must supply all fields";
+        }
+        if (priorRowTwo.value.trim() === "") {
+          priorRowTwo.classList.add("errorBorder");
+          exerciseError.textContent = "Must supply all fields";
+        }
+        if (priorRowThree.value.trim() === "") {
+          priorRowThree.classList.add("errorBorder");
+          exerciseError.textContent = "Must supply all fields";
+        }
+        if (priorRowFour.value.trim() === "") {
+          priorRowFour.classList.add("errorBorder");
+          exerciseError.textContent = "Must supply all fields";
+        }
+        if (
+          priorRowOne.value.trim() !== "" &&
+          priorRowTwo.value.trim() !== "" &&
+          priorRowThree.value.trim() !== "" &&
+          priorRowFour.value.trim() !== ""
+        ) {
+          exerciseError.textContent = "";
+          priorRowOne.classList.remove("errorBorder");
+          priorRowTwo.classList.remove("errorBorder");
+          priorRowThree.classList.remove("errorBorder");
+          priorRowFour.classList.remove("errorBorder");
+
+          exerciseRowCount = exerciseRowCount + 1;
+          let newWorkoutForm = document.getElementById("new-workout-form");
+          let newExerciseRow = `
+          <input id="1row${exerciseRowCount}" name="1row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+          <input id="2row${exerciseRowCount}" name="2row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-sets">
+          </input>
+          <input id="3row${exerciseRowCount}" name="3row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-reps">
+          </input>
+          <input id="4row${exerciseRowCount}" name="4row${exerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-weight">
+          </input>
+        `;
+          let workoutContainers = newWorkoutForm.getElementsByClassName(
+            "workouts-workout-exercise-grid"
+          );
+          for (let i = 0; i < workoutContainers.length; i++) {
+            workoutContainers[i].insertAdjacentHTML(
+              "beforeend",
+              newExerciseRow
+            );
+          }
+          openWorkoutForm = true;
+          return;
+        }
       }
-      openWorkoutForm = true;
-      return;
     });
 
     const cancelNewWorkoutButton = document.getElementById(
@@ -152,7 +215,7 @@ addWorkoutButton.addEventListener("click", function () {
     if (newWorkoutFormElement !== null) {
       console.log("form exists");
       newWorkoutFormElement.addEventListener("submit", (event) => {
-        console.log("form submitted");
+        console.log("form tried to be submitted");
         console.log(isFormValid);
         if (!isFormValid()) {
           const caloriesBurnedInput = document.getElementById("caloriesBurned");
@@ -366,6 +429,50 @@ addWorkoutButton.addEventListener("click", function () {
           timeElapsedError.textContent = "Invalid time";
           timeElementS.classList.add("errorBorder");
           badFields = true;
+        }
+      }
+
+      //// exercises
+      const exerciseGrid = document.getElementById(
+        "workouts-new-workout-exercise-grid"
+      );
+      if (exerciseGrid !== null) {
+        const exerciseGridFields = exerciseGrid.getElementsByClassName(
+          "workouts-workout-exercise-grid-item"
+        );
+        let exerciseError = document.getElementById("workouts-exerciseError");
+        if (exerciseGridFields.length === 0) {
+          exerciseError.textContent = "Must add an exercise";
+          badFields = true;
+        } else {
+          console.log(exerciseGridFields);
+          exerciseError.textContent = "";
+          for (let i = 0; i < exerciseGridFields.length; i++) {
+            exerciseGridFields[i].classList.remove("errorBorder");
+          }
+          let emptyIndices = [];
+          for (let i = 0; i < exerciseGridFields.length; i += 4) {
+            let emptyCount = 0;
+            for (let j = i; j < i + 4; j++) {
+              if (exerciseGridFields[j].value.trim() === "") {
+                emptyCount++;
+                exerciseGridFields[j].classList.add("errorBorder");
+                exerciseError.textContent = "Individual fields can't be empty";
+              }
+            }
+            if (emptyCount === 4) {
+              for (let j = i; j < i + 4; j++) {
+                emptyIndices.push(exerciseGridFields[j].id);
+                exerciseGridFields[j].classList.remove("errorBorder");
+                exerciseError.textContent = "";
+              }
+              exerciseRowCount = exerciseRowCount - 1;
+            }
+          }
+          emptyIndices.forEach((id) => {
+            console.log(`removing ${id}`);
+            document.getElementById(id).remove();
+          });
         }
       }
 

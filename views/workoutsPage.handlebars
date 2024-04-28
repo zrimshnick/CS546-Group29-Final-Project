@@ -86,7 +86,7 @@
                         {{#if this.distance}}
                             {{this.timeElapsed}}
                         {{else if this.weight}}
-                            {{this.weight}} {{this.weightUnits}}
+                            {{this.weight}}{{!--  {{this.weightUnits}} --}}
                         {{else}}
                             Else
                         {{/if}}
@@ -94,6 +94,7 @@
                     {{/each}}
 
                 </div>
+                <div id=""></div>
                 <div class="workouts-workout-comment-container">
                     <div class="workouts-workout-comment-header">Notes</div>
                     <div class="workouts-workout-comment-content">{{this.comments}}</div>

@@ -38,7 +38,9 @@ export const createWorkout = async (
   checkString(workoutType, "workoutType");
   workoutType = workoutType.trim();
   checkNumber(caloriesBurned, "caloriesBurned");
-  checkString(comments, "comments");
+  if (typeof comments !== "string") {
+    throw "Comments must be string";
+  }
   comments = comments.trim();
 
   const workoutCollection = await workouts();

@@ -625,6 +625,9 @@ textarea.workouts-workout-comment-content {
 .workouts-workout-exercise-grid-item-header {
   color: #9e9e9e;
 }
+input.workouts-workout-exercise-grid-item {
+  font-family: "Poppins", sans-serif;
+}
 
 .workouts-workout-button-container {
   display: flex;
@@ -690,11 +693,13 @@ textarea.workouts-workout-comment-content {
 .workouts-workout-comment-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0.5rem;
 }
 .workouts-workout-comment-header {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
   font-size: 0.9em;
+  font-weight: bold;
   width: 3rem;
   border-bottom: 1px solid #77c9d4;
 }
@@ -727,12 +732,19 @@ textarea.workouts-workout-comment-content {
   color: rgb(255, 74, 74);
   font-size: 0.7em;
 }
+#workouts-exerciseError {
+  color: rgb(255, 74, 74);
+  font-size: 0.7em;
+  width: 100%;
+  text-align: center;
+}
 
 #caloriesBurned.errorBorder,
 #date.errorBorder,
 #timeElapsedH.errorBorder,
 #timeElapsedM.errorBorder,
-#timeElapsedS.errorBorder {
+#timeElapsedS.errorBorder,
+.workouts-workout-exercise-grid-item.errorBorder {
   border-color: rgb(255, 74, 74);
 }
 
