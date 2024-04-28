@@ -982,9 +982,61 @@ input.workouts-workout-exercise-grid-item {
 /*****************************************/
 /* LEADERBOARD STYLING */
 #leaderboard-container {
-  margin-top: 10rem;
-  color: red;
-  background-color: orange;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+
+    a {
+      color: white;
+      text-decoration: none;
+      transition: 0.1s ease-in-out all;
+
+      &:active {
+        color: white;
+      }
+
+      &:hover {
+        color: #77c9d4;
+      }
+    }
+  }
+
+  .table-container {
+    width: 80%;
+    max-height: 400px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        padding: 0.8rem;
+        text-align: center;
+        background-color: white;
+        color: black;
+      }
+
+      th {
+        background-color: #77c9d4;
+      }
+    }
+  }
 }
 
 /* ************************************* */
