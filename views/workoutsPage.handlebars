@@ -29,7 +29,7 @@
         
         <div id="workouts-workout-grid">
         {{#each workouts}}
-            <div class="workouts-workout-individual">
+            <div id="{{this._id}}" class="workouts-workout-individual">
                 <div class="workouts-workout-title">
                     <div class="workouts-workout-type">{{this.workoutType}}</div>
                     <div class="workouts-workout-cals">{{this.caloriesBurned}} cal</div>
@@ -100,17 +100,18 @@
                     <div class="workouts-workout-comment-content">{{this.comments}}</div>
                 </div>
                 <div class="workouts-workout-button-container">
-                    <button class="workouts-workout-delete-button flex">
-                    <img src="/public/images/trashIcon.png">
-                    </button>
-                    <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">Edit Workout</button>
+                    <form action="/workouts/{{this._id}}" method="POST" id="workouts-workout-delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="workouts-workout-delete-button flex">
+                            <img src="/public/images/trashIcon.png">
+                        </button>
+                    </form>
+                    <form action="/workouts" method="PATCH" id="workouts-workout-update-form">
+                        <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">&nbsp;Edit Workout</button>
+                    </form>
                 </div>
-                
-
             </div>
-
         {{/each}}
-
         </div>
     </div>
 </div>  

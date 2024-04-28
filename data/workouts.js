@@ -110,7 +110,7 @@ export const deleteWorkout = async (id) => {
     _id: new ObjectId(workout.userID),
   });
   let updatedWorkouts = deleteId.workouts;
-  updatedWorkouts = updateWorkout.filter(function (item) {
+  updatedWorkouts = updatedWorkouts.filter(function (item) {
     return item !== id;
   });
 

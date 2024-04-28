@@ -56,7 +56,71 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 //////// MIDDLEWARE FUNCTIONS /////////////////////////
 ///// middleware 1 - forces user to login before doing anything
-app.use(async (req, res, next) => {
+// app.use(async (req, res, next) => {
+//   const excludedRoutes = [
+//     "/register",
+//     "/login",
+//     "/logout",
+//     "/home",
+//     "/feed",
+//     "/leaderboard",
+//     "/workouts",
+//     "/progress",
+//     "/profile",
+//   ];
+//   const currentRoute = req.originalUrl;
+
+//   let currentTimestamp = new Date().toUTCString();
+//   let requestMethod = req.method;
+//   let requestRoute = req.originalUrl;
+//   let authMessage = "(Non-Authenticated User)";
+
+//   if (excludedRoutes.includes(currentRoute)) {
+//     if (req.session.user) {
+//       authMessage = "(Authenticated User)";
+//       console.log(
+//         `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+//       );
+//       return next();
+//     } else {
+//     /* console.log(
+//       `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+//     );
+//     return next(); */
+//       console.log(
+//         `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+//       );
+//       return next();
+//     }
+//   }
+
+//   if (req.session.user) {
+//     authMessage = "(Authenticated User)";
+//     `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`;
+//     /* return res.redirect("/home"); */
+//     return next();
+//   } else {
+//     console.log(
+//       `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+//     );
+//     return res.redirect("/login");
+//   }
+
+//   /* next(); */
+// });
+
+// /* more middlewares needed to block certain routes DONT BLOCK HOME */
+// app.use("/feed", ensureAuthenticationMiddleware);
+// app.use("/workouts", ensureAuthenticationMiddleware);
+// app.use("/progress", ensureAuthenticationMiddleware);
+// app.use("/profile", ensureAuthenticationMiddleware);
+
+// app.use(ensureAuthenticationMiddleware);
+
+//////// MIDDLEWARE FUNCTIONS /////////////////////////
+
+///// middleware 1 - forces user to login before doing anything
+app.use((req, res, next) => {
   const excludedRoutes = [
     "/register",
     "/login",
@@ -68,6 +132,7 @@ app.use(async (req, res, next) => {
     "/progress",
     "/profile",
   ];
+
   const currentRoute = req.originalUrl;
 
   let currentTimestamp = new Date().toUTCString();
@@ -78,24 +143,25 @@ app.use(async (req, res, next) => {
   if (excludedRoutes.includes(currentRoute)) {
     if (req.session.user) {
       authMessage = "(Authenticated User)";
+      console.log(
+        `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+      );
+    } else {
+      console.log(
+        `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
+      );
     }
-    console.log(
-      `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
-    );
+
     return next();
   }
 
-  if (req.session.user) {
-    authMessage = "(Authenticated User)";
-    return res.redirect("/home");
-  } else {
+  if (!req.session.user) {
     console.log(
       `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
     );
     return res.redirect("/login");
   }
-
-  next();
+  return next();
 });
 
 /* more middlewares needed to block certain routes DONT BLOCK HOME */

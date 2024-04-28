@@ -258,4 +258,16 @@ router
     }
   });
 
+router.route("/:workoutId").delete(async (req, res) => {
+  const workoutId = req.params.workoutId;
+  try {
+    const deletedWorkout = await deleteWorkout(workoutId);
+    console.log(`DELETED ${deletedWorkout}`);
+    return res.redirect("/workouts");
+  } catch (e) {
+    console.log(`ERROR DELETING WORKOUT WITH ID: ${workoutId}\n${e}`);
+    res.status(500).json({ e: "Internal Server Error" });
+  }
+});
+
 export default router;
