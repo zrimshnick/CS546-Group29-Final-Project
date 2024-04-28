@@ -1,31 +1,31 @@
-function caloriesChart() {
+function timesChart() {
     try {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/calorie-data',
+            url: 'http://localhost:3000/time-data',
             dataType: 'json',
         })
             .done(function (data) {
                 const labels = data.map(item => new Date(item.date).toLocaleDateString());
-                const calories = data.map(item => item.caloriesBurned);
-                let caloriesChart = new Chart(document.getElementById('calories-chart'), {
+                const times = data.map(item => convertTime(item.timeElapsed));
+                let timesChart = new Chart(document.getElementById('time-chart'), {
                     type: 'line',
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Calories Burned',
-                            data: calories,
-                            backgroundColor: 'rgb(9, 132, 219)',
-                            borderColor: 'rgb(9, 132, 219)',
-                            pointBackgroundColor: 'rgb(9, 132, 219)',
-                            pointBorderColor: 'rgb(9, 132, 219)'
+                            label: 'Time Elapsed',
+                            data: times,
+                            backgroundColor: '#57BC90',
+                            borderColor: '#57BC90',
+                            pointBackgroundColor: '#57BC90',
+                            pointBorderColor: '#57BC90'
                         }]
                     },
                     options: {
                         plugins: {
                             title: {
                                 display:true,
-                                text: 'Calories Burned Over Time',
+                                text: 'Time Elapsed (in minutes)',
                                 padding: {
                                     top: 10,
                                     bottom: 10
@@ -75,5 +75,10 @@ function caloriesChart() {
     }
 }
 $(document).ready(function(){
-    caloriesChart();
+    timesChart();
 });
+
+function convertTime(time){
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    return hours * 60 + minutes + seconds / 60;
+}
