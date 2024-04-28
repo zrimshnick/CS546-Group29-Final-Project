@@ -7,6 +7,12 @@ import {
   deleteWorkout,
   updateWorkout,
 } from "../data/workouts.js";
+import {
+  createExercise,
+  updateExercise,
+  getExercise,
+  deleteExercise,
+} from "../data/exercise.js";
 import { getUserByUsername, getUser } from "../data/users.js";
 
 router
@@ -16,7 +22,7 @@ router
       const currUserData = await getUserByUsername(
         `${req.session.user.username}`
       );
-      console.log(currUserData);
+      /* console.log(currUserData); */
       let workoutsDataArray = [];
       const promises = currUserData.workouts.map(async (workoutID) => {
         return await getWorkout(workoutID);
@@ -39,7 +45,7 @@ router
   })
   .post(async (req, res) => {
     const addWorkoutFormData = req.body;
-    console.log(addWorkoutFormData);
+    /* console.log(addWorkoutFormData); */
     let workoutType = addWorkoutFormData.workoutType;
     workoutType = xss(workoutType.trim());
     let date = addWorkoutFormData.date;
@@ -171,11 +177,97 @@ router
         parseInt(caloriesBurned),
         comments
       );
-      console.log("redirecting");
+
+      ////// EXERCISES HERE
+
+      let exerciseKeys = Object.keys(addWorkoutFormData);
+      let exerciseRowKeys = [];
+      exerciseKeys.forEach((key) => {
+        if (key.includes("row")) {
+          exerciseRowKeys.push(key);
+        }
+      });
+      let exerciseName;
+      let sets = 0; /* to number - 0 if run*/
+      let reps = []; /* to number then to array - empty arr if run */
+      let weight = 0; /* to number - 0 if run */
+      let weightUnits = "n/a"; /* n/a if run */
+      let distance = 0; /* 0 if weight */
+      let distanceUnits = "n/a"; /* n/a if weight */
+      let exerciseTimeElapsed = "00:00:00"; /* 00:00:00 - real if run */
+      if (workoutType === "Weight Training") {
+        for (let i = 0; i < exerciseRowKeys.length; i += 4) {
+          exerciseName = addWorkoutFormData[`${exerciseRowKeys[i]}`];
+          sets = addWorkoutFormData[`${exerciseRowKeys[i + 1]}`];
+          reps = addWorkoutFormData[`${exerciseRowKeys[i + 2]}`];
+          weight = addWorkoutFormData[`${exerciseRowKeys[i + 3]}`];
+          exerciseName = xss(exerciseName).trim();
+          sets = xss(sets).trim();
+          reps = xss(reps).trim();
+          weight = xss(weight).trim();
+          /* if (isNaN(parseInt(sets))) {
+            throw "Error:  sets must be a number";
+          } */
+
+          let exerciseCreated = await createExercise(
+            newWorkout._id.toString(),
+            workoutType,
+            exerciseName,
+            sets,
+            reps,
+            weight,
+            "lbs",
+            distance,
+            distanceUnits,
+            exerciseTimeElapsed
+          );
+        }
+      } else {
+        for (let i = 0; i < exerciseRowKeys.length; i += 4) {
+          exerciseName = addWorkoutFormData[`${exerciseRowKeys[i]}`];
+          distance = addWorkoutFormData[`${exerciseRowKeys[i + 1]}`];
+          distanceUnits = addWorkoutFormData[`${exerciseRowKeys[i + 2]}`];
+          exerciseTimeElapsed = addWorkoutFormData[`${exerciseRowKeys[i + 3]}`];
+          exerciseName = xss(exerciseName).trim();
+          distance = xss(distance).trim();
+          distanceUnits = xss(distanceUnits).trim();
+          exerciseTimeElapsed = xss(exerciseTimeElapsed).trim();
+          /* if (isNaN(parseInt(sets))) {
+            throw "Error:  sets must be a number";
+          } */
+
+          let exerciseCreated = await createExercise(
+            newWorkout._id.toString(),
+            workoutType,
+            exerciseName,
+            sets,
+            reps,
+            weight,
+            "lbs",
+            distance,
+            distanceUnits,
+            exerciseTimeElapsed
+          );
+        }
+      }
+
+      /////////////////////////////////////////////////
       return res.redirect("/workouts");
     } catch (e) {
       console.log(`CREATE WORKOUT DIDNT WORK ${e}`);
     }
   });
+
+router.route("/:workoutId").delete(async (req, res) => {
+  const workoutId = req.params.workoutId;
+  try {
+    const deletedWorkout = await deleteWorkout(workoutId);
+    console.log(`DELETED ${deletedWorkout}`);
+    return res.redirect("/workouts");
+  } catch (e) {
+    console.log(`ERROR DELETING WORKOUT WITH ID: ${workoutId}\n${e}`);
+    res.status(500).json({ e: "Internal Server Error" });
+  }
+});
 
 export default router;

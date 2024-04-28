@@ -38,7 +38,9 @@ export const createWorkout = async (
   checkString(workoutType, "workoutType");
   workoutType = workoutType.trim();
   checkNumber(caloriesBurned, "caloriesBurned");
-  checkString(comments, "comments");
+  if (typeof comments !== "string") {
+    throw "Comments must be string";
+  }
   comments = comments.trim();
 
   const workoutCollection = await workouts();
@@ -108,7 +110,7 @@ export const deleteWorkout = async (id) => {
     _id: new ObjectId(workout.userID),
   });
   let updatedWorkouts = deleteId.workouts;
-  updatedWorkouts = updateWorkout.filter(function (item) {
+  updatedWorkouts = updatedWorkouts.filter(function (item) {
     return item !== id;
   });
 
