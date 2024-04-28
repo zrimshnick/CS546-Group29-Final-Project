@@ -46,21 +46,15 @@ router
   .post(async (req, res) => {
     const addWorkoutFormData = req.body;
     /* console.log(addWorkoutFormData); */
-    let workoutType = addWorkoutFormData.workoutType;
-    workoutType = xss(workoutType.trim());
-    let date = addWorkoutFormData.date;
-    date = xss(date);
-    let timeElapsedH = addWorkoutFormData.timeElapsedH;
-    timeElapsedH = xss(timeElapsedH);
-    let timeElapsedM = addWorkoutFormData.timeElapsedM;
-    timeElapsedM = xss(timeElapsedM);
-    let timeElapsedS = addWorkoutFormData.timeElapsedS;
-    timeElapsedS = xss(timeElapsedS);
+    let workoutType = xss(addWorkoutFormData.workoutType);
+    workoutType = workoutType.trim();
+    let date = xss(addWorkoutFormData.date);
+    let timeElapsedH = xss(addWorkoutFormData.timeElapsedH);
+    let timeElapsedM = xss(addWorkoutFormData.timeElapsedM);
+    let timeElapsedS = xss(addWorkoutFormData.timeElapsedS);
     let timeElapsed;
-    let caloriesBurned = addWorkoutFormData.caloriesBurned;
-    caloriesBurned = xss(caloriesBurned);
-    let comments = addWorkoutFormData.comments;
-    comments = xss(comments);
+    let caloriesBurned = xss(addWorkoutFormData.caloriesBurned);
+    let comments = xss(addWorkoutFormData.comments);
 
     ////////
 
@@ -197,14 +191,14 @@ router
       let exerciseTimeElapsed = "00:00:00"; /* 00:00:00 - real if run */
       if (workoutType === "Weight Training") {
         for (let i = 0; i < exerciseRowKeys.length; i += 4) {
-          exerciseName = addWorkoutFormData[`${exerciseRowKeys[i]}`];
-          sets = addWorkoutFormData[`${exerciseRowKeys[i + 1]}`];
-          reps = addWorkoutFormData[`${exerciseRowKeys[i + 2]}`];
-          weight = addWorkoutFormData[`${exerciseRowKeys[i + 3]}`];
-          exerciseName = xss(exerciseName).trim();
-          sets = xss(sets).trim();
-          reps = xss(reps).trim();
-          weight = xss(weight).trim();
+          exerciseName = xss(addWorkoutFormData[`${exerciseRowKeys[i]}`]);
+          sets = xss(addWorkoutFormData[`${exerciseRowKeys[i + 1]}`]);
+          reps = xss(addWorkoutFormData[`${exerciseRowKeys[i + 2]}`]);
+          weight = xss(addWorkoutFormData[`${exerciseRowKeys[i + 3]}`]);
+          exerciseName = exerciseName.trim();
+          sets = sets.trim();
+          reps = reps.trim();
+          weight = weight.trim();
           /* if (isNaN(parseInt(sets))) {
             throw "Error:  sets must be a number";
           } */
@@ -224,14 +218,14 @@ router
         }
       } else {
         for (let i = 0; i < exerciseRowKeys.length; i += 4) {
-          exerciseName = addWorkoutFormData[`${exerciseRowKeys[i]}`];
-          distance = addWorkoutFormData[`${exerciseRowKeys[i + 1]}`];
-          distanceUnits = addWorkoutFormData[`${exerciseRowKeys[i + 2]}`];
-          exerciseTimeElapsed = addWorkoutFormData[`${exerciseRowKeys[i + 3]}`];
-          exerciseName = xss(exerciseName).trim();
-          distance = xss(distance).trim();
-          distanceUnits = xss(distanceUnits).trim();
-          exerciseTimeElapsed = xss(exerciseTimeElapsed).trim();
+          exerciseName = xss(addWorkoutFormData[`${exerciseRowKeys[i]}`]);
+          distance = xss(addWorkoutFormData[`${exerciseRowKeys[i + 1]}`]);
+          distanceUnits = xss(addWorkoutFormData[`${exerciseRowKeys[i + 2]}`]);
+          exerciseTimeElapsed = xss(addWorkoutFormData[`${exerciseRowKeys[i + 3]}`]);
+          exerciseName = exerciseName.trim();
+          distance = distance.trim();
+          distanceUnits = distanceUnits.trim();
+          exerciseTimeElapsed = exerciseTimeElapsed.trim();
           /* if (isNaN(parseInt(sets))) {
             throw "Error:  sets must be a number";
           } */
