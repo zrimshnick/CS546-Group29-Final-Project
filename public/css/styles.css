@@ -305,16 +305,19 @@ body {
 }
 
 #workouts-personal-container {
+  margin-top: 2rem;
   min-width: auto;
   height: auto;
   border-radius: 2rem;
-  padding: 2rem 0rem;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
   text-align: center;
+  border: 1px solid #77c9d4;
+  box-shadow: 0px 0px 8px #77c9d4;
 }
 
 #workouts-personal-image {
@@ -360,6 +363,8 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 6rem;
+  border-bottom: 4px solid #77c9d4;
+  margin-bottom: 1rem;
 
   h1 {
     font-size: 3em;
@@ -625,6 +630,9 @@ textarea.workouts-workout-comment-content {
 .workouts-workout-exercise-grid-item-header {
   color: #9e9e9e;
 }
+input.workouts-workout-exercise-grid-item {
+  font-family: "Poppins", sans-serif;
+}
 
 .workouts-workout-button-container {
   display: flex;
@@ -658,7 +666,7 @@ textarea.workouts-workout-comment-content {
 
 .workouts-workout-edit-button,
 .workouts-workout-done-button {
-  width: 35%;
+  /* width: 35%; */
   color: white;
   font-size: 0.75em;
   font-weight: bold;
@@ -674,18 +682,35 @@ textarea.workouts-workout-comment-content {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  img {
+    width: 1rem;
+    transition: 0.1s ease-in-out all;
+  }
 
   &:hover {
     cursor: pointer;
-    /* border-color: #77c9d4;
-    background-color: #222121; */
     background-color: #77c9d4;
     color: #0e0e0e;
+    img {
+      filter: invert(100%);
+    }
   }
-
-  img {
-    width: 1rem;
-  }
+}
+.workouts-workout-comment-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+.workouts-workout-comment-header {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.9em;
+  font-weight: bold;
+  width: 3rem;
+  border-bottom: 1px solid #77c9d4;
+}
+.workouts-workout-comment-content {
+  font-size: 0.9em;
 }
 
 .workouts-workout-done-button {
@@ -713,12 +738,19 @@ textarea.workouts-workout-comment-content {
   color: rgb(255, 74, 74);
   font-size: 0.7em;
 }
+#workouts-exerciseError {
+  color: rgb(255, 74, 74);
+  font-size: 0.7em;
+  width: 100%;
+  text-align: center;
+}
 
 #caloriesBurned.errorBorder,
 #date.errorBorder,
 #timeElapsedH.errorBorder,
 #timeElapsedM.errorBorder,
-#timeElapsedS.errorBorder {
+#timeElapsedS.errorBorder,
+.workouts-workout-exercise-grid-item.errorBorder {
   border-color: rgb(255, 74, 74);
 }
 
@@ -881,7 +913,7 @@ textarea.workouts-workout-comment-content {
 
   &:hover {
     border: 1px solid #77c9d4;
-    scale: 101%;
+    /* scale: 101%; */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.638);
     box-shadow: 0 1px 3px #77c9d4;
   }
