@@ -1,4 +1,4 @@
-async function caloriesChart() {
+function caloriesChart() {
     try {
         $.ajax({
             type: 'GET',
@@ -8,7 +8,7 @@ async function caloriesChart() {
             .done(function (data) {
                 const labels = data.map(item => new Date(item.date).toLocaleDateString());
                 const calories = data.map(item => item.caloriesBurned);
-                let caloriesChart = new Chart(document.getElementById('calories-chart').getContext('2d'), {
+                let caloriesChart = new Chart(document.getElementById('calories-chart'), {
                     type: 'line',
                     data: {
                         labels: labels,
