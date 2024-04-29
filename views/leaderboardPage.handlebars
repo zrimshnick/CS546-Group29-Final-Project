@@ -11,39 +11,15 @@
           <th>Calories Burned</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>John Doe</td>
-          <td>1500</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jane Doe</td>
-          <td>1200</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Jane Doe</td>
-          <td>1200</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Jane Doe</td>
-          <td>1200</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Jane Doe</td>
-          <td>1200</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Jane Doe</td>
-          <td>1200</td>
-        </tr>
-        <!-- More rows -->
-      </tbody>
+          <tbody>
+            {{#each leaderboardArray}}
+              <tr>
+                <td>{{addOne @index}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.calories}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
     </table>
   </div>
 </div>
