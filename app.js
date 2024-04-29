@@ -49,6 +49,9 @@ const hbs = exphbs.create({
     eq: function (a, b) {
       return a === b;
     },
+    addOne: function (index) {
+      return index + 1;
+    },
   },
 });
 
