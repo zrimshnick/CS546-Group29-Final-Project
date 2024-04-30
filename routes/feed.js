@@ -25,15 +25,23 @@ router
 .get(async(req, res) => {
     try{
         const posts = await getAllPosts();
-        const comments = await getAllComments();
+        const postsAndComments = await Promise.all(posts.map(async (post) => {
+            const comments = await getAllComments(post._id.toString());
+            return {
+                title: post.title,
+                body: post.body,
+                username: post.username,
+                tags: post.tags,
+                likes: post.likes,
+                comments: comments
+            };
+        }));
         res.render("feedPage", {
             title: "Tracklete | Feed",
-            posts: posts,
-            username: posts.username,
-            comments: comments
+            posts: postsAndComments
         });
     }catch(e){
-        console.log(e);
+        console.log('Error getting post: ', e);
     }
 
 })

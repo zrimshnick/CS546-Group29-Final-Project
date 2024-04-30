@@ -33,7 +33,7 @@ export const createComment = async(
         _id: new ObjectId(),
         postId: postId,
         username: username,
-        comments: comment
+        comment: comment
     }
 
     post.comments.push(newComment);
