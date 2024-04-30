@@ -8,8 +8,9 @@ import {
     checkID,
 } from "../helpers.js";
 
-export const createPost = async (userId, workoutId, tags) => {
-    if (workoutId === undefined || tags === undefined || userId === undefined) {
+export const createPost = async (userId, username, workoutId, title, body, tags) => {
+    if (workoutId === undefined || tags === undefined || userId === undefined, title === undefined, body === undefined || 
+        username === undefined) {
         throw `All fields must be supplied`;
     }
     checkArray(tags, "tags");
@@ -21,6 +22,9 @@ export const createPost = async (userId, workoutId, tags) => {
     }
     workoutId = checkID(workoutId, 'workoutId');
     userId = checkID(userId, 'userId');
+    title = checkString(title, 'title');
+    body = checkString(body, 'body');
+    username = checkString(username, 'username');
     const userCollection = await users();
     let user = userCollection.findOne({_id: new ObjectId(userId)});
     if(!user){
@@ -35,7 +39,10 @@ export const createPost = async (userId, workoutId, tags) => {
     const postCollection = await posts();
     let post = {
         userId: userId,
+        username: username,
         workoutId: workoutId,
+        title: title,
+        body: body,
         tags: tags,
         likes: 0,
         comments: []
@@ -105,9 +112,21 @@ export const updatePost = async (id, updateObject) => {
     if (post === null) {
         throw `no post with that id`;
     }
+    if(updateObject.username){
+        updateObject.username = checkString(updateObject.username, 'username');
+        post.username = updateObject.username;
+    }
     if (updateObject.workoutId) {
         updateObject.workoutId = checkID(updateObject.workoutId, 'workoutId');
         post.workoutId = updateObject.workoutId;
+    }
+    if(updateObject.title){
+        updateObject.title = checkString(updateObject.title, 'title');
+        post.title = updateObject.title;
+    }
+    if(updateObject.body){
+        updateObject.body = checkString(updateObject.body, 'body');
+        post.body = updateObject.body;
     }
     if (updateObject.tags) {
         checkArray(updateObject.tags);
@@ -170,3 +189,8 @@ export const likePost = async (postId, userId) => {
         { $set: { likes: post.likes } }
     );
 };
+
+export const getAllPosts = async() => {
+    const postCollection = await posts();
+    return await postCollection.find({}).toArray();
+}
