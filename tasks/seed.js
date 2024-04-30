@@ -605,6 +605,13 @@ try {
   console.log(e);
 }
 
+try{
+  let allComments = await comments.getAllComments(post1._id.toString());
+  console.log(allComments);
+}catch(e){
+  console.log(e);
+}
+
 //use to test other data functions like updateComment
 
 // try{
