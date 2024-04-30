@@ -933,6 +933,11 @@ input.workouts-workout-exercise-grid-item {
   font-weight: bold;
 }
 
+.post-tags{
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
 .profile-post-caption-container {
   display: flex;
   flex-direction: row;

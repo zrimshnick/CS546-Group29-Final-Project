@@ -1,0 +1,33 @@
+<div id="feed-container">
+    <h1>Posts</h1>
+
+    {{#each posts}}
+    <div id="profile-posts-container">
+        <div id="profile-posts">
+            <div class="profile-post">
+                <div class="profile-post-title">{{title}}</div>
+                <div class="profile-post-content">{{body}}</div>
+                <div class="profile-post-caption-container">
+                    <div class="profile-post-caption-username">{{username}}</div>
+                </div>
+                {{#if tags}}
+                <div class="post-tags">Tags: {{tags}}</div>
+                {{/if}}
+                <div class="profile-post-likes">Likes: {{likes}}</div>
+                <div class="profile-post-comments-placeholder">
+                    View comments
+                </div>
+                {{#each comments}}
+                <div class="profile-post-comments-container hidden">
+                    <div class="profile-post-comment">
+                        <div class="profile-post-comment-username">{{this.username}}</div>
+                        <div class="profile-post-comment-content">{{this.comments}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <script src="/public/js/feed-client.js"></script>
