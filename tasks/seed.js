@@ -528,7 +528,10 @@ let post3 = undefined;
 try {
   post1 = await posts.createPost(
     user4._id.toString(),
+    user4.username,
     workout4._id.toString(),
+    "My weight training workout plan",
+    "This is my workout plan for:",
     ["weight", "baseball"]
   );
   await posts.likePost(post1._id.toString(), user1._id.toString());
@@ -541,7 +544,10 @@ try {
 try {
   post2 = await posts.createPost(
     user4._id.toString(),
+    user4.username,
     workout5._id.toString(),
+    "My leg day",
+    "This is my leg day routine",
     ["weight", "baseball", "legs"]
   );
   await posts.likePost(post2._id.toString(), user3._id.toString());
@@ -554,7 +560,10 @@ try {
 try {
   post3 = await posts.createPost(
     user4._id.toString(),
+    user4.username,
     workout6._id.toString(),
+    "Cardio",
+    "My cardio from today",
     ["running", "baseball"]
   );
   await posts.likePost(post3._id.toString(), user3._id.toString());
