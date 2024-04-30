@@ -17,14 +17,14 @@
                 <div class="profile-post-comments-placeholder">
                     View comments
                 </div>
-                {{#each comments}}
                 <div class="profile-post-comments-container hidden">
+                    {{#each comments}}
                     <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">{{this.username}}</div>
-                        <div class="profile-post-comment-content">{{this.comments}}</div>
+                        <div class="profile-post-comment-username">{{username}}</div>
+                        <div class="profile-post-comment-content">{{comment}}</div>
                     </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
         </div>
         {{/each}}
