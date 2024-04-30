@@ -6,6 +6,7 @@ import leaderboardRoutes from "./leaderboard.js";
 import progressRoutes from "./progress.js";
 import calorieRoutes from "./calorie-data.js";
 import timeRoutes from "./workoutTime.js";
+import feedRoutes from "./feed.js";
 import path from "path";
 
 const constructorMethod = (app) => {
@@ -13,7 +14,7 @@ const constructorMethod = (app) => {
   app.use("/home", homeRoutes);
   app.use("/workouts", workoutRoutes);
   app.use("/profile", profileRoutes);
-  // app.use("/feed", feedRoutes);
+  app.use("/feed", feedRoutes);
   app.use("/leaderboard", leaderboardRoutes);
   app.use("/progress", progressRoutes)
   app.use("/calorie-data", calorieRoutes);
