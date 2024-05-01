@@ -1,4 +1,3 @@
-
 <div id="profile-container">
     <div id="profile-personal-container">
         <div id="profile-personal-image"><img src="/public/images/profile-icon.png"></div>
@@ -25,112 +24,33 @@
             <h1>Posts</h1>
             <button id="profile-posts-create-button">Create +</button>
         </div>
-        
-        <div id="profile-posts">
+
+        {{#each posts}}
+        <div id="posts-container">
             <div class="profile-post">
-                <div class="profile-post-title">Post 3</div>
-                <div class="profile-post-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus cupiditate odit consequatur! Omnis nemo praesentium nesciunt aperiam voluptate accusamus. Deserunt eaque laborum sunt minima dolore aperiam commodi reprehenderit, doloribus maxime!</div>
-                <div class="profile-post-likes">
-                    1,831 likes
-                </div>
+                <div class="profile-post-title">{{title}}</div>
+                <div class="profile-post-content">{{body}}</div>
                 <div class="profile-post-caption-container">
-                    <div class="profile-post-caption-username">zrimshni25</div>
-                    <div class="profile-post-caption-content">First workout of the year!</div>
+                    <div class="profile-post-caption-username">{{username}}</div>
                 </div>
+                {{#if tags}}
+                <div class="post-tags">Tags: {{tags}}</div>
+                {{/if}}
+                <div class="profile-post-likes">Likes: {{likes}}</div>
                 <div class="profile-post-comments-placeholder">
                     View comments
                 </div>
                 <div class="profile-post-comments-container hidden">
+                    {{#each comments}}
                     <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">tlapinta01</div>
-                        <div class="profile-post-comment-content">Nice work bro</div>
+                        <div class="profile-post-comment-username">{{username}}</div>
+                        <div class="profile-post-comment-content">{{comment}}</div>
                     </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">smaida</div>
-                        <div class="profile-post-comment-content">Keep it up!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">kshag23</div>
-                        <div class="profile-post-comment-content">Good work</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">yw456</div>
-                        <div class="profile-post-comment-content">Awesome!</div>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
-            <div class="profile-post">
-                <div class="profile-post-title">Post 2</div>
-                <div class="profile-post-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus cupiditate odit consequatur! Omnis nemo praesentium nesciunt aperiam voluptate accusamus. Deserunt eaque laborum sunt minima dolore aperiam commodi reprehenderit, doloribus maxime!</div>
-            <div class="profile-post-likes">
-                    1,232 likes
-                </div>
-                <div class="profile-post-caption-container">
-                    <div class="profile-post-caption-username">zrimshni25</div>
-                    <div class="profile-post-caption-content">New PR!</div>
-                </div>
-                <div class="profile-post-comments-placeholder">
-                    View comments
-                </div>
-                <div class="profile-post-comments-container hidden">
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">tlapinta01</div>
-                        <div class="profile-post-comment-content">Niceeeeeeee</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">smaida</div>
-                        <div class="profile-post-comment-content">Keep going</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">kshag23</div>
-                        <div class="profile-post-comment-content">solid!</div>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-post">
-                <div class="profile-post-title">Post 1</div>
-                <div class="profile-post-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus cupiditate odit consequatur! Omnis nemo praesentium nesciunt aperiam voluptate accusamus. Deserunt eaque laborum sunt minima dolore aperiam commodi reprehenderit, doloribus maxime!</div>
-                <div class="profile-post-likes">
-                    898 likes
-                </div>
-                <div class="profile-post-caption-container">
-                    <div class="profile-post-caption-username">zrimshni25</div>
-                    <div class="profile-post-caption-content">Another great workout!</div>
-                </div>
-                <div class="profile-post-comments-placeholder">
-                    View comments
-                </div>
-                <div class="profile-post-comments-container hidden">
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">tlapinta01</div>
-                        <div class="profile-post-comment-content">have a good summer!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">smaida</div>
-                        <div class="profile-post-comment-content">comment!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">kshag23</div>
-                        <div class="profile-post-comment-content">comment!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">yw456</div>
-                        <div class="profile-post-comment-content">comment!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">user123134315</div>
-                        <div class="profile-post-comment-content">comment!!!!!!!</div>
-                    </div>
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">user4569834753</div>
-                        <div class="profile-post-comment-content">commentsss!!!</div>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
-</div>
- 
-<script src="/public/js/profilePage-client.js"></script>
 
-
+    <script src="/public/js/profilePage-client.js"></script>

@@ -28,6 +28,7 @@ router
         const postsAndComments = await Promise.all(posts.map(async (post) => {
             const comments = await getAllComments(post._id.toString());
             return {
+                userId: post.userId,
                 title: post.title,
                 body: post.body,
                 username: post.username,
@@ -46,52 +47,51 @@ router
 
 })
 .post(async (req, res) => {
-    const postData = req.body;
+    const addPostData = req.body;
+    console.log("post data: ", addPostData);
+    let currUserData = undefined;
+    try {
+        currUserData = await getUserByUsername(
+          `${req.session.user.username}`
+        );
+    }catch(e){
+        console.log(e);
+    }
+    let title = xss(addPostData.title);
+    let body = xss(addPostData.body);
+    let tags = xss(addPostData.tags);
+    let username = xss(addPostData.username);
+    tags = tags.split(",").map(tag => tag.trim());
     //error checking
     try{
-        postData.workoutId = checkID(postData.workoutId, 'workoutId');
+        title = checkString(title, 'title');
     }catch(e){
         console.log(e);
     }
     try{
-        postData.usertId = checkID(postData.userId, 'userId');
+        body = checkString(body, 'body');
     }catch(e){
         console.log(e);
     }
     try{
-        postData.title = checkString(postData.title, 'title');
-    }catch(e){
-        console.log(e);
-    }
-    try{
-        postData.body = checkString(postData.body, 'body');
-    }catch(e){
-        console.log(e);
-    }
-    try{
-        postData.tags = checkArray(postData.tags, 'tags');
-        for(let i = 0; i < postData.tags.length; i++){
-            postData.tags[i] = checkString(postData.tags[i]);
+        tags = checkArray(tags, 'tags');
+        for(let i = 0; i < tags.length; i++){
+            tags[i] = checkString(tags[i]);
         }
     }catch(e){
         console.log(e);
     }
     try{
-        checkNumber(postData.likes, 'likes');
-    }catch(e){
-        console.log(e);
-    }
-    try{
-        postData.username = checkString(postData.username, 'username');
+        username = checkString(username, 'username');
     }catch(e){
         console.log(e);
     }
 
     try{
-        const {userId, username, workoutId, title, body, tags} = postData;
-        const newPost = await postData.createPost(userId, username, workoutId, title, body, tags);
-        res.redirect('/feed')
+        const newPost = await createPost(currUserData._id.toString(), username, title, body, tags);
+        res.redirect('/profile');
     }catch(e){
+        console.log(e);
         res.status(500).json({ e: "Internal Server Error" });
     }
 
