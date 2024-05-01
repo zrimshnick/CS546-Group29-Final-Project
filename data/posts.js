@@ -8,8 +8,8 @@ import {
     checkID,
 } from "../helpers.js";
 
-export const createPost = async (userId, username, workoutId, title, body, tags) => {
-    if (workoutId === undefined || tags === undefined || userId === undefined, title === undefined, body === undefined || 
+export const createPost = async (userId, username, title, body, tags) => {
+    if (tags === undefined || userId === undefined, title === undefined, body === undefined || 
         username === undefined) {
         throw `All fields must be supplied`;
     }
@@ -20,7 +20,7 @@ export const createPost = async (userId, username, workoutId, title, body, tags)
         }
         tags[i] = tags[i].trim();
     }
-    workoutId = checkID(workoutId, 'workoutId');
+    //workoutId = checkID(workoutId, 'workoutId');
     userId = checkID(userId, 'userId');
     title = checkString(title, 'title');
     body = checkString(body, 'body');
@@ -31,16 +31,15 @@ export const createPost = async (userId, username, workoutId, title, body, tags)
         throw `no user found with that id`;
     }
 
-    const workoutCollection = await workouts();
-    const workout = workoutCollection.findOne({_id: new ObjectId(workoutId)});
-    if(!workout){
-        throw `no workout found with that id`;
-    };
+    // const workoutCollection = await workouts();
+    // const workout = workoutCollection.findOne({_id: new ObjectId(workoutId)});
+    // if(!workout){
+    //     throw `no workout found with that id`;
+    // };
     const postCollection = await posts();
     let post = {
         userId: userId,
         username: username,
-        workoutId: workoutId,
         title: title,
         body: body,
         tags: tags,
@@ -116,10 +115,10 @@ export const updatePost = async (id, updateObject) => {
         updateObject.username = checkString(updateObject.username, 'username');
         post.username = updateObject.username;
     }
-    if (updateObject.workoutId) {
-        updateObject.workoutId = checkID(updateObject.workoutId, 'workoutId');
-        post.workoutId = updateObject.workoutId;
-    }
+    // if (updateObject.workoutId) {
+    //     updateObject.workoutId = checkID(updateObject.workoutId, 'workoutId');
+    //     post.workoutId = updateObject.workoutId;
+    // }
     if(updateObject.title){
         updateObject.title = checkString(updateObject.title, 'title');
         post.title = updateObject.title;
