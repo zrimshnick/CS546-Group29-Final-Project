@@ -529,7 +529,6 @@ try {
   post1 = await posts.createPost(
     user4._id.toString(),
     user4.username,
-    workout4._id.toString(),
     "My weight training workout plan",
     "This is my workout plan for:",
     ["weight", "baseball"]
@@ -545,7 +544,6 @@ try {
   post2 = await posts.createPost(
     user4._id.toString(),
     user4.username,
-    workout5._id.toString(),
     "My leg day",
     "This is my leg day routine",
     ["weight", "baseball", "legs"]
@@ -561,7 +559,6 @@ try {
   post3 = await posts.createPost(
     user4._id.toString(),
     user4.username,
-    workout6._id.toString(),
     "Cardio",
     "My cardio from today",
     ["running", "baseball"]
