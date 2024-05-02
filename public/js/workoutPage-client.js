@@ -23,9 +23,10 @@ calorieCountElement.textContent = `Calories Burned: ${countCalories}cal`;
 
 const addWorkoutButton = document.getElementById("workouts-workout-add-button");
 let openWorkoutForm = false;
+let editButtonAlreadyOpen = false;
 
 addWorkoutButton.addEventListener("click", function () {
-  if (openWorkoutForm === true) {
+  if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
     return;
   } else {
     let newWorkoutForm = `
@@ -499,4 +500,170 @@ addWorkoutButton.addEventListener("click", function () {
 
     return;
   }
+});
+
+/* EDIT WORKOUT BUTTON */
+let editFormHTML = `
+<form action="/workouts" method="PATCH" name="workouts-workout-update-form" id="workouts-workout-update-form" class="workouts-workout-individual">
+</form>
+`;
+
+const editButtons = document.querySelectorAll(".workouts-workout-edit-button");
+
+editButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
+      return;
+    } else {
+      console.log("edit button clicked");
+      const parent = this.closest(".workouts-workout-individual");
+      if (parent) {
+        parent.classList.remove("workouts-workout-individual");
+        editButtonAlreadyOpen = true;
+        /* GET ALL OLD VALUES */
+        ///// old workout type
+        const oldWorkoutTypeElement = parent.querySelector(
+          ".workouts-workout-type"
+        );
+        const oldWorkoutTypeVal = oldWorkoutTypeElement.textContent;
+
+        ///// old calories
+        const oldCaloriesElement = parent.querySelector(
+          ".workouts-workout-cals"
+        );
+        const oldCaloriesArr = oldCaloriesElement.textContent.split(" ");
+        const oldCaloriesVal = oldCaloriesArr[0];
+
+        //// old date
+        const oldDateElement = parent.querySelector(".workouts-workout-date");
+        const oldDateArr = oldDateElement.textContent.split("/");
+        const oldDateVal = `${oldDateArr[2]}-${oldDateArr[0]}-${oldDateArr[1]}`;
+
+        //// old time
+        const oldTimeElement = parent.querySelector(".workouts-workout-time");
+        const oldTimeArr = oldTimeElement.textContent.split(":");
+        const oldTimeValH = oldTimeArr[0];
+        const oldTimeValM = oldTimeArr[1];
+        const oldTimeValS = oldTimeArr[2];
+
+        //// old exercise headers
+        const oldExerciseHeaderElement = parent.querySelector(
+          ".workouts-workout-exercise-grid-item-header.grid-exercise"
+        );
+        const oldExerciseHeaderVal = oldExerciseHeaderElement.textContent;
+
+        const oldSetsHeaderElement = parent.querySelector(
+          ".workouts-workout-exercise-grid-item-header.grid-sets"
+        );
+        const oldSetsHeaderVal = oldSetsHeaderElement.textContent;
+
+        const oldRepsHeaderElement = parent.querySelector(
+          ".workouts-workout-exercise-grid-item-header.grid-reps"
+        );
+        const oldRepsHeaderVal = oldRepsHeaderElement.textContent;
+
+        const oldWeightHeaderElement = parent.querySelector(
+          ".workouts-workout-exercise-grid-item-header.grid-weight"
+        );
+        const oldWeightHeaderVal = oldWeightHeaderElement.textContent;
+
+        //// old comment
+        const oldCommentElement = parent.querySelector(
+          ".workouts-workout-comment-content"
+        );
+        const oldCommentVal = oldCommentElement.textContent;
+
+        /* START MODIFING HTML */
+
+        parent.innerHTML = editFormHTML;
+        /* document.getElementById("workouts-workout-update-form").innerHTML = `
+        
+        `; */
+        if (oldWorkoutTypeVal === "Cardio") {
+          let workoutTitleHTML = `
+          <div class="workouts-workout-title">
+            <select id="workoutType" name="workoutType" class="workouts-workout-type">
+              <option value="Cardio">Cardio</option>
+              <option value="Weight Training">Weight Training</option>
+            </select>
+            <input id="caloriesBurned" name="caloriesBurned" type="text" value="${oldCaloriesVal}" class="workouts-workout-cals">cal</input>
+          </div>
+          <div id="workouts-caloriesBurnedError"></div>
+          `;
+          document.getElementById("workouts-workout-update-form").innerHTML =
+            workoutTitleHTML;
+        } else {
+          let workoutTitleHTML = `
+          <div class="workouts-workout-title">
+            <select id="workoutType" name="workoutType" class="workouts-workout-type">
+              <option value="Weight Training">Weight Training</option>
+              <option value="Cardio">Cardio</option>
+            </select>
+            <input id="caloriesBurned" name="caloriesBurned" type="text" value="${oldCaloriesVal}" class="workouts-workout-cals">cal</input>
+          </div>
+          <div id="workouts-caloriesBurnedError"></div>
+          `;
+          document.getElementById("workouts-workout-update-form").innerHTML =
+            workoutTitleHTML;
+        }
+
+        let workoutSubtitleHTML = `
+        <div class="workouts-workout-subtitle">
+          <input id="date" name="date" type="date" value="${oldDateVal}" class="workouts-workout-date"></input>
+          <div class=workouts-workout-time>
+            Time Elapsed:
+            <input id="timeElapsedH" name="timeElapsedH" type="text" value="${oldTimeValH}" placeholder="HH" >:</input>
+            <input id="timeElapsedM" name="timeElapsedM" type="text" value="${oldTimeValM}" placeholder="MM" >:</input>
+            <input id="timeElapsedS" name="timeElapsedS" type="text" value="${oldTimeValS}" placeholder="SS" ></input>
+          </div>
+        </div>
+        <div id="workouts-subtitleError-container">
+          <div id="workouts-dateError"></div>
+          <div id="workouts-timeElapsedError"></div>
+        </div>
+        `;
+        document
+          .getElementById("workouts-workout-update-form")
+          .insertAdjacentHTML("beforeend", workoutSubtitleHTML);
+
+        let workoutExerciseGridHTML = `
+        <button id="workouts-workout-add-exercise-button">Add an exercise +</button>
+        <div id="workouts-new-workout-exercise-grid" class="workouts-workout-exercise-grid">
+          <div class="workouts-workout-exercise-grid-item-header grid-exercise">${oldExerciseHeaderVal}</div>
+          <div id="exercise-title-2" class="workouts-workout-exercise-grid-item-header grid-sets">${oldSetsHeaderVal}</div>
+          <div id="exercise-title-3"  class="workouts-workout-exercise-grid-item-header grid-reps">${oldRepsHeaderVal}</div>
+          <div id="exercise-title-4" class="workouts-workout-exercise-grid-item-header grid-weight">${oldWeightHeaderVal}</div>
+        </div>
+        <div id="workouts-exerciseError"></div>
+        `;
+        document
+          .getElementById("workouts-workout-update-form")
+          .insertAdjacentHTML("beforeend", workoutExerciseGridHTML);
+
+        let workoutCommentHTML = `
+        <div class="workouts-workout-comment-container">
+          <div class="workouts-workout-comment-header">Notes</div>
+          <textarea name="comments" id="comments" class="workouts-workout-comment-content"></textarea>
+        </div>
+        <div id="workouts-commentsError"></div>
+        `;
+        document
+          .getElementById("workouts-workout-update-form")
+          .insertAdjacentHTML("beforeend", workoutCommentHTML);
+        document.getElementById("comments").value = oldCommentVal;
+
+        let workoutButtonsBottomHTML = `
+        <div class="workouts-workout-button-container">
+          <button id="cancelNewWorkoutButton" class="workouts-workout-delete-button flex">
+            <img src="/public/images/trashIcon.png">
+          </button>
+          <button id="doneWorkoutButton" name="doneWorkoutButton" type="submit" class="workouts-workout-done-button flex">Done</button>
+        </div>
+        `;
+        document
+          .getElementById("workouts-workout-update-form")
+          .insertAdjacentHTML("beforeend", workoutButtonsBottomHTML);
+      }
+    }
+  });
 });
