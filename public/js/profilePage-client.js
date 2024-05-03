@@ -52,20 +52,23 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="profile-post-button-container">
       <button id="postButton" name="postButton" type="submit" class="profile-post-post-button flex">Post</button>
     </div>
+    <div class="profile-post-button-container">
+      <button id="cancelPostButton" name="cancelPostButton" type="submit" class="profile-post-cancel-button flex">Cancel</button>
+    </div>
     </form>`;
 
       postHeaderContainer.insertAdjacentHTML('afterend', newPostForm);
       openPostForm = true;
 
-      // const cancelNewPostButton = document.getElementById("cancelNewPostButton");
-      // cancelNewPostButton.addEventListener("click", function (event) {
-      //   openPostForm = false;
-      //   event.preventDefault();
-      //   let newPostForm = document.getElementById('new-post-form');
-      //   if (newPostForm) {
-      //     newPostForm.remove();
-      //   }
-      // });
+      const cancelNewPostButton = document.getElementById("cancelPostButton");
+      cancelNewPostButton.addEventListener("click", function (event) {
+        openPostForm = false;
+        event.preventDefault();
+        let newPostForm = document.getElementById('new-post-form');
+        if (newPostForm) {
+          newPostForm.remove();
+        }
+      });
     }
 
 
