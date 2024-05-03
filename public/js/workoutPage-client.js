@@ -19,7 +19,7 @@ calorieElements.forEach((element) => {
   let calNum = parseInt(cal[0]);
   countCalories = countCalories + calNum;
 });
-calorieCountElement.textContent = `Calories Burned: ${countCalories}cal`;
+calorieCountElement.textContent = `Calories Burned: ${countCalories} cal`;
 
 const addWorkoutButton = document.getElementById("workouts-workout-add-button");
 let openWorkoutForm = false;
@@ -509,6 +509,7 @@ let editFormHTML = `
 `;
 
 const editButtons = document.querySelectorAll(".workouts-workout-edit-button");
+let editExerciseRowCount = 0;
 
 editButtons.forEach((button) => {
   button.addEventListener("click", function () {
@@ -572,6 +573,40 @@ editButtons.forEach((button) => {
           ".workouts-workout-comment-content"
         );
         const oldCommentVal = oldCommentElement.textContent;
+
+        //// old exercises
+        let oldExerciseNamesElements = parent.querySelectorAll(
+          ".workouts-workout-exercise-grid-item.grid-exercise"
+        );
+        let oldExerciseNamesValsArr = [];
+        oldExerciseNamesElements.forEach((elem) => {
+          oldExerciseNamesValsArr.push(elem.textContent);
+        });
+        let oldExerciseSetsElements = parent.querySelectorAll(
+          ".workouts-workout-exercise-grid-item.grid-sets"
+        );
+        let oldExerciseSetsValsArr = [];
+        oldExerciseSetsElements.forEach((elem) => {
+          oldExerciseSetsValsArr.push(elem.textContent);
+        });
+        let oldExerciseRepsElements = parent.querySelectorAll(
+          ".workouts-workout-exercise-grid-item.grid-reps"
+        );
+        let oldExerciseRepsValsArr = [];
+        oldExerciseRepsElements.forEach((elem) => {
+          oldExerciseRepsValsArr.push(elem.textContent);
+        });
+        let oldExerciseWeightsElements = parent.querySelectorAll(
+          ".workouts-workout-exercise-grid-item.grid-weight"
+        );
+        let oldExerciseWeightsValsArr = [];
+        oldExerciseWeightsElements.forEach((elem) => {
+          oldExerciseWeightsValsArr.push(elem.textContent);
+        });
+        console.log(oldExerciseNamesValsArr);
+        console.log(oldExerciseSetsValsArr);
+        console.log(oldExerciseRepsValsArr);
+        console.log(oldExerciseWeightsValsArr);
 
         /* START MODIFING HTML */
 
@@ -640,6 +675,33 @@ editButtons.forEach((button) => {
           .getElementById("workouts-workout-update-form")
           .insertAdjacentHTML("beforeend", workoutExerciseGridHTML);
 
+        if (oldExerciseNamesValsArr.length === 0) {
+        } else {
+          for (let i = 0; i < oldExerciseNamesValsArr.length; i++) {
+            let workoutExerciseHTML = `
+            <input name="1row${i}" id="1row${i}" value="${oldExerciseNamesValsArr[
+              i
+            ].trim()}" type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+            <input name="2row${i}" id="2row${i}" value="${oldExerciseSetsValsArr[
+              i
+            ].trim()}" type="text" class="workouts-workout-exercise-grid-item grid-sets">
+            </input>
+            <input name="3row${i}" id="3row${i}" value="${oldExerciseRepsValsArr[
+              i
+            ].trim()}" type="text" class="workouts-workout-exercise-grid-item grid-reps">
+            </input>
+            <input name="4row${i}" id="4row${i}" value="${oldExerciseWeightsValsArr[
+              i
+            ].trim()}" type="text" class="workouts-workout-exercise-grid-item grid-weight">
+            </input>
+            `;
+            document
+              .getElementById("workouts-new-workout-exercise-grid")
+              .insertAdjacentHTML("beforeend", workoutExerciseHTML);
+            editExerciseRowCount = i;
+          }
+        }
+
         let workoutCommentHTML = `
         <div class="workouts-workout-comment-container">
           <div class="workouts-workout-comment-header">Notes</div>
@@ -654,8 +716,8 @@ editButtons.forEach((button) => {
 
         let workoutButtonsBottomHTML = `
         <div class="workouts-workout-button-container">
-          <button id="cancelNewWorkoutButton" class="workouts-workout-delete-button flex">
-            <img src="/public/images/trashIcon.png">
+          <button id="cancelNewWorkoutButton" class="workouts-workout-delete-button flex toWhite">
+            <img src="/public/images/xIcon.png">
           </button>
           <button id="doneWorkoutButton" name="doneWorkoutButton" type="submit" class="workouts-workout-done-button flex">Done</button>
         </div>
@@ -664,6 +726,95 @@ editButtons.forEach((button) => {
           .getElementById("workouts-workout-update-form")
           .insertAdjacentHTML("beforeend", workoutButtonsBottomHTML);
       }
+
+      ////////////////////////////// ADD EXERCISE BUTTON HERE
+      const addExerciseButton = document.getElementById(
+        "workouts-workout-add-exercise-button"
+      );
+
+      addExerciseButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        const priorRowOne = document.getElementById(
+          `1row${editExerciseRowCount}`
+        );
+        const priorRowTwo = document.getElementById(
+          `2row${editExerciseRowCount}`
+        );
+        const priorRowThree = document.getElementById(
+          `3row${editExerciseRowCount}`
+        );
+        const priorRowFour = document.getElementById(
+          `4row${editExerciseRowCount}`
+        );
+        const exerciseError = document.getElementById("workouts-exerciseError");
+
+        if (editExerciseRowCount === 0) {
+          editExerciseRowCount = editExerciseRowCount + 1;
+          /* let newWorkoutForm = document.getElementById("new-workout-form"); */
+          let newExerciseRow = `
+            <input name="1row${editExerciseRowCount}" id="1row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+            <input name="2row${editExerciseRowCount}" id="2row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-sets">
+            </input>
+            <input name="3row${editExerciseRowCount}" id="3row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-reps">
+            </input>
+            <input name="4row${editExerciseRowCount}" id="4row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-weight">
+            </input>
+          `;
+          document
+            .getElementById("workouts-new-workout-exercise-grid")
+            .insertAdjacentHTML("beforeend", newExerciseRow);
+          openWorkoutForm = true;
+          return;
+        } else {
+          if (priorRowOne.value.trim() === "") {
+            priorRowOne.classList.add("errorBorder");
+            exerciseError.textContent = "Must supply all fields";
+          }
+          if (priorRowTwo.value.trim() === "") {
+            priorRowTwo.classList.add("errorBorder");
+            exerciseError.textContent = "Must supply all fields";
+          }
+          if (priorRowThree.value.trim() === "") {
+            priorRowThree.classList.add("errorBorder");
+            exerciseError.textContent = "Must supply all fields";
+          }
+          if (priorRowFour.value.trim() === "") {
+            priorRowFour.classList.add("errorBorder");
+            exerciseError.textContent = "Must supply all fields";
+          }
+          if (
+            priorRowOne.value.trim() !== "" &&
+            priorRowTwo.value.trim() !== "" &&
+            priorRowThree.value.trim() !== "" &&
+            priorRowFour.value.trim() !== ""
+          ) {
+            exerciseError.textContent = "";
+            priorRowOne.classList.remove("errorBorder");
+            priorRowTwo.classList.remove("errorBorder");
+            priorRowThree.classList.remove("errorBorder");
+            priorRowFour.classList.remove("errorBorder");
+
+            editExerciseRowCount = editExerciseRowCount + 1;
+            /* let newWorkoutForm = document.getElementById("new-workout-form"); */
+            let newExerciseRow = `
+            <input id="1row${editExerciseRowCount}" name="1row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-exercise"></input>
+            <input id="2row${editExerciseRowCount}" name="2row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-sets">
+            </input>
+            <input id="3row${editExerciseRowCount}" name="3row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-reps">
+            </input>
+            <input id="4row${editExerciseRowCount}" name="4row${editExerciseRowCount}" type="text" class="workouts-workout-exercise-grid-item grid-weight">
+            </input>
+          `;
+            document
+              .getElementById("workouts-new-workout-exercise-grid")
+              .insertAdjacentHTML("beforeend", newExerciseRow);
+            openWorkoutForm = true;
+            return;
+          }
+        }
+      });
+
+      //////////////////////////////////////////////////////////////////
     }
   });
 });

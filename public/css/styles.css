@@ -871,7 +871,6 @@ input.workouts-workout-exercise-grid-item {
   margin-right: 2rem;
 }
 
-
 #profile-posts-header-container {
   display: flex;
   flex-direction: row;
@@ -904,8 +903,8 @@ input.workouts-workout-exercise-grid-item {
   }
 }
 
-.profile-post-post-button{
-/* width: 35%; */
+.profile-post-post-button {
+  /* width: 35%; */
   color: white;
   font-size: 0.75em;
   font-weight: bold;
@@ -969,7 +968,7 @@ input.workouts-workout-exercise-grid-item {
   font-weight: bold;
 }
 
-.post-tags{
+.post-tags {
   font-size: 0.85em;
   font-weight: bold;
 }
@@ -1156,4 +1155,9 @@ input.workouts-workout-exercise-grid-item {
   height: 400px;
   margin-top: 20px;
   background-color: rgb(255, 255, 255);
+}
+.toWhite {
+  img {
+    filter: invert(100%);
+  }
 }

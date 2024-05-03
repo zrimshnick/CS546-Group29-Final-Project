@@ -57,7 +57,6 @@ router
     let comments = xss(addWorkoutFormData.comments);
 
     ////////
-
     try {
       const currUserData = await getUserByUsername(
         `${req.session.user.username}`
@@ -221,7 +220,9 @@ router
           exerciseName = xss(addWorkoutFormData[`${exerciseRowKeys[i]}`]);
           distance = xss(addWorkoutFormData[`${exerciseRowKeys[i + 1]}`]);
           distanceUnits = xss(addWorkoutFormData[`${exerciseRowKeys[i + 2]}`]);
-          exerciseTimeElapsed = xss(addWorkoutFormData[`${exerciseRowKeys[i + 3]}`]);
+          exerciseTimeElapsed = xss(
+            addWorkoutFormData[`${exerciseRowKeys[i + 3]}`]
+          );
           exerciseName = exerciseName.trim();
           distance = distance.trim();
           distanceUnits = distanceUnits.trim();
