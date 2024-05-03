@@ -2,32 +2,35 @@
     <h1>Posts</h1>
 
     {{#each posts}}
-    <div id="profile-posts-container">
-        <div id="profile-posts">
-            <div class="profile-post">
-                <div class="profile-post-title">{{title}}</div>
-                <div class="profile-post-content">{{body}}</div>
-                <div class="profile-post-caption-container">
-                    <div class="profile-post-caption-username">{{username}}</div>
-                </div>
-                {{#if tags}}
-                <div class="post-tags">Tags: {{tags}}</div>
-                {{/if}}
-                <div class="profile-post-likes">Likes: {{likes}}</div>
-                <div class="profile-post-comments-placeholder">
-                    View comments
-                </div>
-                <div class="profile-post-comments-container hidden">
-                    {{#each comments}}
-                    <div class="profile-post-comment">
-                        <div class="profile-post-comment-username">{{username}}</div>
-                        <div class="profile-post-comment-content">{{comment}}</div>
+    <div class="profile-posts-container">
+        <div class="profile-posts">
+                <div class="profile-post">
+                    <div class="profile-post-title"><a href="/feed/{{this.id}}">{{title}}</a></div>
+                    <div class="profile-post-content">{{body}}</div>
+                    <div class="profile-post-caption-container">
+                        <div class="profile-post-caption-username">{{username}}</div>
                     </div>
-                    {{/each}}
+                    {{#if tags}}
+                    <div class="post-tags">Tags: {{tags}}</div>
+                    {{/if}}
+                    <div class="profile-post-likes">Likes: {{likes}}</div>
+                    <div class="profile-post-comments-placeholder">
+                        View comments
+                    </div>
+                    <div class="profile-post-comments-container hidden">
+                        {{#each comments}}
+                        <div class="profile-post-comment">
+                            <div class="profile-post-comment-username">{{username}}</div>
+                            <div class="profile-post-comment-content">{{comment}}</div>
+                        </div>
+                        {{/each}}
+                    </div>
                 </div>
             </div>
+            {{/each}}
+            </div>
         </div>
-        {{/each}}
     </div>
+</div>
 
-    <script src="/public/js/feed-client.js"></script>
+<script src="/public/js/feed-client.js"></script>
