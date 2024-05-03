@@ -7,7 +7,7 @@ import{
     deletePost,
     updatePost,
     likePost,
-    getAllPosts
+    getAllPosts,
 } from "../data/posts.js";
 import {
     createComment,
@@ -28,7 +28,8 @@ router
         const postsAndComments = [];
         for (const post of posts){
             const comments = await getAllComments(post._id.toString());
-            const postWithComments = {
+            let postWithComments {
+                id: post._id.toString()
                 userId: post.userId,
                 title: post.title,
                 body: post.body,
@@ -36,8 +37,8 @@ router
                 tags: post.tags,
                 likes: post.likes,
                 comments: comments
-            };
-            postsAndComments.push(postWithComments);
+            }; 
+            postAndComments.push(postWithComments)
         }
         res.render("feedPage", {
             title: "Tracklete | Feed",
@@ -99,7 +100,25 @@ router
 
 });
 
-router.route("/:postId").delete(async (req, res) => {
+router.route("/:postId")
+.get(async(req, res) => {
+    const user = req.session.user;
+    const postId = req.params.postId;
+
+    if (user){
+        try{
+            let post = await getPost(postId);
+            const comments = await getAllComments(post._id.toString());
+            res.render("individualPosts", {user: user, postId: postId, post: post, comments: comments, title: "Post"})
+        } catch (e) {
+            console.log(`ERROR DELETING POST WITH ID: ${postId}`);
+            res.status(500).json({e: "Internal Server Error"});
+        }
+    } else {
+        res.status(500).json({e: "Internal Server Error"});
+    }
+})
+.delete(async (req, res) => {
     const postId = req.params.postId;
     try{
         const deletedPost = await deletePost(postId);
@@ -110,5 +129,23 @@ router.route("/:postId").delete(async (req, res) => {
         res.status(500).json({e: "Internal Server Error"});
     }
 });
+
+router.route("/:postId/add-comment")
+.post(async (req, res) => {
+    const user = req.session.user;
+    const postId = req.params.postId;
+    const comment = req.body.commentInput;
+
+    if (user){
+        try{
+            createComment(user.username, comment, postId);
+            res.redirect(`/feed/${postId}`);
+        } catch (e){
+            res.status(500).json({e: "Internal Server Error"});
+        }
+    } else{
+        res.status(500).json({e: "Internal Server Error"});
+    }
+})
 
 export default router;
