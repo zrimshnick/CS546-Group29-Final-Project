@@ -141,7 +141,7 @@ export const getExercise = async (exerciseId) => {
   if (exerciseId === undefined) {
     throw `Error: exerciseId must be provided`;
   }
-  checkString(exerciseId, "exerciseIdd");
+  checkString(exerciseId, "exerciseId");
   exerciseId = exerciseId.trim();
   if (!ObjectId.isValid(exerciseId)) {
     throw `Error: exerciseId is not a valid ObjectId`;
@@ -169,7 +169,7 @@ export const updateExercise = async (exerciseId, updateObject) => {
   if (exerciseId === undefined) {
     throw `Error: exerciseId must be provided`;
   }
-  checkString(exerciseId, "exerciseIdd");
+  checkString(exerciseId, "exerciseId");
   exerciseId = exerciseId.trim();
   if (!ObjectId.isValid(exerciseId)) {
     throw `Error: exerciseId is not a valid ObjectId`;
@@ -253,7 +253,7 @@ export const deleteExercise = async (exerciseId) => {
   if (exerciseId === undefined) {
     throw `Error: exerciseId must be provided`;
   }
-  checkString(exerciseId, "exerciseIdd");
+  checkString(exerciseId, "exerciseId");
   exerciseId = exerciseId.trim();
   if (!ObjectId.isValid(exerciseId)) {
     throw `Error: exerciseId is not a valid ObjectId`;
@@ -283,4 +283,30 @@ export const deleteExercise = async (exerciseId) => {
   }
 
   return workout;
+};
+
+export const deleteAllExercises = async (workoutId) => {
+  if (workoutId === undefined) {
+    throw `Error: workoutId must be provided`;
+  }
+  checkString(workoutId, "workoutId");
+  workoutId = workoutId.trim();
+  if (!ObjectId.isValid(workoutId)) {
+    throw `Error: workoutId is not a valid ObjectId`;
+  }
+
+  const workoutCollection = await workouts();
+  const workout = await workoutCollection.findOne({
+    _id: new ObjectId(workoutId),
+  });
+  if (workout === null) {
+    throw `Error: no workout with that id`;
+  }
+  await workoutCollection.findOneAndUpdate(
+    { _id: new ObjectId(workoutId) },
+    { $set: { exercises: [] } },
+    { returnDocument: "after" }
+  );
+
+  return workout.exercises;
 };

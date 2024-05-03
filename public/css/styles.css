@@ -854,15 +854,14 @@ input.workouts-workout-exercise-grid-item {
 
 #post-titleError,
 #post-bodyError,
-#post-tagError{
+#post-tagError {
   color: rgb(255, 74, 74);
   font-size: 0.9em;
   margin: 5px;
 }
 
-.profile-post-body{
+.profile-post-body {
   width: 80%;
-  
 }
 
 .profile-personal-meta-sport {
@@ -883,7 +882,6 @@ input.workouts-workout-exercise-grid-item {
   gap: 1rem;
   margin-right: 2rem;
 }
-
 
 #profile-posts-header-container {
   display: flex;
@@ -917,9 +915,8 @@ input.workouts-workout-exercise-grid-item {
   }
 }
 
-.profile-post-cancel-button,
-.profile-post-post-button{
-/* width: 35%; */
+.profile-post-post-button {
+  /* width: 35%; */
   color: white;
   font-size: 0.75em;
   font-weight: bold;
@@ -952,7 +949,7 @@ input.workouts-workout-exercise-grid-item {
   }
 }
 
-.profile-post-delete-button{
+.profile-post-delete-button {
   background-color: #0e0e0e;
   border: 1px transparent solid;
   border-radius: 0.2rem;
@@ -1006,7 +1003,7 @@ input.workouts-workout-exercise-grid-item {
   font-weight: bold;
 }
 
-.post-tags{
+.post-tags {
   font-size: 0.85em;
   font-weight: bold;
 }
@@ -1194,9 +1191,14 @@ input.workouts-workout-exercise-grid-item {
   margin-top: 20px;
   background-color: rgb(255, 255, 255);
 }
+.toWhite {
+  img {
+    filter: invert(100%);
+  }
+}
 
 /*individual post page*/
-.individual-comment{
+.individual-comment {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -1206,7 +1208,7 @@ input.workouts-workout-exercise-grid-item {
   font-weight: bold;
 }
 
-#commentForm{
+#commentForm {
   input {
     font-family: "Poppins", sans-serif;
     color: white;
@@ -1217,11 +1219,11 @@ input.workouts-workout-exercise-grid-item {
     border-radius: 0.25rem;
     padding: 0.25rem 1rem;
     transition: 0.1s ease-in-out all;
-  
+
     &:hover {
       border-color: #77c9d4;
     }
-  
+
     &:focus {
       outline: none;
       border-color: #77c9d4;
