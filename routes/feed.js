@@ -25,9 +25,10 @@ router
 .get(async(req, res) => {
     try{
         const posts = await getAllPosts();
-        const postsAndComments = await Promise.all(posts.map(async (post) => {
+        const postsAndComments = [];
+        for (const post of posts){
             const comments = await getAllComments(post._id.toString());
-            return {
+            const postWithComments = {
                 userId: post.userId,
                 title: post.title,
                 body: post.body,
@@ -36,7 +37,8 @@ router
                 likes: post.likes,
                 comments: comments
             };
-        }));
+            postsAndComments.push(postWithComments);
+        }
         res.render("feedPage", {
             title: "Tracklete | Feed",
             posts: postsAndComments
