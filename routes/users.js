@@ -8,7 +8,7 @@ import {
   updateUser,
 } from "../data/users.js";
 import { ObjectId } from "mongodb";
-import { getAllPosts, getPost } from "../data/posts.js";
+import { deletePost, getAllPosts, getPost } from "../data/posts.js";
 import { getAllComments } from "../data/comments.js";
 
 router.route("/").get(async (req, res) => {
@@ -18,20 +18,25 @@ router.route("/").get(async (req, res) => {
       `${req.session.user.username}`
     );
     const userPostsIds = currUserData.posts;
-    const userPosts = await Promise.all(userPostsIds.map(async (postId) => {
-      return await getPost(postId);
-    }))
-    const postsAndComments = await Promise.all(userPosts.map(async (post) => {
-        const comments = await getAllComments(post._id.toString());
-        return {
-            title: post.title,
-            body: post.body,
-            username: post.username,
-            tags: post.tags,
-            likes: post.likes,
-            comments: comments
-        };
-    }));
+    const userPosts = [];
+    for (const postId of userPostsIds) {
+      const post = await getPost(postId);
+      userPosts.push(post);
+    };
+    const postsAndComments = [];
+    for (const post of userPosts) {
+      const comments = await getAllComments(post._id.toString());
+      postsAndComments.push({
+        id: post._id.toString(),
+        title: post.title,
+        body: post.body,
+        username: post.username,
+        tags: post.tags,
+        likes: post.likes,
+        comments: comments
+      });
+    };
+
     res.render("profilePage", {
       title: "Tracklete | Profile",
       firstName: currUserData.firstName,
@@ -45,6 +50,18 @@ router.route("/").get(async (req, res) => {
     });
   } catch (e) {
     console.log(e);
+  }
+});
+
+router.route("/:postId").delete(async (req, res) => {
+  const postId = req.params.postId;
+  try{
+      const deletedPost = await deletePost(postId);
+      console.log(`DELETED ${deletedPost}`);
+      return res.redirect("/profile");
+  }catch(e){
+      console.log(`ERROR DELETING POST WITH ID: ${postId}`);
+      res.status(500).json({e: "Internal Server Error"});
   }
 });
 

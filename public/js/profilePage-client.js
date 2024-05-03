@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     else {
-      let postUsername = document.getElementById("profile-personal-username").textContent.slice(1);
+      let postUsername = document.getElementById("profile-personal-username").textContent.slice(1).trim();
       let postHeaderContainer = document.getElementById("profile-posts-header-container");
       let newPostForm = `
     <form action="/feed" method="POST" name="new-post-form" id="new-post-form" class="profile-post-individual">
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let titleValue = titleElement.value;
         titleValue = titleValue.trim();
         let titleError = document.getElementById("post-titleError");
-        if(!titleValue){
+        if (!titleValue) {
           titleError.textContent = "Title must be provided";
           titleElement.classList.add("errorBorder");
           badFields = true;
@@ -131,8 +131,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let bodyValue = bodyElement.value;
         bodyValue = bodyValue.trim();
         let bodyError = document.getElementById("post-bodyError");
-        if(!bodyValue){
+        if (!bodyValue) {
           bodyError.textContent = "Post body not provided";
+          bodyElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        else if(bodyValue.length < 2 || bodyValue.length > 255){
+          bodyError.textContent = "Post body must be at least 2 characters and a max of 255 characters";
           bodyElement.classList.add("errorBorder");
           badFields = true;
         }
@@ -141,19 +146,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const tagsElement = document.getElementById("post-tag");
       if (tagsElement !== null) {
         let tagsValue = tagsElement.value;
-        if(!tagsValue){
+        let tagsError = document.getElementById("post-tagError");
+        if (tagsValue.trim().length === 0) {
           tagsError.textContent = "Tags must be provided";
           tagsElement.classList.add("errorBorder");
           badFields = true;
         }
-        let t = tagsValue.replace(/,/g, '');
-        let tagsArray = t.split(" ");
-        let tagsError = document.getElementById("post-tagError");
-        for (let i = 0; i < tagsArray.length; i++) {
-          if (!isNaN(tagsArray[i])) {
-            tagsError.textContent = "Tags must be a sport";
-            tagsElement.classList.add("errorBorder");
-            badFields = true;
+        else {
+          let t = tagsValue.replace(/,/g, '');
+          let tagsArray = t.split(" ");
+          for (let i = 0; i < tagsArray.length; i++) {
+            if (!isNaN(tagsArray[i])) {
+              tagsError.textContent = "Tags must be a sport";
+              tagsElement.classList.add("errorBorder");
+              badFields = true;
+            }
           }
         }
       }

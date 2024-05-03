@@ -28,7 +28,7 @@ router
         const postsAndComments = [];
         for (const post of posts){
             const comments = await getAllComments(post._id.toString());
-            let postWithComments = {
+            const postWithComments = {
                 id: post._id.toString(),
                 userId: post.userId,
                 title: post.title,
