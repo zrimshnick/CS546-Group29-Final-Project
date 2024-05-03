@@ -28,8 +28,8 @@ router
         const postsAndComments = [];
         for (const post of posts){
             const comments = await getAllComments(post._id.toString());
-            let postWithComments {
-                id: post._id.toString()
+            let postWithComments = {
+                id: post._id.toString(),
                 userId: post.userId,
                 title: post.title,
                 body: post.body,
@@ -38,7 +38,7 @@ router
                 likes: post.likes,
                 comments: comments
             }; 
-            postAndComments.push(postWithComments)
+            postsAndComments.push(postWithComments)
         }
         res.render("feedPage", {
             title: "Tracklete | Feed",
