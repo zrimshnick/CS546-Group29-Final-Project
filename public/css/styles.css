@@ -852,6 +852,19 @@ input.workouts-workout-exercise-grid-item {
   gap: 0.5rem;
 }
 
+#post-titleError,
+#post-bodyError,
+#post-tagError{
+  color: rgb(255, 74, 74);
+  font-size: 0.9em;
+  margin: 5px;
+}
+
+.profile-post-body{
+  width: 80%;
+  
+}
+
 .profile-personal-meta-sport {
   border: 1px solid #77c9d4;
   border-radius: 0.5rem;
@@ -936,6 +949,29 @@ input.workouts-workout-exercise-grid-item {
     img {
       filter: invert(100%);
     }
+  }
+}
+
+.profile-post-delete-button{
+  background-color: #0e0e0e;
+  border: 1px transparent solid;
+  border-radius: 0.2rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: 0.1s ease-in-out all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.25rem;
+
+  img {
+    scale: 0.6;
+  }
+
+  &:hover {
+    border-color: rgb(255, 74, 74);
+    background-color: rgb(255, 74, 74);
+    cursor: pointer;
   }
 }
 

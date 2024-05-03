@@ -48,6 +48,14 @@
                     </div>
                     {{/each}}
                 </div>
+                <div class="profile-post-deleteButton-container">
+                    <form action="/profile/{{id}}" method="POST" id="profile-post-delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="profile-post-delete-button flex">
+                            <img src="/public/images/trashIcon.png">
+                        </button>
+                    </form>
+                </div>
             </div>
             {{/each}}
         </div>

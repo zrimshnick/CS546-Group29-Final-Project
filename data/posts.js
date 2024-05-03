@@ -88,6 +88,23 @@ export const deletePost = async (id) => {
     id = id.trim();
     checkID(id, 'postId');
     const postCollection = await posts();
+    const userCollection  = await users();
+    const post = await postCollection.findOne({
+        _id: new ObjectId(id)
+    });
+    const deleteId = await userCollection.findOne({
+        _id: new ObjectId(post.userId)
+    });
+    let updatePost = deleteId.posts;
+    updatePost = updatePost.filter(function (item) {
+        return item !== id;
+    });
+
+    await userCollection.findOneAndUpdate(
+        {_id: new ObjectId(post.userId)},
+        {$set: {posts: updatePost}},
+        {returnDocument: 'after'}
+    );
     const deleteInfo = await postCollection.findOneAndDelete({
         _id: new ObjectId(id),
     });

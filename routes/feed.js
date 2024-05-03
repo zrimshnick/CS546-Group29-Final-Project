@@ -29,6 +29,7 @@ router
         for (const post of posts){
             const comments = await getAllComments(post._id.toString());
             const postWithComments = {
+                id: post._id.toString(),
                 userId: post.userId,
                 title: post.title,
                 body: post.body,
