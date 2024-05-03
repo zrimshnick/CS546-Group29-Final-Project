@@ -153,7 +153,7 @@ export const updateWorkout = async (id, updateObject) => {
     workout.date = updateObject.date.trim();
   }
   if (updateObject.timeElapsed) {
-    checkTime(updateObject.time, "timeElapsed");
+    checkTime(updateObject.timeElapsed, "timeElapsed");
     workout.timeElapsed = updateObject.timeElapsed.trim();
   }
   if (updateObject.workoutType) {
