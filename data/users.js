@@ -67,7 +67,8 @@ export const createUser = async (
   /* sports = sports.map((sport) => sport.trim()); */
 
   /////// HASHING THE PASSWORD ////////
-  const saltRounds = 16;
+  /* const saltRounds = 16; */
+  const saltRounds = 10;
   let hashedPassword = await bcrypt.hash(password, saltRounds);
 
   let newProd = {
