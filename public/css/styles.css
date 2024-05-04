@@ -987,6 +987,7 @@ input.workouts-workout-exercise-grid-item {
   flex-direction: column;
   gap: 0.2rem;
   transition: 0.2s ease-in-out all;
+  margin-bottom: 1rem;
 
   &:hover {
     border: 1px solid #77c9d4;
@@ -1349,9 +1350,36 @@ button {
   text-align: center;
 }
 
-.workouts-workout-edit-button,
-.workouts-workout-done-button {
+/* DONT PUT ANYTHING BELOW HERE */
+.workouts-workout-edit-button {
   margin-right: 0;
   width: 8rem;
   height: auto;
+}
+.workouts-workout-done-button {
+  margin-right: 0;
+  width: 4rem;
+  height: auto;
+}
+
+#workouts-workout-add-exercise-button {
+  background-color: #77c9d4;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  border: 1px solid #77c9d4;
+  border-radius: 0.2rem;
+  color: #222121;
+  transition: 0.1s ease-in-out all;
+  margin-bottom: 0.25rem;
+  margin-right: 0;
+  width: 100%;
+  height: auto;
+  font-size: 0.9em;
+
+  &:hover {
+    color: white;
+    background-color: #0e0e0e;
+    border-color: #77c9d4;
+    cursor: pointer;
+  }
 }

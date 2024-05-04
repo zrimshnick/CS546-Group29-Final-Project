@@ -491,14 +491,14 @@ addWorkoutButton.addEventListener("click", function () {
                 exerciseError.textContent = "Fields cannot be 0";
                 badFields = true;
               }
-              if (
+              /* if (
                 /\D/.test(exerciseGridFields[j].value.trim()) &&
                 (j % 4 === 1 || j % 4 === 2)
               ) {
                 exerciseGridFields[j].classList.add("errorBorder");
                 exerciseError.textContent = "Fields cannot have decimals";
                 badFields = true;
-              }
+              } */
               if (
                 !/[a-zA-Z]/.test(exerciseGridFields[j].value.trim()) &&
                 j % 4 === 0
@@ -1168,14 +1168,14 @@ editButtons.forEach((button) => {
                   exerciseError.textContent = "Fields cannot be 0";
                   badFields = true;
                 }
-                if (
+                /* if (
                   /\D/.test(exerciseGridFields[j].value.trim()) &&
                   (j % 4 === 1 || j % 4 === 2)
                 ) {
                   exerciseGridFields[j].classList.add("errorBorder");
                   exerciseError.textContent = "Fields cannot have decimals";
                   badFields = true;
-                }
+                } */
               }
               if (emptyCount === 4) {
                 for (let j = i; j < i + 4; j++) {
