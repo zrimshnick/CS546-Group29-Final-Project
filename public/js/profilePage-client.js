@@ -51,8 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     <div id="post-tagError"></div>
     <div class="profile-post-button-container">
       <button id="postButton" name="postButton" type="submit" class="profile-post-post-button flex">Post</button>
-    </div>
-    <div class="profile-post-button-container">
       <button id="cancelPostButton" name="cancelPostButton" type="submit" class="profile-post-cancel-button flex">Cancel</button>
     </div>
     </form>`;

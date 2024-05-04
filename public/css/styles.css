@@ -634,7 +634,6 @@ input.workouts-workout-exercise-grid-item {
   font-family: "Poppins", sans-serif;
 }
 
-.profile-post-button-container,
 .workouts-workout-button-container {
   display: flex;
   flex-direction: row;
@@ -915,10 +914,18 @@ input.workouts-workout-exercise-grid-item {
   }
 }
 
+#profile-post-button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profile-post-cancel-button,
 .profile-post-post-button {
   /* width: 35%; */
   color: white;
-  font-size: 0.75em;
+  font-size: 1em;
   font-weight: bold;
   font-family: "Poppins", sans-serif;
   border: 1px solid #77c9d4;
