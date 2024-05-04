@@ -279,13 +279,30 @@ router
 
     try {
       const currUser = await getUserByUsername(req.session.user.username);
+
+      let hours = editWorkoutFormData.timeElapsedH.trim();
+      let minutes = editWorkoutFormData.timeElapsedM.trim();
+      let seconds = editWorkoutFormData.timeElapsedS.trim();
+
+      if (hours.length === 1) {
+        hours = "0" + hours;
+      }
+      if (minutes.length === 1) {
+        minutes = "0" + minutes;
+      }
+      if (seconds.length === 1) {
+        seconds = "0" + seconds;
+      }
+
       let updateWorkoutContent = {
         userID: currUser._id.toString(),
         date: `${dateM}/${dateD}/${dateY}`,
-        timeElapsed: `${editWorkoutFormData.timeElapsedH}:${editWorkoutFormData.timeElapsedM}:${editWorkoutFormData.timeElapsedS}`,
+        timeElapsed: `${hours}:${minutes}:${seconds}`,
         caloriesBurned: parseInt(editWorkoutFormData.caloriesBurned),
         comments: editWorkoutFormData.comments,
       };
+
+      /* console.log(updateWorkoutContent); */
 
       const updatedWorkout = await updateWorkout(
         workoutId,

@@ -212,12 +212,9 @@ addWorkoutButton.addEventListener("click", function () {
 
     ////// data validation for header
     const newWorkoutFormElement = document.getElementById("new-workout-form");
-    console.log("checking form exists");
     if (newWorkoutFormElement !== null) {
       console.log("form exists");
       newWorkoutFormElement.addEventListener("submit", (event) => {
-        console.log("form tried to be submitted");
-
         if (!isFormValid()) {
           const caloriesBurnedInput = document.getElementById("caloriesBurned");
           const caloriesBurnedError = document.getElementById(
@@ -293,6 +290,18 @@ addWorkoutButton.addEventListener("click", function () {
           caloriesBurnedElement.classList.add("errorBorder");
           badFields = true;
         }
+        if (parseInt(caloriesBurnedValue) < 0) {
+          caloriesBurnedError.textContent =
+            "Calories burned cannot be negative";
+          caloriesBurnedElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (parseInt(caloriesBurnedValue) > 4000) {
+          caloriesBurnedError.textContent =
+            "Calories burned cannot be over 4000";
+          caloriesBurnedElement.classList.add("errorBorder");
+          badFields = true;
+        }
       }
 
       ///// Date
@@ -310,61 +319,63 @@ addWorkoutButton.addEventListener("click", function () {
           badFields = true;
         }
 
-        let dateArr = dateValue.split("-");
-        let dateY = parseInt(dateArr[0]);
-        let dateM = parseInt(dateArr[1]);
-        let dateD = parseInt(dateArr[2]);
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+          dateError.textContent = "Date must be in form YYYY-MM-DD";
+          dateElement.classList.add("errorBorder");
+          badFields = true;
+        } else {
+          let dateArr = dateValue.split("-");
+          let dateY = parseInt(dateArr[0]);
+          let dateM = parseInt(dateArr[1]);
+          let dateD = parseInt(dateArr[2]);
 
-        if (dateY > 2024) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-        if (dateY < 2014) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-        if (dateM < 0) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-        if (dateM > 12) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-        if (dateD < 0) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-        if (dateD > 31) {
-          dateError.textContent = "Invalid Date";
-          dateElement.classList.add("errorBorder");
-          badFields = true;
-        }
-
-        let currentDate = new Date();
-        let currYear = currentDate.getFullYear();
-        let currMonth = currentDate.getMonth() + 1;
-        let currDay = currentDate.getDate();
-
-        console.log(currYear);
-        console.log(currMonth);
-        console.log(currDay);
-
-        if (dateY === currYear) {
-          if (dateM > currMonth) {
+          if (dateY > 2024) {
             dateError.textContent = "Invalid Date";
             dateElement.classList.add("errorBorder");
             badFields = true;
-          } else if (dateM === currMonth) {
-            if (dateD > currDay) {
+          }
+          if (dateY < 2014) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (dateM < 0) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (dateM > 12) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (dateD < 0) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (dateD > 31) {
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+
+          let currentDate = new Date();
+          let currYear = currentDate.getFullYear();
+          let currMonth = currentDate.getMonth() + 1;
+          let currDay = currentDate.getDate();
+
+          if (dateY === currYear) {
+            if (dateM > currMonth) {
               dateError.textContent = "Invalid Date";
               dateElement.classList.add("errorBorder");
               badFields = true;
+            } else if (dateM === currMonth) {
+              if (dateD > currDay) {
+                dateError.textContent = "Invalid Date";
+                dateElement.classList.add("errorBorder");
+                badFields = true;
+              }
             }
           }
         }
@@ -431,6 +442,17 @@ addWorkoutButton.addEventListener("click", function () {
           timeElementS.classList.add("errorBorder");
           badFields = true;
         }
+        if (
+          parseInt(timeElementHValue) === 0 &&
+          parseInt(timeElementMValue) === 0 &&
+          parseInt(timeElementSValue) === 0
+        ) {
+          timeElapsedError.textContent = "Must enter a time";
+          timeElementH.classList.add("errorBorder");
+          timeElementM.classList.add("errorBorder");
+          timeElementS.classList.add("errorBorder");
+          badFields = true;
+        }
       }
 
       //// exercises
@@ -460,6 +482,31 @@ addWorkoutButton.addEventListener("click", function () {
                 exerciseGridFields[j].classList.add("errorBorder");
                 exerciseError.textContent = "Individual fields can't be empty";
               }
+              if (
+                parseInt(exerciseGridFields[j].value.trim()) === 0 &&
+                (j % 4 === 1 || j % 4 === 2)
+              ) {
+                emptyCount++;
+                exerciseGridFields[j].classList.add("errorBorder");
+                exerciseError.textContent = "Fields cannot be 0";
+                badFields = true;
+              }
+              if (
+                /\D/.test(exerciseGridFields[j].value.trim()) &&
+                (j % 4 === 1 || j % 4 === 2)
+              ) {
+                exerciseGridFields[j].classList.add("errorBorder");
+                exerciseError.textContent = "Fields cannot have decimals";
+                badFields = true;
+              }
+              if (
+                !/[a-zA-Z]/.test(exerciseGridFields[j].value.trim()) &&
+                j % 4 === 0
+              ) {
+                exerciseGridFields[j].classList.add("errorBorder");
+                exerciseError.textContent = "Exercise must contain a letter";
+                badFields = true;
+              }
             }
             if (emptyCount === 4) {
               for (let j = i; j < i + 4; j++) {
@@ -468,6 +515,12 @@ addWorkoutButton.addEventListener("click", function () {
                 exerciseError.textContent = "";
               }
               exerciseRowCount = exerciseRowCount - 1;
+            } else if (
+              emptyCount === 1 ||
+              emptyCount === 2 ||
+              emptyCount === 3
+            ) {
+              badFields = true;
             }
           }
           emptyIndices.forEach((id) => {
@@ -912,6 +965,18 @@ editButtons.forEach((button) => {
             caloriesBurnedElement.classList.add("errorBorder");
             badFields = true;
           }
+          if (parseInt(caloriesBurnedValue) < 0) {
+            caloriesBurnedError.textContent =
+              "Calories burned cannot be negative";
+            caloriesBurnedElement.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (parseInt(caloriesBurnedValue) > 4000) {
+            caloriesBurnedError.textContent =
+              "Calories burned cannot be over 4000";
+            caloriesBurnedElement.classList.add("errorBorder");
+            badFields = true;
+          }
         }
 
         ///// Date
@@ -929,61 +994,63 @@ editButtons.forEach((button) => {
             badFields = true;
           }
 
-          let dateArr = dateValue.split("-");
-          let dateY = parseInt(dateArr[0]);
-          let dateM = parseInt(dateArr[1]);
-          let dateD = parseInt(dateArr[2]);
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+            dateError.textContent = "Date must be in form YYYY-MM-DD";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          } else {
+            let dateArr = dateValue.split("-");
+            let dateY = parseInt(dateArr[0]);
+            let dateM = parseInt(dateArr[1]);
+            let dateD = parseInt(dateArr[2]);
 
-          if (dateY > 2024) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-          if (dateY < 2014) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-          if (dateM < 0) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-          if (dateM > 12) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-          if (dateD < 0) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-          if (dateD > 31) {
-            dateError.textContent = "Invalid Date";
-            dateElement.classList.add("errorBorder");
-            badFields = true;
-          }
-
-          let currentDate = new Date();
-          let currYear = currentDate.getFullYear();
-          let currMonth = currentDate.getMonth() + 1;
-          let currDay = currentDate.getDate();
-
-          console.log(currYear);
-          console.log(currMonth);
-          console.log(currDay);
-
-          if (dateY === currYear) {
-            if (dateM > currMonth) {
+            if (dateY > 2024) {
               dateError.textContent = "Invalid Date";
               dateElement.classList.add("errorBorder");
               badFields = true;
-            } else if (dateM === currMonth) {
-              if (dateD > currDay) {
+            }
+            if (dateY < 2014) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+            if (dateM < 0) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+            if (dateM > 12) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+            if (dateD < 0) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+            if (dateD > 31) {
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+
+            let currentDate = new Date();
+            let currYear = currentDate.getFullYear();
+            let currMonth = currentDate.getMonth() + 1;
+            let currDay = currentDate.getDate();
+
+            if (dateY === currYear) {
+              if (dateM > currMonth) {
                 dateError.textContent = "Invalid Date";
                 dateElement.classList.add("errorBorder");
                 badFields = true;
+              } else if (dateM === currMonth) {
+                if (dateD > currDay) {
+                  dateError.textContent = "Invalid Date";
+                  dateElement.classList.add("errorBorder");
+                  badFields = true;
+                }
               }
             }
           }
@@ -1050,6 +1117,17 @@ editButtons.forEach((button) => {
             timeElementS.classList.add("errorBorder");
             badFields = true;
           }
+          if (
+            parseInt(timeElementHValue) === 0 &&
+            parseInt(timeElementMValue) === 0 &&
+            parseInt(timeElementSValue) === 0
+          ) {
+            timeElapsedError.textContent = "Must enter a time";
+            timeElementH.classList.add("errorBorder");
+            timeElementM.classList.add("errorBorder");
+            timeElementS.classList.add("errorBorder");
+            badFields = true;
+          }
         }
 
         //// exercises
@@ -1080,6 +1158,23 @@ editButtons.forEach((button) => {
                   exerciseGridFields[j].classList.add("errorBorder");
                   exerciseError.textContent =
                     "Individual fields can't be empty";
+                }
+                if (
+                  parseInt(exerciseGridFields[j].value.trim()) === 0 &&
+                  (j % 4 === 1 || j % 4 === 2)
+                ) {
+                  emptyCount++;
+                  exerciseGridFields[j].classList.add("errorBorder");
+                  exerciseError.textContent = "Fields cannot be 0";
+                  badFields = true;
+                }
+                if (
+                  /\D/.test(exerciseGridFields[j].value.trim()) &&
+                  (j % 4 === 1 || j % 4 === 2)
+                ) {
+                  exerciseGridFields[j].classList.add("errorBorder");
+                  exerciseError.textContent = "Fields cannot have decimals";
+                  badFields = true;
                 }
               }
               if (emptyCount === 4) {
