@@ -251,7 +251,7 @@ router
       /////////////////////////////////////////////////
       return res.redirect("/workouts");
     } catch (e) {
-      console.log(`CREATE WORKOUT DIDNT WORK ${e}`);
+      /* console.log(`CREATE WORKOUT DIDNT WORK ${e}`); */
     }
   });
 
@@ -261,10 +261,10 @@ router
     const workoutId = req.params.workoutId;
     try {
       const deletedWorkout = await deleteWorkout(workoutId);
-      console.log(`DELETED ${deletedWorkout}`);
+      /* console.log(`DELETED ${deletedWorkout}`); */
       return res.redirect("/workouts");
     } catch (e) {
-      console.log(`ERROR DELETING WORKOUT WITH ID: ${workoutId}\n${e}`);
+      /* console.log(`ERROR DELETING WORKOUT WITH ID: ${workoutId}\n${e}`); */
       res.status(500).json({ e: "Internal Server Error" });
     }
   })
@@ -275,7 +275,7 @@ router
     const dateY = dateArr[0];
     const dateM = dateArr[1];
     const dateD = dateArr[2];
-    console.log(editWorkoutFormData);
+    /* console.log(editWorkoutFormData); */
 
     try {
       const currUser = await getUserByUsername(req.session.user.username);
@@ -398,7 +398,7 @@ router
           }
         }
       }
-      console.log(`UPDATED EXERCISES FOR ${workoutId}`);
+      /* console.log(`UPDATED EXERCISES FOR ${workoutId}`); */
 
       return res.redirect("/workouts");
     } catch (e) {
