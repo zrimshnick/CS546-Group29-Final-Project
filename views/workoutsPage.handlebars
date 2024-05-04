@@ -2,7 +2,7 @@
 
 <div id="workouts-container">
     <div id="workouts-personal-container">
-        <div id="workouts-personal-image"><img src="/public/images/profile-icon.png"></div>
+        <div id="workouts-personal-image"><img src="/public/images/profile-icon.png" alt="profile-image"></div>
         <div id="workouts-personal-fullname">{{firstName}}&nbsp;{{lastName}}</div>
 
         <div id="workouts-personal-username">@{{username}}</div>
@@ -91,20 +91,20 @@
                     {{/each}}
 
                 </div>
-                <div id=""></div>
+                {{!-- <div id=""></div> --}}
                 <div class="workouts-workout-comment-container">
                     <div class="workouts-workout-comment-header">Notes</div>
                     <div class="workouts-workout-comment-content">{{this.comments}}</div>
                 </div>
                 <div class="workouts-workout-button-container">
-                    <form action="/workouts/{{this._id}}" method="POST" id="workouts-workout-delete-form">
+                    <form action="/workouts/{{this._id}}" method="POST" {{!-- id="workouts-workout-delete-form" --}}>
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="workouts-workout-delete-button flex">
-                            <img src="/public/images/trashIcon.png">
+                            <img src="/public/images/trashIcon.png" alt="delete-workout">
                         </button>
                     </form>
                     {{!-- <form action="/workouts" method="PATCH" id="workouts-workout-update-form"> --}}
-                    <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png">&nbsp;Edit Workout</button>
+                    <button class="workouts-workout-edit-button flex"><img src="/public/images/edit-icon.png" alt="edit-workout">&nbsp;Edit Workout</button>
                     {{!-- </form> --}}
                 </div>
             </div>

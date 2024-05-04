@@ -165,7 +165,10 @@ export const updateWorkout = async (id, updateObject) => {
     workout.caloriesBurned = updateObject.caloriesBurned;
   }
   if (updateObject.comments) {
-    checkString(updateObject.comments, "comments");
+    /* checkString(updateObject.comments, "comments"); */
+    if (typeof updateObject.comments !== "string") {
+      throw "comments must be a string";
+    }
     workout.comments = updateObject.comments.trim();
   }
 
