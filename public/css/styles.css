@@ -1125,7 +1125,7 @@ button {
   background-color: #0e0e0e;
   border: 1px solid #222121;
   border-radius: 0.25rem;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.4rem;
   transition: 0.1s ease-in-out all;
   cursor: pointer;
   font-size: 16px;
@@ -1133,7 +1133,8 @@ button {
   margin-left: 10px;
   display: inline-flex;
   align-items: center;
-  height: 1.5rem; /* Match the height with other buttons */
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .like-button:hover {
