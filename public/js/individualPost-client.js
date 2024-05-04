@@ -5,7 +5,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const commentInput = document.getElementById('commentInput');
     const errorDiv = document.getElementById('commentError');
 
-    commentForm.addEventListener('submit', function (event) {
+    const likeForm = document.getElementById('likeForm');
+    const individualPost = document.querySelector('.individual-post');
+    const liked = individualPost.getAttribute('data-liked');
+
+    if (liked === 'true'){
+        likeButton.style.backgroundColor = 'white';
+        likeButton.style.color = '#77c9d4';
+    }
+
+    if (liked === 'false'){
+        likeButton.style.backgroundColor = 'black';
+        likeButton.style.color = 'white';
+    }
+
+    commentForm.addEventListener('submit', function () {
+        history.replaceState(null, '', '/feed');
+
         const newCommentText = commentInput.value.trim();
 
         if (!isFormValid()){
@@ -32,4 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return true;
         }
     });
+
+    likeForm.addEventListener('submit', function (){
+        history.replaceState(null, '', '/feed');
+    })
 });
