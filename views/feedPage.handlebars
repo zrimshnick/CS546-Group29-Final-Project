@@ -1,6 +1,14 @@
 <div id="feed-container">
     <h1>Posts</h1>
 
+    <div class="filter-posts-container">
+        <form id="filterForm">
+            <label for="filter">Filter Posts</label>
+            <input type="text" id="filterTag" name="filterTag" placeholder="sport">
+            <button id="filter" name="filter" type="submit">Search</button>
+            <button id="undoFilter" name="undoFilter" type="reset">Undo</button>
+        </form>
+    </div>
     {{#each posts}}
     <div class="profile-posts-container">
         <div class="profile-posts">
@@ -34,3 +42,6 @@
 </div>
 
 <script src="/public/js/feed-client.js"></script>
+ <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src = "/public/js/filter.js"></script>
