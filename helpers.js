@@ -21,13 +21,31 @@ function checkArray(param, name) {
 }
 
 function checkValidEmail(email, name) {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/;
 
   if (!emailPattern.test(email)) {
-    throw `${name} cannot be a valid email.`;
+    throw `${name} cannot be an invalid email.`;
   }
 
   return email;
+}
+
+function checkValidName(param, name){
+  const nameRegex = /[^a-zA-Z-]/;
+
+  if (nameRegex.test(param)){
+    throw `${name} must only contain letters and the '-' character.`;
+  }
+
+  return param;
+}
+
+function checkValidUsername(param){
+  const usernameRegex = /^[^a-zA-Z0-9]+$/;
+
+  if (usernameRegex.test(param)){
+    throw 'username cannot only contain special characters'
+  }
 }
 
 function checkValidPassword(password, name) {
@@ -174,5 +192,7 @@ export {
   checkID,
   checkDate,
   checkTime,
-  checkValidAge
+  checkValidAge,
+  checkValidName,
+  checkValidUsername
 };

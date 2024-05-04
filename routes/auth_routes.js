@@ -1,5 +1,15 @@
 import { Router } from "express";
 import { createUser, loginUser } from "../data/users.js";
+import {
+  checkString,
+  checkArray,
+  checkValidEmail,
+  checkValidPassword,
+  checkGender,
+  checkValidAge,
+  checkValidName,
+  checkValidUsername
+} from "../helpers.js";
 import xss from 'xss';
 
 const router = Router();
@@ -47,8 +57,35 @@ router
     let weight = xss(registerFormData.weightNum);
     let weightUnit = registerFormData.weightUnit;
 
-    let badFieldsArr = [];
     ///// do error checking here /////
+    try {
+      checkString(username, "username");
+      checkString(firstName, "firstName");
+      checkString(lastName, "lastName");
+      checkString(email, "email");
+      checkString(password, "password");
+      checkString(confirmPassword, "confirmPassword");
+      checkString(gender, "gender");
+      checkString(height, "height");
+      checkString(heightUnit, "heightUnit");
+      checkString(weight, "weight");
+      checkString(weightUnit, "weightUnit");
+      checkValidAge(age, "age");
+      checkGender(gender, "gender");
+      checkValidName(firstName, "firstName");
+      checkValidName(lastName, "lastName");
+    
+      checkValidUsername(username);
+      checkValidEmail(email, "email");
+      checkValidPassword(password, "password");
+    } catch (e) {
+      return res.status(404).render("register", {
+        errorMessage: e,
+        title: "Tracklete | Register",
+        navbarLogHREF: "login",
+        navbarLogDisplay: "Login",
+      });
+    }
 
     //////////////////////////////////
     ///// do error messages here /////
@@ -111,6 +148,17 @@ router
 
     let badFieldsArr = [];
     ///// error checking /////
+    try {
+      checkString(username, "username");
+    } catch (e){
+      badFieldsArr.push('username')
+    }
+
+    try {
+      checkString(password, "password");
+    } catch (e){
+      badFieldsArr.push('password')
+    }
 
     //////////////////////////
     if (badFieldsArr.length !== 0) {
