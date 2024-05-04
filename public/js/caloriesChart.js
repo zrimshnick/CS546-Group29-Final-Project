@@ -67,7 +67,7 @@ function caloriesChart() {
                     errorMessage = xhr.responseJSON.message;
                 }
                 else {
-                    errorMessage = 'An error occured when trying to register. Please try again';
+                    errorMessage = 'An error occured when trying to get calories';
                 }
             });
     }catch(e){

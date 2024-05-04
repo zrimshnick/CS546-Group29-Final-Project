@@ -6,14 +6,14 @@ const router = Router();
 router.route('/').get(async(req, res) => {
   try {
     const currUserData = await getUserByUsername(req.session.user.username);
-    let promises = currUserData.workouts.map(async (workoutID) => {
-      const workout = await getWorkout(workoutID);
-      return {
+    let caloriesArray = [];
+    for(const workoutId of currUserData.workouts){
+      const workout = await getWorkout(workoutId);
+      caloriesArray.push({
         date: workout.date,
         caloriesBurned: workout.caloriesBurned
-      };
-    });
-    let caloriesArray = await Promise.all(promises);
+      });
+    }
     res.json(caloriesArray);
   }catch(e){
     console.log(e);
