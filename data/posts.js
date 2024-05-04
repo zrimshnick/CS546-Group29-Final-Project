@@ -208,5 +208,5 @@ export const likePost = async (postId, userId) => {
 
 export const getAllPosts = async() => {
     const postCollection = await posts();
-    return await postCollection.find({}).toArray();
+    return await postCollection.find({}).sort({ _id: -1 }).toArray();
 }

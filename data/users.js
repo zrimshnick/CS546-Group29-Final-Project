@@ -9,6 +9,8 @@ import {
   checkValidPassword,
   checkGender,
   checkValidAge,
+  checkValidName,
+  checkValidUsername
 } from "../helpers.js";
 
 export const createUser = async (
@@ -56,7 +58,10 @@ export const createUser = async (
   weightUnit = weightUnit.trim();
 
   checkGender(gender, "gender");
+  checkValidName(firstName, "firstName");
+  checkValidName(lastName, "lastName");
 
+  checkValidUsername(username);
   checkValidEmail(email, "email");
   checkValidPassword(password, "password");
 

@@ -82,7 +82,6 @@ function clearError(event) {
   }
 
   if (errorElement) {
-    console.log(errorElement);
     errorElement.textContent = "";
   }
 }
@@ -110,8 +109,10 @@ function isFormValid() {
       firstNameError.textContent = "Must enter a first name";
       badFields = true;
     }
-    if (/\d/.test(firstNameValue)) {
-      firstNameError.textContent = "First Name cannot contain numbers";
+    const nameRegex = /[^a-zA-Z-]/;
+
+    if (nameRegex.test(firstNameValue)){
+      firstNameError.textContent = `First Name must only contain letters and the '-' character.`;
       badFields = true;
     }
   }
@@ -131,12 +132,16 @@ function isFormValid() {
       lastNameError.textContent = "Last Name must be between 2 and 25 letters";
       badFields = true;
     }
+
     if (lastNameValue.length === 0) {
       lastNameError.textContent = "Must enter a last name";
       badFields = true;
     }
-    if (/\d/.test(lastNameValue)) {
-      lastNameError.textContent = "Last Name cannot contain numbers";
+
+    const nameRegex = /[^a-zA-Z-]/;
+
+    if (nameRegex.test(lastNameValue)){
+      lastNameError.textContent = `Last Name must only contain letters and the '-' character.`;
       badFields = true;
     }
   }
@@ -160,14 +165,21 @@ function isFormValid() {
       usernameError.textContent = "Must enter a username";
       badFields = true;
     }
+
+    const usernameRegex = /^[^a-zA-Z0-9]+$/;
+
+    if (usernameRegex.test(usernameValue)){
+      usernameError.textContent = 'Username cannot only contain special characters';
+      badFields = true;
+    }
   }
 
   //// email
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/;
   let emailField = document.getElementById("email");
   if (emailField !== null) {
     let emailValue = emailField.value;
-    emailValue.trim().toLowerCase();
+    emailValue = emailValue.trim().toLowerCase();
     let emailError = document.getElementById("emailError");
     if (!emailPattern.test(emailValue)) {
       emailError.textContent = "Must enter a valid email";
