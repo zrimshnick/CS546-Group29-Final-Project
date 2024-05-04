@@ -109,7 +109,14 @@ router.route("/:postId")
         try{
             let post = await getPost(postId);
             const comments = await getAllComments(post._id.toString());
-            res.render("individualPosts", {user: user, postId: postId, post: post, comments: comments, title: "Post"})
+            const curUser = await getUserByUsername(user.username);
+            let liked = false;
+
+            if (curUser.likedPosts.includes(postId)){
+                liked = true;
+            }
+
+            res.render("individualPosts", {user: user, postId: postId, post: post, comments: comments, title: "Tracklete | Post", liked: liked})
         } catch (e) {
             console.log(`ERROR DELETING POST WITH ID: ${postId}`);
             res.status(500).json({e: "Internal Server Error"});
@@ -138,7 +145,26 @@ router.route("/:postId/add-comment")
 
     if (user){
         try{
-            createComment(user.username, comment, postId);
+            await createComment(user.username, comment, postId);
+            res.redirect(`/feed/${postId}`);
+        } catch (e){
+            res.status(500).json({e: "Internal Server Error"});
+        }
+    } else{
+        res.status(500).json({e: "Internal Server Error"});
+    }
+})
+
+router.route("/:postId/like")
+.post(async (req, res) => {
+    const user = req.session.user;
+    const postId = req.params.postId;
+    const curUser = await getUserByUsername(user.username);
+    const userId = curUser._id.toString();
+
+    if (user){
+        try{
+            await likePost(postId, userId);
             res.redirect(`/feed/${postId}`);
         } catch (e){
             res.status(500).json({e: "Internal Server Error"});

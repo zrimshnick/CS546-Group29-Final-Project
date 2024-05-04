@@ -1,9 +1,14 @@
-<div class="individual-post" data-username="{{user.username}}">
+<div class="individual-post" data-liked="{{liked}}">
     <div class="post-info">
         <h1>{{post.title}}</h1>
         <h2>{{post.body}}</h2>
         <h3>User: {{post.username}}</h3>
-        <h3>Likes: {{post.likes}}</h3>
+        <div class="like-section">
+            <h3>Likes: {{post.likes}}</h3>
+            <form name="likeForm" id="likeForm" action="/feed/{{postId}}/like" method="POST">
+                <button type="submit" id="likeButton" class="like-button">&hearts;</button>
+            </form>
+        </div>
     </div>
     <div class="comments">
         <h3 class="comment-header">Comments:</h3>
