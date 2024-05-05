@@ -1,5 +1,3 @@
-console.log("CONNECTED TO REGISTER PAGE CLIENT SIDE JS");
-
 document.addEventListener("DOMContentLoaded", function () {
   /// connect to submit
   let signUpFormElement = document.getElementById("signup-form");
@@ -10,22 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       let formData = new FormData(signUpFormElement);
-      let firstName = formData.get('firstName');
-      let lastName = formData.get('lastName');
-      let username = formData.get('username');
-      let password = formData.get('password');
-      let confirmPassword = formData.get('confirmPassword');
-      let email = formData.get('email');
-      let age = formData.get('age');
-      let gender = formData.get('gender');
-      let heightFt = formData.get('heightFt');
-      let heightIn = formData.get('heightIn');
-      let weightNum = formData.get('weightNum');
-      let weightUnit = formData.get('weightUnit');
-      let sports = formData.get('sports');
+      let firstName = formData.get("firstName");
+      let lastName = formData.get("lastName");
+      let username = formData.get("username");
+      let password = formData.get("password");
+      let confirmPassword = formData.get("confirmPassword");
+      let email = formData.get("email");
+      let age = formData.get("age");
+      let gender = formData.get("gender");
+      let heightFt = formData.get("heightFt");
+      let heightIn = formData.get("heightIn");
+      let weightNum = formData.get("weightNum");
+      let weightUnit = formData.get("weightUnit");
+      let sports = formData.get("sports");
       $.ajax({
-        type: 'POST',
-        url: '/register',
+        type: "POST",
+        url: "/register",
         dataType: json,
         data: {
           firstName: firstName,
@@ -40,25 +38,25 @@ document.addEventListener("DOMContentLoaded", function () {
           heightIn: heightIn,
           weightNum: weightNum,
           weightUnit: weightUnit,
-          sports: sports
+          sports: sports,
         },
       })
         .done(function (repsone) {
-          console.log('Registration successful');
-          window.location.replace('/login');
+          console.log("Registration successful");
+          window.location.replace("/login");
         })
         .fail(function (xhr, status, errorThrown) {
-          console.log('Error: ' + errorThrown);
-          console.log('Status: ' + status);
+          console.log("Error: " + errorThrown);
+          console.log("Status: " + status);
           let errorMessage;
           if (xhr.responseJSON && xhr.responseJSON.message) {
             errorMessage = xhr.responseJSON.message;
+          } else {
+            errorMessage =
+              "An error occured when trying to register. Please try again";
           }
-          else {
-            errorMessage = 'An error occured when trying to register. Please try again';
-          }
-          $('.registerError').text(errorMessage);
-        })
+          $(".registerError").text(errorMessage);
+        });
     });
   }
 
@@ -111,7 +109,7 @@ function isFormValid() {
     }
     const nameRegex = /[^a-zA-Z-]/;
 
-    if (nameRegex.test(firstNameValue)){
+    if (nameRegex.test(firstNameValue)) {
       firstNameError.textContent = `First Name must only contain letters and the '-' character.`;
       badFields = true;
     }
@@ -140,7 +138,7 @@ function isFormValid() {
 
     const nameRegex = /[^a-zA-Z-]/;
 
-    if (nameRegex.test(lastNameValue)){
+    if (nameRegex.test(lastNameValue)) {
       lastNameError.textContent = `Last Name must only contain letters and the '-' character.`;
       badFields = true;
     }
@@ -168,8 +166,9 @@ function isFormValid() {
 
     const usernameRegex = /^[^a-zA-Z0-9]+$/;
 
-    if (usernameRegex.test(usernameValue)){
-      usernameError.textContent = 'Username cannot only contain special characters';
+    if (usernameRegex.test(usernameValue)) {
+      usernameError.textContent =
+        "Username cannot only contain special characters";
       badFields = true;
     }
   }

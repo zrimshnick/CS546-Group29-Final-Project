@@ -1,5 +1,3 @@
-console.log("profile page js linked");
-
 document.addEventListener("DOMContentLoaded", function () {
   // Select all placeholder elements
   let placeholders = document.querySelectorAll(
@@ -10,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   placeholders.forEach(function (placeholder) {
     placeholder.addEventListener("click", function () {
       let commentsContainer = placeholder.nextElementSibling;
-      console.log(commentsContainer);
+      
 
       if (commentsContainer.classList.contains("hidden")) {
         commentsContainer.classList.remove("hidden");
@@ -76,12 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const newPostFormElement = document.getElementById("new-post-form");
-    console.log("checking form exists");
     if (newPostFormElement !== null) {
-      console.log("form exists");
       newPostFormElement.addEventListener("submit", (event) => {
-        console.log("form tried to be submitted");
-        console.log(isFormValid);
         if (!isFormValid()) {
           const titleInput = document.getElementById("post-title");
           const titleError = document.getElementById("post-titleError");

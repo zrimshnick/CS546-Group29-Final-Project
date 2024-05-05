@@ -1,5 +1,3 @@
-console.log("feed page js is linked");
-
 document.addEventListener("DOMContentLoaded", function () {
   // Select all placeholder elements
   let placeholders = document.querySelectorAll(
@@ -10,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   placeholders.forEach(function (placeholder) {
     placeholder.addEventListener("click", function () {
       let commentsContainer = placeholder.nextElementSibling;
-      console.log(commentsContainer);
 
       if (commentsContainer.classList.contains("hidden")) {
         commentsContainer.classList.remove("hidden");

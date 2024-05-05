@@ -10,7 +10,7 @@ import {
   checkGender,
   checkValidAge,
   checkValidName,
-  checkValidUsername
+  checkValidUsername,
 } from "../helpers.js";
 
 export const createUser = async (
@@ -169,7 +169,6 @@ export const deleteUser = async (id) => {
 };
 
 export const updateUser = async (id, obj) => {
-  // console.log(id);
   checkString(id, "id");
 
   id = id.trim();

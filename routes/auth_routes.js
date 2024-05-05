@@ -8,9 +8,9 @@ import {
   checkGender,
   checkValidAge,
   checkValidName,
-  checkValidUsername
+  checkValidUsername,
 } from "../helpers.js";
-import xss from 'xss';
+import xss from "xss";
 
 const router = Router();
 
@@ -30,7 +30,6 @@ router
   })
   .post(async (req, res) => {
     const registerFormData = req.body;
-    console.log(registerFormData);
     let firstName = xss(registerFormData.firstName);
     firstName = firstName.trim();
     let lastName = xss(registerFormData.lastName);
@@ -74,7 +73,7 @@ router
       checkGender(gender, "gender");
       checkValidName(firstName, "firstName");
       checkValidName(lastName, "lastName");
-    
+
       checkValidUsername(username);
       checkValidEmail(email, "email");
       checkValidPassword(password, "password");
@@ -92,7 +91,6 @@ router
 
     //////////////////////////////////
     try {
-      console.log("TRYING TO CREATE USER");
       let registration = await createUser(
         username,
         firstName,
@@ -107,18 +105,15 @@ router
         weightUnit,
         age
       );
-      console.log(`USER CREATED: ${registration.username}`);
 
       if (registration && registration.signupCompleted === true) {
         return res.redirect("/login");
       } else {
-        return res
-          .status(500)
-          .render("register", {
-            errorMessage: "Internal Server Error",
-            navbarLogHREF: "login",
-            navbarLogDisplay: "Login",
-          });
+        return res.status(500).render("register", {
+          errorMessage: "Internal Server Error",
+          navbarLogHREF: "login",
+          navbarLogDisplay: "Login",
+        });
       }
     } catch (e) {
       return res.status(404).render("register", {
@@ -141,7 +136,6 @@ router
   })
   .post(async (req, res) => {
     const loginFormData = req.body;
-    console.log(loginFormData);
     let username = xss(loginFormData.username);
     username = username.trim().toLowerCase();
     let password = xss(loginFormData.password);
@@ -150,14 +144,14 @@ router
     ///// error checking /////
     try {
       checkString(username, "username");
-    } catch (e){
-      badFieldsArr.push('username')
+    } catch (e) {
+      badFieldsArr.push("username");
     }
 
     try {
       checkString(password, "password");
-    } catch (e){
-      badFieldsArr.push('password')
+    } catch (e) {
+      badFieldsArr.push("password");
     }
 
     //////////////////////////
@@ -192,7 +186,6 @@ router
         /* Can put user specific "role" stuff here */
 
         /////////////////////////////////////////////
-        console.log("LOGGED IN");
         return res.redirect("/home");
       } else {
         return res.status(500).render("login", {

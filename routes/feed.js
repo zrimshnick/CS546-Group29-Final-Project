@@ -50,7 +50,6 @@ router
   })
   .post(async (req, res) => {
     const addPostData = req.body;
-    console.log("post data: ", addPostData);
     let currUserData = undefined;
     try {
       currUserData = await getUserByUsername(`${req.session.user.username}`);
@@ -128,7 +127,6 @@ router
           liked: liked,
         });
       } catch (e) {
-        console.log(`ERROR DELETING POST WITH ID: ${postId}`);
         res.status(500).render("500");
       }
     } else {
