@@ -13,17 +13,31 @@ export const createPost = async (userId, username, title, body, tags) => {
         username === undefined) {
         throw `All fields must be supplied`;
     }
+    const sportsArray = ["archery", "badminton", "baseball","basketball", "bobsleigh", "boxing", "bouldering", "canoeing", "cardio", "kayaking", "climbing", "cricket", "curling", "cycling", "equestrian sports", "field hockey", "field lacrosse", "fencing", "football", "golf", "gymnastics", "handball", "ice hockey", "judo", "lacrosse", "martial arts", "polo", "roller skating", "inline skating", "rowing", "rugby", "rugby sevens", "running", "sailing", "shooting", "skiing", "skateboarding", "snowboarding", "softball", "squash", "surfing", "swimming", "table tennis", "tennis", "track and field", "trampoline", "triathlon", "ultimate frisbee", "volleyball", "water polo", "weightlifting", "wrestling"];
     checkArray(tags, "tags");
     for (let i = 0; i < tags.length; i++) {
         if (typeof tags[i] != 'string') {
             throw `tag must be a string`;
         }
-        tags[i] = tags[i].trim();
+        tags[i] = tags[i].trim().toLowerCase();
+        if(!sportsArray.includes(tags[i])){
+            throw `tag must be a valid sport or workout`;
+        }
     }
-    //workoutId = checkID(workoutId, 'workoutId');
     userId = checkID(userId, 'userId');
     title = checkString(title, 'title');
+    let regexTitle = /[a-zA-Z ]/;
+    if(!regexTitle.test(title)){
+        throw `Title must have at least one letter`;
+    }
     body = checkString(body, 'body');
+    const regexBody = /[a-zA-Z]/;
+    if(!regexBody.test(body)){
+        throw `Post body must have at least one letter`;
+    }
+    if(body.length < 2 || body.length > 255){
+        throw `Post body must be at least 2 characters and a max of 255 characters`;
+    }
     username = checkString(username, 'username');
     const userCollection = await users();
     let user = userCollection.findOne({_id: new ObjectId(userId)});
@@ -31,11 +45,6 @@ export const createPost = async (userId, username, title, body, tags) => {
         throw `no user found with that id`;
     }
 
-    // const workoutCollection = await workouts();
-    // const workout = workoutCollection.findOne({_id: new ObjectId(workoutId)});
-    // if(!workout){
-    //     throw `no workout found with that id`;
-    // };
     const postCollection = await posts();
     let post = {
         userId: userId,
@@ -132,10 +141,6 @@ export const updatePost = async (id, updateObject) => {
         updateObject.username = checkString(updateObject.username, 'username');
         post.username = updateObject.username;
     }
-    // if (updateObject.workoutId) {
-    //     updateObject.workoutId = checkID(updateObject.workoutId, 'workoutId');
-    //     post.workoutId = updateObject.workoutId;
-    // }
     if(updateObject.title){
         updateObject.title = checkString(updateObject.title, 'title');
         post.title = updateObject.title;
@@ -145,10 +150,14 @@ export const updatePost = async (id, updateObject) => {
         post.body = updateObject.body;
     }
     if (updateObject.tags) {
+        const sportsArray = ["archery", "badminton", "baseball","basketball", "bobsleigh", "boxing", "bouldering", "canoeing", "cardio", "kayaking", "climbing", "cricket", "curling", "cycling", "equestrian sports", "field hockey", "field lacrosse", "fencing", "football", "golf", "gymnastics", "handball", "ice hockey", "judo", "lacrosse", "martial arts", "polo", "roller skating", "inline skating", "rowing", "rugby", "rugby sevens", "running", "sailing", "shooting", "skiing", "skateboarding", "snowboarding", "softball", "squash", "surfing", "swimming", "table tennis", "tennis", "track and field", "trampoline", "triathlon", "ultimate frisbee", "volleyball", "water polo", "weightlifting", "wrestling"];
         checkArray(updateObject.tags);
         for (let i = 0; i < updateObject.tags.length; i++) {
             checkString(updateObject.tags[i]);
-            updateObject.tags[i] = updateObject.tags[i].trim();
+            updateObject.tags[i] = updateObject.tags[i].trim().toLowerCase();
+            if(!sportsArray.includes(updateObject.tags[i])){
+                throw `tag must be a valid sport`;
+            }
         }
         post.tags = updateObject.tags;
     }

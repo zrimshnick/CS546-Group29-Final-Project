@@ -1,6 +1,6 @@
 <div id="profile-container">
     <div id="profile-personal-container">
-        <div id="profile-personal-image"><img src="/public/images/profile-icon.png"></div>
+        <div id="profile-personal-image"><img src="/public/images/profile-icon.png" alt="profile-icon"></div>
         <div id="profile-personal-fullname">{{firstName}}&nbsp;{{lastName}}</div>
         <button id="profile-personal-edit-button">Edit Profile</button>
         <div id="profile-personal-username">@{{username}}</div>
@@ -49,10 +49,10 @@
                     {{/each}}
                 </div>
                 <div class="profile-post-deleteButton-container">
-                    <form action="/profile/{{id}}" method="POST" id="profile-post-delete-form">
+                    <form action="/profile/{{id}}" method="POST" class="profile-post-delete-form">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="profile-post-delete-button flex">
-                            <img src="/public/images/trashIcon.png">
+                            <img src="/public/images/trashIcon.png" alt="delete">
                         </button>
                     </form>
                 </div>

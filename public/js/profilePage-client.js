@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let postHeaderContainer = document.getElementById("profile-posts-header-container");
       let newPostForm = `
     <form action="/feed" method="POST" name="new-post-form" id="new-post-form" class="profile-post-individual">
-    <input type="hidden" value="${postUsername}", id="post-username" name="username" style="hidden"></input>
+    <input type="hidden" value="${postUsername}" id="post-username" name="username" style="display: none"></input>
     <div class="profile-post-title">Title
       <input id="post-title" name="title" type="text" placeholder="Title" class="post-title"></input>
     </div>
@@ -113,12 +113,18 @@ document.addEventListener("DOMContentLoaded", function () {
       let badFields = false;
 
       const titleElement = document.getElementById("post-title");
+      const regex = /[a-zA-Z ]/;
       if (titleElement !== null) {
         let titleValue = titleElement.value;
         titleValue = titleValue.trim();
         let titleError = document.getElementById("post-titleError");
         if (!titleValue) {
           titleError.textContent = "Title must be provided";
+          titleElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        else if(!regex.test(titleValue)){
+          titleError.textContent = "Title must have at least one letter";
           titleElement.classList.add("errorBorder");
           badFields = true;
         }
@@ -129,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let bodyValue = bodyElement.value;
         bodyValue = bodyValue.trim();
         let bodyError = document.getElementById("post-bodyError");
+        const regex = /[a-zA-Z]/;
         if (!bodyValue) {
           bodyError.textContent = "Post body not provided";
           bodyElement.classList.add("errorBorder");
@@ -136,6 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else if(bodyValue.length < 2 || bodyValue.length > 255){
           bodyError.textContent = "Post body must be at least 2 characters and a max of 255 characters";
+          bodyElement.classList.add("errorBorder");
+          badFields = true;
+        }
+        else if(!regex.test(bodyValue)){
+          bodyError.textContent = "Post body must have at least one letter";
           bodyElement.classList.add("errorBorder");
           badFields = true;
         }
@@ -153,9 +165,10 @@ document.addEventListener("DOMContentLoaded", function () {
         else {
           let t = tagsValue.replace(/,/g, '');
           let tagsArray = t.split(" ");
+          const sportsArray = ["archery", "badminton", "baseball","basketball", "bobsleigh", "boxing", "bouldering", "canoeing", "cardio", "kayaking", "climbing", "cricket", "curling", "cycling", "equestrian sports", "field hockey", "field lacrosse", "fencing", "football", "golf", "gymnastics", "handball", "ice hockey", "judo", "lacrosse", "martial arts", "polo", "roller skating", "inline skating", "rowing", "rugby", "rugby sevens", "running", "sailing", "shooting", "skiing", "skateboarding", "snowboarding", "softball", "squash", "surfing", "swimming", "table tennis", "tennis", "track and field", "trampoline", "triathlon", "ultimate frisbee", "volleyball", "water polo", "weightlifting", "weight training", "wrestling"];
           for (let i = 0; i < tagsArray.length; i++) {
-            if (!isNaN(tagsArray[i])) {
-              tagsError.textContent = "Tags must be a sport";
+            if (!isNaN(tagsArray[i]) || !sportsArray.includes(tagsArray[i])) {
+              tagsError.textContent = "Tags must be a valid sport or workout";
               tagsElement.classList.add("errorBorder");
               badFields = true;
             }
