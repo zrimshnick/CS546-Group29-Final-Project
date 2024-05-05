@@ -1,5 +1,6 @@
 import { Router } from "express";
 const router = Router();
+import xss from 'xss';
 import {
   createUser,
   getUser,
@@ -62,6 +63,100 @@ router.route("/:postId").delete(async (req, res) => {
   }catch(e){
       console.log(`ERROR DELETING POST WITH ID: ${postId}`);
       res.status(500).json({e: "Internal Server Error"});
+  }
+});
+
+
+router.route("/edit")
+.get(async (req, res) => {
+  const currUserData = await getUserByUsername(
+    `${req.session.user.username}`
+  );
+  let heightparts = currUserData.height.toString().split("'");
+  let inches = heightparts[1].split('"');
+  try {
+    res.render("edit", {
+      title: "Tracklete | Edit Profile",
+      firstName: currUserData.firstName,
+      lastName: currUserData.lastName,
+      username: currUserData.username,
+      email: currUserData.email,
+      heightFt: heightparts[0],
+      heightIn: inches[0],
+      weight: currUserData.weight,
+      gender: currUserData.gender,
+
+  });
+  } catch (e) {
+    console.log(e);
+  }
+})
+.patch(async (req, res) => {
+  const editFormData = req.body;
+  console.log(editFormData);
+  let firstName = xss(editFormData.firstName);
+  firstName = firstName.trim();
+  let lastName = xss(editFormData.lastName);
+  lastName = lastName.trim();
+  let username = xss(editFormData.username);
+  username = username.trim().toLowerCase();
+  let email = xss(editFormData.email);
+  email = email.trim().toLowerCase();
+  let password = xss(editFormData.password);
+  let confirmPassword = xss(editFormData.confirmPassword);
+  let gender = xss(editFormData.gender);
+  let sports;
+  if (!Array.isArray(editFormData.sports)) {
+    sports = [editFormData.sports];
+  } else {
+    sports = editFormData.sports;
+  }
+  let heightFt = xss(editFormData.heightFt);
+  let heightIn = xss(editFormData.heightIn);
+  let height = `${heightFt}'${heightIn}"`;
+  let heightUnit = "standard";
+  let weight = xss(editFormData.weightNum);
+  let weightUnit = editFormData.weightUnit;
+
+  try {
+    console.log("TRYING TO EDIT USER");
+    const currUserData = await getUserByUsername(
+      `${req.session.user.username}`
+    );
+    // console.log(currUserData, req.session.user.username);
+    let updateObj = {};
+    if (firstName) updateObj.firstName = firstName;
+    if (lastName) updateObj.lastName = lastName;
+    if (username) updateObj.username = username;
+    if (email) updateObj.email = email;
+    if (password) updateObj.password = password;
+    if (gender) updateObj.gender = gender;
+    if (sports) updateObj.sports = sports;
+    if (height) updateObj.height = height;
+    if (heightUnit) updateObj.heightUnit = heightUnit;
+    if (weight) updateObj.weight = weight;
+    if (weightUnit) updateObj.weightUnit = weightUnit;
+
+    const updatedUser = await updateUser(currUserData._id.toString(), updateObj); 
+
+    if (updatedUser) {
+      return res.redirect("/profile");
+    } else {
+      return res
+        .status(500)
+        .render("profile", {
+          errorMessage: "Internal Server Error",
+          navbarLogHREF: "login",
+          navbarLogDisplay: "Login",
+        });
+    }
+  } catch (e) {
+    return res.status(404).render("edit", {
+      errorMessage: e,
+      title: "Tracklete | Edit Profile",
+      navbarLogHREF: "login",
+      navbarLogDisplay: "Login",
+    });
   }
 });
 

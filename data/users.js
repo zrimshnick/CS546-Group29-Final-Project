@@ -169,7 +169,7 @@ export const deleteUser = async (id) => {
 };
 
 export const updateUser = async (id, obj) => {
-  console.log(id);
+  // console.log(id);
   checkString(id, "id");
 
   id = id.trim();
@@ -179,7 +179,6 @@ export const updateUser = async (id, obj) => {
   }
 
   const keys = Object.keys(obj);
-
   if (keys.length === 0) {
     throw "need to implement a field to change for a patch request";
   }
