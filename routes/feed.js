@@ -141,7 +141,7 @@ router.route("/:postId/add-comment")
 .post(async (req, res) => {
     const user = req.session.user;
     const postId = req.params.postId;
-    const comment = req.body.commentInput;
+    const comment = xss(req.body.commentInput);
 
     if (user){
         try{
