@@ -1142,6 +1142,12 @@ button {
   border-color: #77c9d4;
 }
 
+#filter-tagError {
+  color: rgb(255, 74, 74);
+  font-size: 0.9em;
+  margin: 5px;
+}
+
 /*****************************************/
 /* LEADERBOARD STYLING */
 #leaderboard-container {
