@@ -988,6 +988,7 @@ input.workouts-workout-exercise-grid-item {
   gap: 0.2rem;
   transition: 0.2s ease-in-out all;
   margin-bottom: 1rem;
+  width: 25rem;
 
   &:hover {
     border: 1px solid #77c9d4;
@@ -1391,7 +1392,6 @@ button {
   }
 }
 
-
 /* ************************************* */
 /* EDIT PROFILE PAGE STYLING */
 #edit-form {
@@ -1507,7 +1507,6 @@ button {
   }
 }
 
-
 /* ************************************* */
 /* LOG OUT PAGE STYLING */
 #logoutView {
@@ -1544,5 +1543,4 @@ button {
   font-family: "Poppins", sans-serif;
   font-size: 2em;
   align-self: center;
-
 }
