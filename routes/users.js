@@ -151,13 +151,12 @@ router.route("/edit")
         });
     }
   } catch (e) {
-    // return res.status(404).render("edit", {
-    //   errorMessage: e,
-    //   title: "Tracklete | Edit Profile",
-    //   navbarLogHREF: "login",
-    //   navbarLogDisplay: "Login",
-    // });
-    console.log(e);
+    return res.status(404).render("edit", {
+      errorMessage: e,
+      title: "Tracklete | Edit Profile",
+      navbarLogHREF: "login",
+      navbarLogDisplay: "Login",
+    });
   }
 });
 
