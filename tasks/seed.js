@@ -531,7 +531,7 @@ try {
     user4.username,
     "My weight training workout plan",
     "This is my workout plan for:",
-    ["weight", "baseball"]
+    ["baseball"]
   );
   await posts.likePost(post1._id.toString(), user1._id.toString());
   await posts.likePost(post1._id.toString(), user2._id.toString());
@@ -546,7 +546,7 @@ try {
     user4.username,
     "My leg day",
     "This is my leg day routine",
-    ["weight", "baseball", "legs"]
+    ["baseball"]
   );
   await posts.likePost(post2._id.toString(), user3._id.toString());
   await posts.likePost(post2._id.toString(), user2._id.toString());
