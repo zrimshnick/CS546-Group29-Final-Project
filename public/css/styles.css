@@ -807,13 +807,12 @@ input.workouts-workout-exercise-grid-item {
   background-color: #77c9d4;
   padding: 0.2rem 0.5rem;
   transition: 0.1s ease-in-out all;
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;
-    /* border-color: #77c9d4;
-    background-color: #222121; */
-    background-color: #77c9d4;
-    color: #0e0e0e;
+    background-color: #222121;
+    color: white;
   }
 }
 
@@ -1387,7 +1386,6 @@ button {
 }
 
 
-
 /* ************************************* */
 /* EDIT PROFILE PAGE STYLING */
 #edit-form {
@@ -1501,4 +1499,44 @@ button {
       color: #0e0e0e;
     }
   }
+}
+
+
+/* ************************************* */
+/* LOG OUT PAGE STYLING */
+#logoutView {
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#logBackInLink {
+  align-self: center;
+  color: white;
+  margin-top: 50px;
+  font-size: 1.25em;
+  background-color: #0e0e0e;
+  border: 1px solid #77c9d4;
+  border-radius: 1rem;
+  height: 2rem;
+  margin-right: 5%;
+  padding: 0.25rem 0.5rem;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: 0.2s ease-in-out all;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #77c9d4;
+    color: #0e0e0e;
+  }
+}
+
+#logoutMessage {
+  font-family: "Poppins", sans-serif;
+  font-size: 2em;
+  align-self: center;
+
 }
