@@ -58,11 +58,9 @@ router.route("/:postId").delete(async (req, res) => {
   const postId = req.params.postId;
   try{
       const deletedPost = await deletePost(postId);
-      console.log(`DELETED ${deletedPost}`);
       return res.redirect("/profile");
   }catch(e){
-      console.log(`ERROR DELETING POST WITH ID: ${postId}`);
-      res.status(500).json({e: "Internal Server Error"});
+    res.status(500).render("500");
   }
 });
 

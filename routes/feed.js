@@ -98,7 +98,7 @@ router
       res.redirect("/profile");
     } catch (e) {
       console.log(e);
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   });
 
@@ -129,21 +129,19 @@ router
         });
       } catch (e) {
         console.log(`ERROR DELETING POST WITH ID: ${postId}`);
-        res.status(500).json({ e: "Internal Server Error" });
+        res.status(500).render("500");
       }
     } else {
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   })
   .delete(async (req, res) => {
     const postId = req.params.postId;
     try {
       const deletedPost = await deletePost(postId);
-      console.log(`DELETED ${deletedPost}`);
       return res.redirect("/feed");
     } catch (e) {
-      console.log(`ERROR DELETING POST WITH ID: ${postId}`);
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   });
 
@@ -157,10 +155,10 @@ router.route("/:postId/add-comment").post(async (req, res) => {
       await createComment(user.username, comment, postId);
       res.redirect(`/feed/${postId}`);
     } catch (e) {
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   } else {
-    res.status(500).json({ e: "Internal Server Error" });
+    res.status(500).render("500");
   }
 });
 
@@ -175,10 +173,10 @@ router.route("/:postId/like").post(async (req, res) => {
       await likePost(postId, userId);
       res.redirect(`/feed/${postId}`);
     } catch (e) {
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   } else {
-    res.status(500).json({ e: "Internal Server Error" });
+    res.status(500).render("500");
   }
 });
 

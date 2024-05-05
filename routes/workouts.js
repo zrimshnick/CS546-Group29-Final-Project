@@ -265,7 +265,7 @@ router
       return res.redirect("/workouts");
     } catch (e) {
       /* console.log(`ERROR DELETING WORKOUT WITH ID: ${workoutId}\n${e}`); */
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   })
   .post(async (req, res) => {
@@ -402,8 +402,7 @@ router
 
       return res.redirect("/workouts");
     } catch (e) {
-      console.log(`ERROR EDITING WORKOUT WITH ID: ${workoutId}\n${e}`);
-      res.status(500).json({ e: "Internal Server Error" });
+      res.status(500).render("500");
     }
   });
 
