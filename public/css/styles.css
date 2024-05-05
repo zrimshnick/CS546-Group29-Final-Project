@@ -1838,6 +1838,10 @@ div.profile-post-title {
 /* INDIVIDUAL POSTS */
 .profile-post.individual {
   margin-top: 2rem;
+  &:hover {
+    border-color: #222121;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.638);
+  }
 }
 .profile-post-likes.individual {
   width: 7rem;
