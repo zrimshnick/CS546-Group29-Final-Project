@@ -50,13 +50,14 @@
             </div>
             {{/each}}
         </div>
-        <div id="commentError"></div>
+        
         <div class="add-comment individual">
             <form name="commentForm" id="commentForm" action="/feed/{{postId}}/add-comment" method="POST">
                 <input type="text" name="commentInput" id="commentInput" placeholder="Enter Comment">
                 <button type="submit" id="postCommentBtn">Comment</button>
             </form>
         </div>
+        <div id="commentError"></div>
     </div>
 </div>
 
