@@ -30,19 +30,23 @@ document.addEventListener("DOMContentLoaded", function () {
   addPostButton.addEventListener("click", function () {
     if (openPostForm === true) {
       return;
-    }
-    else {
-      let postUsername = document.getElementById("profile-personal-username").textContent.slice(1).trim();
-      let postHeaderContainer = document.getElementById("profile-posts-header-container");
+    } else {
+      let postUsername = document
+        .getElementById("profile-personal-username")
+        .textContent.slice(1)
+        .trim();
+      let postHeaderContainer = document.getElementById(
+        "profile-posts-header-container"
+      );
       let newPostForm = `
-    <form action="/feed" method="POST" name="new-post-form" id="new-post-form" class="profile-post-individual">
+    <form action="/feed" method="POST" name="new-post-form" id="new-post-form" class="profile-post">
     <input type="hidden" value="${postUsername}" id="post-username" name="username" style="display: none"></input>
-    <div class="profile-post-title">Title
-      <input id="post-title" name="title" type="text" placeholder="Title" class="post-title"></input>
+    <div class="profile-post-title">
+      <input id="post-title" name="title" type="text" placeholder="Post Title" class="post-title"></input>
     </div>
     <div id="post-titleError"></div>
     <div class="profile-post-body">
-      <textarea id="post-body" name="body"> </textarea>
+      <textarea placeholder="Post content here" id="post-body" name="body"> </textarea>
     </div>
     <div id="post-bodyError"></div>
     <div class="profile-post-tag">Tags
@@ -50,27 +54,26 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <div id="post-tagError"></div>
     <div class="profile-post-button-container">
+      <button id="cancelPostButton" name="cancelPostButton" type="submit" class="profile-post-delete-button flex">
+        <img src="/public/images/trashIcon.png" alt="cancel-post">
+      </button>
       <button id="postButton" name="postButton" type="submit" class="profile-post-post-button flex">Post</button>
-      <button id="cancelPostButton" name="cancelPostButton" type="submit" class="profile-post-cancel-button flex">Cancel</button>
     </div>
     </form>`;
 
-      postHeaderContainer.insertAdjacentHTML('afterend', newPostForm);
+      postHeaderContainer.insertAdjacentHTML("afterend", newPostForm);
       openPostForm = true;
 
       const cancelNewPostButton = document.getElementById("cancelPostButton");
       cancelNewPostButton.addEventListener("click", function (event) {
         openPostForm = false;
         event.preventDefault();
-        let newPostForm = document.getElementById('new-post-form');
+        let newPostForm = document.getElementById("new-post-form");
         if (newPostForm) {
           newPostForm.remove();
         }
       });
     }
-
-
-
 
     const newPostFormElement = document.getElementById("new-post-form");
     console.log("checking form exists");
@@ -122,8 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
           titleError.textContent = "Title must be provided";
           titleElement.classList.add("errorBorder");
           badFields = true;
-        }
-        else if(!regex.test(titleValue)){
+        } else if (!regex.test(titleValue)) {
           titleError.textContent = "Title must have at least one letter";
           titleElement.classList.add("errorBorder");
           badFields = true;
@@ -140,13 +142,12 @@ document.addEventListener("DOMContentLoaded", function () {
           bodyError.textContent = "Post body not provided";
           bodyElement.classList.add("errorBorder");
           badFields = true;
-        }
-        else if(bodyValue.length < 2 || bodyValue.length > 255){
-          bodyError.textContent = "Post body must be at least 2 characters and a max of 255 characters";
+        } else if (bodyValue.length < 2 || bodyValue.length > 255) {
+          bodyError.textContent =
+            "Post body must be at least 2 characters and a max of 255 characters";
           bodyElement.classList.add("errorBorder");
           badFields = true;
-        }
-        else if(!regex.test(bodyValue)){
+        } else if (!regex.test(bodyValue)) {
           bodyError.textContent = "Post body must have at least one letter";
           bodyElement.classList.add("errorBorder");
           badFields = true;
@@ -161,11 +162,64 @@ document.addEventListener("DOMContentLoaded", function () {
           tagsError.textContent = "Tags must be provided";
           tagsElement.classList.add("errorBorder");
           badFields = true;
-        }
-        else {
-          let t = tagsValue.replace(/,/g, '');
+        } else {
+          let t = tagsValue.replace(/,/g, "");
           let tagsArray = t.split(" ");
-          const sportsArray = ["archery", "badminton", "baseball","basketball", "bobsleigh", "boxing", "bouldering", "canoeing", "cardio", "kayaking", "climbing", "cricket", "curling", "cycling", "equestrian sports", "field hockey", "field lacrosse", "fencing", "football", "golf", "gymnastics", "handball", "ice hockey", "judo", "lacrosse", "martial arts", "polo", "roller skating", "inline skating", "rowing", "rugby", "rugby sevens", "running", "sailing", "shooting", "skiing", "skateboarding", "snowboarding", "softball", "squash", "surfing", "swimming", "table tennis", "tennis", "track and field", "trampoline", "triathlon", "ultimate frisbee", "volleyball", "water polo", "weightlifting", "weight training", "wrestling"];
+          const sportsArray = [
+            "archery",
+            "badminton",
+            "baseball",
+            "basketball",
+            "bobsleigh",
+            "boxing",
+            "bouldering",
+            "canoeing",
+            "cardio",
+            "kayaking",
+            "climbing",
+            "cricket",
+            "curling",
+            "cycling",
+            "equestrian sports",
+            "field hockey",
+            "field lacrosse",
+            "fencing",
+            "football",
+            "golf",
+            "gymnastics",
+            "handball",
+            "ice hockey",
+            "judo",
+            "lacrosse",
+            "martial arts",
+            "polo",
+            "roller skating",
+            "inline skating",
+            "rowing",
+            "rugby",
+            "rugby sevens",
+            "running",
+            "sailing",
+            "shooting",
+            "skiing",
+            "skateboarding",
+            "snowboarding",
+            "softball",
+            "squash",
+            "surfing",
+            "swimming",
+            "table tennis",
+            "tennis",
+            "track and field",
+            "trampoline",
+            "triathlon",
+            "ultimate frisbee",
+            "volleyball",
+            "water polo",
+            "weightlifting",
+            "weight training",
+            "wrestling",
+          ];
           for (let i = 0; i < tagsArray.length; i++) {
             if (!isNaN(tagsArray[i]) || !sportsArray.includes(tagsArray[i])) {
               tagsError.textContent = "Tags must be a valid sport or workout";
@@ -178,8 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (badFields === true) {
         return false;
-      }
-      else {
+      } else {
         return true;
       }
     }
