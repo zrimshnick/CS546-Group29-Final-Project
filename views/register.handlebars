@@ -4,35 +4,37 @@
     <div class="registerError">{{errorMessage}}</div>
 
     <form action="/register" method="POST" name="signup-form" id="signup-form">
-        <label for="firstName" id="firstNameLabel">First Name (Must only be letters or a '-')</label>
+        <label for="firstName" id="firstNameLabel">First Name</label>
         <input id="firstName" name="firstName" type="text" placeholder="Enter First Name">
         <div id="firstNameError" class="registerError">{{firstNameError}}</div>
 
-        <label for="lastName" id="lastNameLabel">Last Name (Must only be letters or a '-')</label>
+        <label for="lastName" id="lastNameLabel">Last Name</label>
         <input id="lastName" name="lastName" type="text" placeholder="Enter Last Name">
         <div id="lastNameError" class="registerError">{{lastNameError}}</div>
 
-        <label for="username" id="usernameLabel">Username (Must not contain spaces and be between 3 and 12 characters long) </label>
+        <label for="username" id="usernameLabel">Username</label>
         <input id="username" name="username" type="text" placeholder="Create a Username">
         <div id="usernameError" class="registerError">{{usernameError}}</div>
+        <div class="registerSubDiv">Must be between 3 and 12 characters long</div>
 
-        <label for="email" id="emailLabel">Email (Must be a valid email address)</label>
+        <label for="email" id="emailLabel">Email</label>
         <input id="email" name="email" type="text" placeholder="Enter Email">
         <div id="emailError" class="registerError">{{emailError}}</div>
 
-        <label for="password" id="passwordLabel">Password (Must contain 8 characters, a capital letter, number and special character)</label>
+        <label for="password" id="passwordLabel">Password</label>
         <input id="password" name="password" type="password" placeholder="Choose Password">
         <div id="passwordError" class="registerError">{{passwordError}}</div>
+        <div class="registerSubDiv">Must contain 8 characters, a capital letter, number and special character</div>
 
-        <label for="confirmPassword" id="confirmPasswordLabel">Confirm Password (Must match password given above)</label>
+        <label for="confirmPassword" id="confirmPasswordLabel">Confirm Password</label>
         <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Enter Password again to confirm">
         <div id="confirmPasswordError" class="registerError">{{confirmPasswordError}}</div>
 
-        <label for="age" id="ageLabel">Age (Must be an integer above 2 and below 130)</label>
+        <label for="age" id="ageLabel">Age</label>
         <input id="age" name="age" type="text" placeholder="Enter Age">
         <div id="ageError" class="registerError">{{ageError}}</div>
 
-        <label for="gender" id="genderLabel">Gender (Required: please select one option)</label>
+        <label for="gender" id="genderLabel">Gender</label>
         <select id="gender" name="gender">
             <option value="f">Female</option>
             <option value="m">Male</option>
@@ -40,14 +42,14 @@
         </select>
         <div id="genderError" class="registerError">{{genderError}}</div>
 
-        <label for="heightFt" id="heightLabel">Height (Feet and inches must be integers)</label>
+        <label for="heightFt" id="heightLabel">Height</label>
         <div id="height">
             <input id="heightFt" name="heightFt" type="text" placeholder="Feet">
             <input id="heightIn" name="heightIn" type="text" placeholder="Inches">
         </div>        
         <div id="heightError" class="registerError">{{heightError}}</div>
 
-        <label for="weightNum" id="weightLabel">Weight (Must be a number)</label>
+        <label for="weightNum" id="weightLabel">Weight</label>
         <div id="weight">
             <input id="weightNum" name="weightNum" type="text" placeholder="Weight">
             <select id="weightUnit" name="weightUnit">
