@@ -2860,7 +2860,7 @@ try{
 }
 try{
   comment5 = await comments.createComment(
-    "zrimshni",
+    "smaida",
     "Good job",
     post3._id.toString()
   );
