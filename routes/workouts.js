@@ -301,7 +301,7 @@ router
         date: `${dateM}/${dateD}/${dateY}`,
         timeElapsed: `${hours}:${minutes}:${seconds}`,
         caloriesBurned: parseInt(editWorkoutFormData.caloriesBurned),
-        comments: editWorkoutFormData.comments,
+        comments: xss(editWorkoutFormData.comments),
       };
 
       /* console.log(updateWorkoutContent); */
