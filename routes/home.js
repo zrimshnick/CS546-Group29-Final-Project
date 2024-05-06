@@ -7,10 +7,14 @@ router.route("/").get(async (req, res) => {
       title: "Tracklete | Home",
       navbarLogHREF: "login",
       navbarLogDisplay: "Login",
+      divOra: "div",
+      hidden: "",
     });
   } else {
     res.render("home", {
       title: "Tracklete | Home",
+      divOra: "a",
+      hidden: "hidden",
     });
   }
 });

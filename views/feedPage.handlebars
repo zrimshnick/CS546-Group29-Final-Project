@@ -3,10 +3,10 @@
 
     <div class="filter-posts-container">
         <form id="filterForm">
-            <label for="filter">Filter Posts</label>
+            <label for="filter">Filter</label>
             <input type="text" id="filterTag" name="filterTag" placeholder="sport">
-            <button id="filter" name="filter" type="submit">Search</button>
-            <button id="undoFilter" name="undoFilter" type="reset">Undo</button>
+            <button class="filterButton" id="filter" name="filter" type="submit">Search</button>
+            <button class="filterButton" id="undoFilter" name="undoFilter" type="reset">Undo</button>
         </form>
         <div id="filter-tagError"></div>
     </div>
@@ -16,23 +16,31 @@
                 <div class="profile-post">
                     <div class="profile-post-title"><a href="/feed/{{this.id}}">{{title}}</a></div>
                     <div class="profile-post-content">{{body}}</div>
-                    <div class="profile-post-caption-container">
-                        <div class="profile-post-caption-username">{{username}}</div>
-                    </div>
                     {{#if tags}}
                     <div class="post-tags">Tags: {{tags}}</div>
                     {{/if}}
-                    <div class="profile-post-likes">Likes: {{likes}}</div>
+                    <div class="profile-post-caption-container">
+                        <div class="profile-post-caption-username">@{{username}}</div>
+                    </div>
+                    <div class="profile-post-likes">
+                        <img src="/public/images/heart.png">{{likes}} likes</div>
                     <div class="profile-post-comments-placeholder">
                         View comments
                     </div>
                     <div class="profile-post-comments-container hidden">
-                        {{#each comments}}
-                        <div class="profile-post-comment">
-                            <div class="profile-post-comment-username">{{username}}</div>
-                            <div class="profile-post-comment-content">{{comment}}</div>
-                        </div>
-                        {{/each}}
+                        {{#if comments.length}}
+                            {{#each comments}}
+                            <div class="profile-post-comment">
+                                <div class="profile-post-comment-username">{{username}}</div>
+                                <div class="profile-post-comment-content">{{comment}}</div>
+                            </div>
+                            {{/each}}
+                        {{else}}
+                            <div class="profile-post-comment-none">
+                                No comments yet
+                            </div>
+                        {{/if}}
+                        
                     </div>
                 </div>
             </div>

@@ -1,5 +1,3 @@
-console.log("CONNECTED TO EDIT PAGE CLIENT SIDE JS");
-
 document.addEventListener("DOMContentLoaded", function () {
   let editFormElement = document.getElementById("edit-form");
   if (editFormElement !== null) {
@@ -9,18 +7,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       let formData = new FormData(editFormElement);
-      let firstName = formData.get('firstName');
-      let lastName = formData.get('lastName');
-      let username = formData.get('username');
-      let password = formData.get('password');
-      let confirmPassword = formData.get('confirmPassword');
-      let email = formData.get('email');
-      let gender = formData.get('gender');
-      let heightFt = formData.get('heightFt');
-      let heightIn = formData.get('heightIn');
-      let weightNum = formData.get('weightNum');
-      let weightUnit = formData.get('weightUnit');
-      let sports = formData.get('sports');
+      let firstName = formData.get("firstName");
+      let lastName = formData.get("lastName");
+      let username = formData.get("username");
+      let password = formData.get("password");
+      let confirmPassword = formData.get("confirmPassword");
+      let email = formData.get("email");
+      let gender = formData.get("gender");
+      let heightFt = formData.get("heightFt");
+      let heightIn = formData.get("heightIn");
+      let weightNum = formData.get("weightNum");
+      let weightUnit = formData.get("weightUnit");
+      let sports = formData.get("sports");
       let data = {};
       if (firstName) data.firstName = firstName;
       if (lastName) data.lastName = lastName;
@@ -34,29 +32,28 @@ document.addEventListener("DOMContentLoaded", function () {
       if (weightNum) data.weightNum = weightNum;
       if (sports) data.sports = sports;
 
-
       $.ajax({
-        type: 'PATCH',
-        url: '/edit',
-        dataType: 'json',
+        type: "PATCH",
+        url: "/edit",
+        dataType: "json",
         data: data,
       })
         .done(function (response) {
-          console.log('Edit successful');
-          window.location.replace('/profile');
+          console.log("Edit successful");
+          window.location.replace("/profile");
         })
         .fail(function (xhr, status, errorThrown) {
-          console.log('Error: ' + errorThrown);
-          console.log('Status: ' + status);
+          console.log("Error: " + errorThrown);
+          console.log("Status: " + status);
           let errorMessage;
           if (xhr.responseJSON && xhr.responseJSON.message) {
             errorMessage = xhr.responseJSON.message;
+          } else {
+            errorMessage =
+              "An error occured when trying to edit. Please try again";
           }
-          else {
-            errorMessage = 'An error occured when trying to edit. Please try again';
-          }
-          $('.registerError').text(errorMessage);
-        })
+          $(".registerError").text(errorMessage);
+        });
     });
   }
 
@@ -80,7 +77,6 @@ function clearError(event) {
   }
 
   if (errorElement) {
-    console.log(errorElement);
     errorElement.textContent = "";
   }
 }
@@ -93,7 +89,6 @@ function isFormValid() {
     let firstNameValue = firstNameField.value;
     let firstNameError = document.getElementById("firstNameError");
     if (!firstNameValue) {
-    
     } else {
       if (typeof firstNameValue !== "string") {
         firstNameError.textContent = "First Name must be a string";
@@ -122,7 +117,6 @@ function isFormValid() {
     let lastNameValue = lastNameField.value;
     let lastNameError = document.getElementById("lastNameError");
     if (!lastNameValue) {
-    
     } else {
       if (typeof lastNameValue !== "string") {
         lastNameError.textContent = "Last Name must be a string!";
@@ -131,7 +125,8 @@ function isFormValid() {
       lastNameValue = lastNameValue.trim();
 
       if (lastNameValue.length < 2 || lastNameValue.length > 25) {
-        lastNameError.textContent = "Last Name must be between 2 and 25 letters";
+        lastNameError.textContent =
+          "Last Name must be between 2 and 25 letters";
         badFields = true;
       }
       if (lastNameValue.length === 0) {
@@ -149,8 +144,7 @@ function isFormValid() {
   if (usernameField !== null) {
     let usernameValue = usernameField.value;
     let usernameError = document.getElementById("usernameError");
-    if (!usernameValue){
-
+    if (!usernameValue) {
     } else {
       if (typeof usernameValue !== "string") {
         // usernameError.textContent = "Username must be a string";
@@ -175,7 +169,6 @@ function isFormValid() {
   if (emailField !== null) {
     let emailValue = emailField.value;
     if (!emailValue) {
-
     } else {
       emailValue.trim().toLowerCase();
       let emailError = document.getElementById("emailError");
@@ -190,8 +183,8 @@ function isFormValid() {
   let passwordField = document.getElementById("password");
   if (passwordField !== null) {
     let passwordValue = passwordField.value;
-    if (!passwordValue){
-    }else {
+    if (!passwordValue) {
+    } else {
       let passwordError = document.getElementById("passwordError");
 
       if (typeof passwordValue !== "string") {
@@ -204,7 +197,8 @@ function isFormValid() {
         badFields = true;
       }
       if (passwordValue.length < 8) {
-        passwordError.textContent = "Password must be at least 8 characters long";
+        passwordError.textContent =
+          "Password must be at least 8 characters long";
         badFields = true;
       }
       let passwordArray = passwordValue.split("");
@@ -236,7 +230,9 @@ function isFormValid() {
     let confirmPasswordValue = confirmPasswordField.value;
     if (!confirmPasswordValue) {
     } else {
-      let confirmPasswordError = document.getElementById("confirmPasswordError");
+      let confirmPasswordError = document.getElementById(
+        "confirmPasswordError"
+      );
       let passwordField = document.getElementById("password");
       let passwordValue = passwordField.value;
       if (passwordValue !== confirmPasswordValue) {
@@ -252,8 +248,7 @@ function isFormValid() {
   if (heightFtField !== null) {
     let heightFtValue = heightFtField.value;
     if (!heightFtValue) {
-
-    } else{
+    } else {
       let heightError = document.getElementById("heightError");
 
       if (typeof heightFtValue !== "string") {
@@ -286,7 +281,6 @@ function isFormValid() {
     if (heightInField !== null) {
       let heightInValue = heightInField.value;
       if (!heightInValue) {
-
       } else {
         let heightError = document.getElementById("heightError");
 
@@ -322,8 +316,7 @@ function isFormValid() {
   let weightField = document.getElementById("weightNum");
   if (weightField !== null) {
     let weightValue = weightField.value;
-    if (!weightValue){
-
+    if (!weightValue) {
     } else {
       let weightError = document.getElementById("weightError");
 
@@ -353,7 +346,7 @@ function isFormValid() {
       }
     }
   }
-  console.log(badFields);
+
   ////////////////////
   if (badFields === true) {
     return false;
