@@ -1146,6 +1146,7 @@ div.profile-post-title {
   }
 }
 
+#workoutSearchForm,
 #filterForm {
   display: flex;
   flex-direction: row;
@@ -1155,6 +1156,7 @@ div.profile-post-title {
   padding: 0.25rem 1rem;
 }
 
+#workoutSearchForm input,
 #filterForm input {
   font-family: "Poppins", sans-serif;
   color: white;
@@ -1178,6 +1180,7 @@ div.profile-post-title {
   }
 }
 
+.workoutSearchButton,
 .filterButton {
   font-family: "Poppins", sans-serif;
   align-self: center;
@@ -1196,6 +1199,7 @@ div.profile-post-title {
     color: #0e0e0e;
   }
 }
+#undoSearch,
 #undoFilter {
   border-color: #222121;
   &:hover {
