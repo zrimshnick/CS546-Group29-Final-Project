@@ -18,6 +18,16 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   next();
 };
 
+const AuthenitcatedUserMiddleware = (req, res, next) => {
+  const user = req.session.user;
+
+  if (user && req.originalUrl === '/' && req.method === 'GET') {
+    return res.redirect('/home');
+  }
+
+  next();
+};
+
 const ensureAuthenticationMiddleware = (req, res, next) => {
   const user = req.session.user;
 
@@ -164,7 +174,7 @@ app.use((req, res, next) => {
     console.log(
       `[${currentTimestamp}]: ${requestMethod} ${requestRoute} - ${authMessage}`
     );
-    return res.redirect("/login");
+    return res.redirect("/home");
   }
   return next();
 });
@@ -176,6 +186,7 @@ app.use("/progress", ensureAuthenticationMiddleware);
 app.use("/calorie-data", ensureAuthenticationMiddleware);
 app.use("/time-data", ensureAuthenticationMiddleware);
 app.use("/profile", ensureAuthenticationMiddleware);
+app.use(AuthenitcatedUserMiddleware)
 
 ///////////////////////////////////////////////////////
 configRoutes(app);

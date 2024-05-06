@@ -10,7 +10,7 @@ import {
   checkGender,
   checkValidAge,
   checkValidName,
-  checkValidUsername
+  checkValidUsername,
 } from "../helpers.js";
 
 export const createUser = async (
@@ -25,7 +25,8 @@ export const createUser = async (
   heightUnit,
   weight,
   weightUnit,
-  age
+  age,
+  healthInformation
 ) => {
   // Error Checking Perfromance on Input Values
   checkString(username, "username");
@@ -39,6 +40,12 @@ export const createUser = async (
   checkString(weight, "weight");
   checkString(weightUnit, "weightUnit");
   checkValidAge(age, "age");
+  if(healthInformation){
+    if(typeof healthInformation != "string"){
+      throw `Health Information must be a string`;
+    }
+    healthInformation = healthInformation.trim();
+  }
 
   if (sports !== undefined) {
     checkArray(sports, "sports");
@@ -89,6 +96,7 @@ export const createUser = async (
     weight: weight,
     weightUnit: weightUnit,
     age: age,
+    healthInformation,
     workouts: [],
     posts: [],
     likedPosts: [],
@@ -169,7 +177,6 @@ export const deleteUser = async (id) => {
 };
 
 export const updateUser = async (id, obj) => {
-  // console.log(id);
   checkString(id, "id");
 
   id = id.trim();
@@ -211,6 +218,9 @@ export const updateUser = async (id, obj) => {
     }
     if (key === "weightUnit") {
       checkString(obj[key], "updatedGender");
+    }
+    if(key === 'heealthInformation'){
+      checkString(obj[key], "healthInformation");
     }
     if (key === "sports") {
       obj[key].forEach((sport) => {
@@ -271,6 +281,7 @@ export const loginUser = async (username, password) => {
         weight: foundUser.weight,
         weightUnit: foundUser.weightUnit,
         age: foundUser.age,
+        healthInformation: foundUser.healthInformation,
         workouts: foundUser.workouts,
         posts: foundUser.posts,
         likedPosts: foundUser.likedPosts,

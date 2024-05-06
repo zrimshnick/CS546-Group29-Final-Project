@@ -23,6 +23,15 @@
         </div>
 
         <div class="workouts-no-workouts-yet"></div>
+        <div class="workoutSearch-container">
+            <form id="workoutSearchForm">
+                <label for="workoutSearch-Name">Search For Workout (by type)</label>
+                <input type="text" id="workoutSearch-Name" name="workoutSearch-Name" placeholder="Workout Type">
+                <button class="workoutSearchButton" id="workoutSearchButton" name="workoutSearchButton" type="submit">Search</button>
+                <button class="workoutSearchButton" id="undoSearch" name="undoSearch" type="reset">Undo</button>
+            </form>
+            <div id="workoutSearch-Error"></div>
+        </div>
         
         <div id="workouts-workout-grid">
         {{#each workouts}}
@@ -114,3 +123,5 @@
 </div>  
 
 <script src="/public/js/workoutPage-client.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="/public/js/workoutFilter.js"></script>

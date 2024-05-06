@@ -1,4 +1,3 @@
-console.log("workout page js linked");
 let exerciseRowCount = 0;
 
 let workoutElements = document.querySelectorAll(".workouts-workout-individual");
@@ -213,7 +212,6 @@ addWorkoutButton.addEventListener("click", function () {
     ////// data validation for header
     const newWorkoutFormElement = document.getElementById("new-workout-form");
     if (newWorkoutFormElement !== null) {
-      console.log("form exists");
       newWorkoutFormElement.addEventListener("submit", (event) => {
         if (!isFormValid()) {
           const caloriesBurnedInput = document.getElementById("caloriesBurned");
@@ -310,7 +308,6 @@ addWorkoutButton.addEventListener("click", function () {
       if (dateElement !== null) {
         let dateValue = dateElement.value;
         let dateError = document.getElementById("workouts-dateError");
-        console.log(dateValue);
 
         dateValue.trim();
         if (dateValue === "") {
@@ -324,6 +321,14 @@ addWorkoutButton.addEventListener("click", function () {
           dateElement.classList.add("errorBorder");
           badFields = true;
         } else {
+          const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+
+          if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+
           let dateArr = dateValue.split("-");
           let dateY = parseInt(dateArr[0]);
           let dateM = parseInt(dateArr[1]);
@@ -468,7 +473,6 @@ addWorkoutButton.addEventListener("click", function () {
           exerciseError.textContent = "Must add an exercise";
           badFields = true;
         } else {
-          console.log(exerciseGridFields);
           exerciseError.textContent = "";
           for (let i = 0; i < exerciseGridFields.length; i++) {
             exerciseGridFields[i].classList.remove("errorBorder");
@@ -524,7 +528,6 @@ addWorkoutButton.addEventListener("click", function () {
             }
           }
           emptyIndices.forEach((id) => {
-            console.log(`removing ${id}`);
             document.getElementById(id).remove();
           });
         }
@@ -569,7 +572,6 @@ editButtons.forEach((button) => {
     if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
       return;
     } else {
-      console.log("edit button clicked");
       const parent = this.closest(".workouts-workout-individual");
       if (parent) {
         parent.classList.remove("workouts-workout-individual");
@@ -656,11 +658,6 @@ editButtons.forEach((button) => {
         oldExerciseWeightsElements.forEach((elem) => {
           oldExerciseWeightsValsArr.push(elem.textContent);
         });
-        console.log(oldExerciseNamesValsArr);
-        console.log(oldExerciseSetsValsArr);
-        console.log(oldExerciseRepsValsArr);
-        console.log(oldExerciseWeightsValsArr);
-
         /* START MODIFING HTML */
 
         parent.innerHTML = editFormHTML;
@@ -882,12 +879,8 @@ editButtons.forEach((button) => {
       const updateWorkoutFormElement = document.getElementById(
         "workouts-workout-update-form"
       );
-      console.log("checking form exists");
       if (updateWorkoutFormElement !== null) {
-        console.log("form exists");
         updateWorkoutFormElement.addEventListener("submit", (event) => {
-          console.log("form tried to be submitted");
-
           if (!isFormValid()) {
             const caloriesBurnedInput =
               document.getElementById("caloriesBurned");
@@ -944,7 +937,6 @@ editButtons.forEach((button) => {
       }
 
       function isFormValid() {
-        console.log("calling isformvalid");
         let badFields = false;
 
         //// calories
@@ -985,7 +977,6 @@ editButtons.forEach((button) => {
         if (dateElement !== null) {
           let dateValue = dateElement.value;
           let dateError = document.getElementById("workouts-dateError");
-          console.log(dateValue);
 
           dateValue.trim();
           if (dateValue === "") {
@@ -999,6 +990,14 @@ editButtons.forEach((button) => {
             dateElement.classList.add("errorBorder");
             badFields = true;
           } else {
+            const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+
+            if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+
             let dateArr = dateValue.split("-");
             let dateY = parseInt(dateArr[0]);
             let dateM = parseInt(dateArr[1]);
@@ -1144,7 +1143,6 @@ editButtons.forEach((button) => {
             badFields = true;
             event.preventDefault();
           } else {
-            console.log(exerciseGridFields);
             exerciseError.textContent = "";
             for (let i = 0; i < exerciseGridFields.length; i++) {
               exerciseGridFields[i].classList.remove("errorBorder");
@@ -1190,7 +1188,6 @@ editButtons.forEach((button) => {
               }
             }
             emptyIndices.forEach((id) => {
-              console.log(`removing ${id}`);
               document.getElementById(id).remove();
             });
           }
@@ -1205,7 +1202,6 @@ editButtons.forEach((button) => {
             commentsError.textContent = "Comments must be a string";
             commentsElement.classList.add("errorBorder");
             badFields = true;
-            console.log(`badfields becomes ${badFields} at comments`);
           }
           commentsValue.trim();
         }
