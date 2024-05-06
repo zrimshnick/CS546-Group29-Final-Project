@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let signUpFormElement = document.getElementById("signup-form");
   if (signUpFormElement !== null) {
     signUpFormElement.addEventListener("submit", (event) => {
-      if (!isFormValid()) {
+      if (!isFormValid(event)) {
         event.preventDefault();
       }
 
@@ -86,8 +86,9 @@ function clearError(event) {
   }
 }
 
-function isFormValid() {
+function isFormValid(event) {
   let badFields = false;
+  event.preventDefault();
   /// firstName
   let firstNameField = document.getElementById("firstName");
   if (firstNameField !== null) {
@@ -199,7 +200,8 @@ function isFormValid() {
       badFields = true;
     }
     passwordValue = passwordValue.trim();
-    if (/\s/.test(passwordValue)) {
+    let regex = /\s/;
+    if (regex.test(passwordValue)) {
       passwordError.textContent = "Password cannot contain spaces";
       badFields = true;
     }
@@ -231,8 +233,13 @@ function isFormValid() {
 
   /// confirm password
   let confirmPasswordField = document.getElementById("confirmPassword");
-  if (confirmPasswordField !== null) {
-    let confirmPasswordValue = confirmPasswordField.value;
+  let confirmPasswordValue = confirmPasswordField.value.trim();
+  if(confirmPasswordValue.length === 0){
+    let confirmPasswordError = document.getElementById("confirmPasswordError");
+    confirmPasswordError.textContent = "Please Confirm Your Password";
+    badFields = true;
+  }
+  else {
     let confirmPasswordError = document.getElementById("confirmPasswordError");
     let passwordField = document.getElementById("password");
     let passwordValue = passwordField.value;
@@ -260,6 +267,7 @@ function isFormValid() {
 
     if (isNaN(ageValue)) {
       ageError.textContent = "Age must be a number";
+      badFields = true;
     } else {
       if (ageValue % 1 !== 0) {
         ageError.textContent = "You must enter a whole number";
@@ -369,6 +377,14 @@ function isFormValid() {
         weightError.textContent = "Weight must be a valid number";
         badFields = true;
       }
+    }
+
+    //sports
+    let sportsOption = document.getElementById("sports").value;
+    if(sportsOption.length === 0){
+      let sportsError = document.getElementById("sportsError");
+      sportsError.textContent = "Please select a sport";
+      badFields = true;
     }
   }
 
