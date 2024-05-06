@@ -572,7 +572,7 @@ try{
     user5._id.toString(),
     "04/02/2024",
     "00:45:00",
-    "Weight Traning",
+    "Weight Training",
     220,
     "My knees felt good today"
   );
