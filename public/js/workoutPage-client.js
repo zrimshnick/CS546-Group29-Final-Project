@@ -28,7 +28,10 @@ addWorkoutButton.addEventListener("click", function () {
   if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
     return;
   } else {
-    document.getElementById("workouts-no-workouts-yet").textContent = "";
+    const noWorkoutsElement = document.getElementById("workouts-no-workouts-yet");
+    if (noWorkoutsElement){
+      noWorkoutsElement.textContent = "";
+    }
     let newWorkoutForm = `
     <form action="/workouts" method="POST" name="new-workout-form" id="new-workout-form" class="workouts-workout-individual">
         <div class="workouts-workout-title">
