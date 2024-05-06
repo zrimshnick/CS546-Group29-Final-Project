@@ -135,7 +135,7 @@ function checkDate(value, variableName) {
   // if (month === 2 && day > 29) {
   //   throw `Error: Invalid date. February doesn't have more than 29 days`;
   // }
-  const momentDate = moment(value, 'YYYY-MM-DD');
+  const momentDate = moment(value, 'MM/DD/YYYY');
 
   if (!momentDate.isValid()){
     throw `Error: Invalid date. This date is not a possible date.`;

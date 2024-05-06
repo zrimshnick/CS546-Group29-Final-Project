@@ -31,8 +31,8 @@ export const createWorkout = async (
     throw `Error: all fields need to be supplied`;
   }
   userID = checkID(userID, "userID");
-  checkDate(date, "date");
   date = date.trim();
+  checkDate(date, "date");
   checkTime(timeElapsed, "timeElapsed");
   timeElapsed = timeElapsed.trim();
   checkString(workoutType, "workoutType");
