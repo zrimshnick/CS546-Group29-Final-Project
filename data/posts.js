@@ -26,15 +26,15 @@ export const createPost = async (userId, username, title, body, tags) => {
     }
     userId = checkID(userId, 'userId');
     title = checkString(title, 'title');
-    let regexTitle = /[a-zA-Z ]/;
-    if(!regexTitle.test(title)){
-        throw `Title must have at least one letter`;
-    }
+    // let regexTitle = /[a-zA-Z ]/;
+    // if(!regexTitle.test(title)){
+    //     throw `Title must have at least one letter`;
+    // }
     body = checkString(body, 'body');
-    const regexBody = /[a-zA-Z]/;
-    if(!regexBody.test(body)){
-        throw `Post body must have at least one letter`;
-    }
+    // const regexBody = /[a-zA-Z]/;
+    // if(!regexBody.test(body)){
+    //     throw `Post body must have at least one letter`;
+    // }
     if(body.length < 2 || body.length > 255){
         throw `Post body must be at least 2 characters and a max of 255 characters`;
     }

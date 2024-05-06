@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let badFields = false;
 
       const titleElement = document.getElementById("post-title");
-      const regex = /[a-zA-Z ]/;
+      // const regex = /[a-zA-Z ]/;
       if (titleElement !== null) {
         let titleValue = titleElement.value;
         titleValue = titleValue.trim();
@@ -128,8 +128,14 @@ document.addEventListener("DOMContentLoaded", function () {
           titleError.textContent = "Title must be provided";
           titleElement.classList.add("errorBorder");
           badFields = true;
-        } else if (!regex.test(titleValue)) {
-          titleError.textContent = "Title must have at least one letter";
+        // } else if (!regex.test(titleValue)) {
+        //   titleError.textContent = "Title must have at least one letter";
+        //   titleElement.classList.add("errorBorder");
+        //   badFields = true;
+        // }
+        }
+        else if(titleValue.length < 2 || titleValue.length > 50){
+          titleError.textContent = "Post title must be at least 2 characters and a max of 50 characters"
           titleElement.classList.add("errorBorder");
           badFields = true;
         }
@@ -140,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let bodyValue = bodyElement.value;
         bodyValue = bodyValue.trim();
         let bodyError = document.getElementById("post-bodyError");
-        const regex = /[a-zA-Z]/;
+        // const regex = /[a-zA-Z]/;
         if (!bodyValue) {
           bodyError.textContent = "Post body not provided";
           bodyElement.classList.add("errorBorder");
@@ -150,10 +156,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "Post body must be at least 2 characters and a max of 255 characters";
           bodyElement.classList.add("errorBorder");
           badFields = true;
-        } else if (!regex.test(bodyValue)) {
-          bodyError.textContent = "Post body must have at least one letter";
-          bodyElement.classList.add("errorBorder");
-          badFields = true;
+        // } else if (!regex.test(bodyValue)) {
+        //   bodyError.textContent = "Post body must have at least one letter";
+        //   bodyElement.classList.add("errorBorder");
+        //   badFields = true;
+        // }
         }
       }
 
