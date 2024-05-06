@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let weightNum = formData.get("weightNum");
       let weightUnit = formData.get("weightUnit");
       let sports = formData.get("sports");
+      let healthInformation = formData.get("healthInformation");
       $.ajax({
         type: "POST",
         url: "/register",
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
           weightNum: weightNum,
           weightUnit: weightUnit,
           sports: sports,
+          healthInformation: healthInformation
         },
       })
         .done(function (repsone) {

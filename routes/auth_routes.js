@@ -55,6 +55,10 @@ router
     let heightUnit = "standard";
     let weight = xss(registerFormData.weightNum);
     let weightUnit = registerFormData.weightUnit;
+    let healthInformation = xss(registerFormData.healthInformation);
+    if(healthInformation){
+      healthInformation.trim();
+    }
 
     ///// do error checking here /////
     try {
@@ -103,7 +107,8 @@ router
         heightUnit,
         weight,
         weightUnit,
-        age
+        age,
+        healthInformation
       );
 
       if (registration && registration.signupCompleted === true) {
@@ -178,6 +183,7 @@ router
           weight: login.weight,
           weightUnit: login.weightUnit,
           age: login.age,
+          healthInformation: login.healthInformation,
           workouts: login.workouts,
           posts: login.posts,
           likedPosts: login.likedPosts,

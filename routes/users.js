@@ -48,6 +48,7 @@ router.route("/").get(async (req, res) => {
       weightUnit: currUserData.weightUnit,
       sports: currUserData.sports,
       posts: postsAndComments,
+      healthInformation: currUserData.healthInformation
     });
   } catch (e) {
     console.log(e);
