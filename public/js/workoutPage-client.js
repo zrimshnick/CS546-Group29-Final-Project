@@ -28,8 +28,10 @@ addWorkoutButton.addEventListener("click", function () {
   if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
     return;
   } else {
-    const noWorkoutsElement = document.getElementById("workouts-no-workouts-yet");
-    if (noWorkoutsElement){
+    const noWorkoutsElement = document.getElementById(
+      "workouts-no-workouts-yet"
+    );
+    if (noWorkoutsElement) {
       noWorkoutsElement.textContent = "";
     }
     let newWorkoutForm = `
@@ -207,8 +209,11 @@ addWorkoutButton.addEventListener("click", function () {
     );
 
     cancelNewWorkoutButton.addEventListener("click", function (event) {
-      const noWorkoutsElement = document.getElementById("workouts-no-workouts-yet");
-      if (noWorkoutsElement){
+      exerciseRowCount = 0;
+      const noWorkoutsElement = document.getElementById(
+        "workouts-no-workouts-yet"
+      );
+      if (noWorkoutsElement) {
         noWorkoutsElement.textContent = "No workouts yet";
       }
       openWorkoutForm = false;
@@ -466,6 +471,23 @@ addWorkoutButton.addEventListener("click", function () {
           timeElapsedError.textContent = "Must enter a time";
           timeElementH.classList.add("errorBorder");
           timeElementM.classList.add("errorBorder");
+          timeElementS.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (parseInt(timeElementHValue) > 23) {
+          timeElapsedError.textContent = "Hours cannot be over 23";
+          timeElementH.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (parseInt(timeElementMValue) > 59) {
+          timeElapsedError.textContent =
+            "Minutes and Seconds cannot be over 59";
+          timeElementM.classList.add("errorBorder");
+          badFields = true;
+        }
+        if (parseInt(timeElementSValue) > 59) {
+          timeElapsedError.textContent =
+            "Minutes and Seconds cannot be over 59";
           timeElementS.classList.add("errorBorder");
           badFields = true;
         }
@@ -1141,6 +1163,23 @@ editButtons.forEach((button) => {
             timeElementS.classList.add("errorBorder");
             badFields = true;
           }
+          if (parseInt(timeElementHValue) > 23) {
+            timeElapsedError.textContent = "Hours cannot be over 23";
+            timeElementH.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (parseInt(timeElementMValue) > 59) {
+            timeElapsedError.textContent =
+              "Minutes and Seconds cannot be over 59";
+            timeElementM.classList.add("errorBorder");
+            badFields = true;
+          }
+          if (parseInt(timeElementSValue) > 59) {
+            timeElapsedError.textContent =
+              "Minutes and Seconds cannot be over 59";
+            timeElementS.classList.add("errorBorder");
+            badFields = true;
+          }
         }
 
         //// exercises
@@ -1195,7 +1234,7 @@ editButtons.forEach((button) => {
                   exerciseGridFields[j].classList.remove("errorBorder");
                   exerciseError.textContent = "";
                 }
-                exerciseRowCount = exerciseRowCount - 1;
+                editExerciseRowCount = editExerciseRowCount - 1;
               } else if (emptyCount > 0 && emptyCount < 4) {
                 badFields = true;
                 /* event.preventDefault(); */
