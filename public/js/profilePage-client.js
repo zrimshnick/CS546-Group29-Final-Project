@@ -215,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "wrestling",
           ];
           for (let i = 0; i < tagsArray.length; i++) {
+            tagsArray[i] = tagsArray[i].toLowerCase();
             if (!isNaN(tagsArray[i]) || !sportsArray.includes(tagsArray[i])) {
               tagsError.textContent = "Tags must be a valid sport or workout";
               tagsElement.classList.add("errorBorder");
