@@ -156,7 +156,7 @@ function isFormValid() {
     usernameValue = usernameValue.trim().toLowerCase();
     if (usernameValue.length < 5 || usernameValue.length > 10) {
       usernameError.textContent =
-        "Username must be between 5 and 10 characters";
+        "Username must be between 3 and 12 characters";
       badFields = true;
     }
     if (usernameValue.length === 0) {
