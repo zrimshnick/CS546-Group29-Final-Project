@@ -207,8 +207,10 @@ addWorkoutButton.addEventListener("click", function () {
     );
 
     cancelNewWorkoutButton.addEventListener("click", function (event) {
-      document.getElementById("workouts-no-workouts-yet").textContent =
-        "No workouts yet";
+      const noWorkoutsElement = document.getElementById("workouts-no-workouts-yet");
+      if (noWorkoutsElement){
+        noWorkoutsElement.textContent = "No workouts yet";
+      }
       openWorkoutForm = false;
       event.preventDefault();
       let newWorkoutForm = document.getElementById("new-workout-form");
