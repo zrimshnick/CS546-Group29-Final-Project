@@ -880,7 +880,7 @@ input.workouts-workout-exercise-grid-item {
   min-width: 30rem;
   max-width: 70rem;
   max-height: 70vh;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   /*   display: flex;
   flex-direction: column;
   align-items: center; */
@@ -1246,10 +1246,6 @@ div.profile-post-title {
   width: 1.5rem;
 }
 
-.like-button:hover {
-  /* border-color: #77c9d4; */
-}
-
 #filter-tagError {
   color: rgb(255, 74, 74);
   font-size: 0.9em;
@@ -1399,6 +1395,7 @@ div.profile-post-title {
   border-top: 1px solid #77c9d4;
   box-shadow: 0 1px 12px #77c9d4;
   margin-top: 4rem;
+  z-index: 999;
 }
 
 #footer-left-container {
@@ -1913,8 +1910,6 @@ div.profile-post-title {
     height: 100%;
     border-radius: 0.2rem;
   }
-}
-#postCommentBtn {
 }
 
 .workoutSearch-container {

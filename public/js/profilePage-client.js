@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (openPostForm === true) {
       return;
     } else {
-      document.getElementById("posts-no-posts-yet").textContent = "";
+      const noWorkoutsElement = document.getElementById("posts-no-posts-yet");
+      if (noWorkoutsElement){
+        noWorkoutsElement.textContent = "";
+      }
+
       let postUsername = document
         .getElementById("profile-personal-username")
         .textContent.slice(1)
@@ -65,8 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const cancelNewPostButton = document.getElementById("cancelPostButton");
       cancelNewPostButton.addEventListener("click", function (event) {
-        document.getElementById("posts-no-posts-yet").textContent =
-          "No posts yet";
+        const noWorkoutsElement = document.getElementById("posts-no-posts-yet");
+        if (noWorkoutsElement){
+          noWorkoutsElement.textContent = "No posts yet";
+        }
         openPostForm = false;
         event.preventDefault();
         let newPostForm = document.getElementById("new-post-form");
