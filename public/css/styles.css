@@ -880,7 +880,7 @@ input.workouts-workout-exercise-grid-item {
   min-width: 30rem;
   max-width: 70rem;
   max-height: 70vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   /*   display: flex;
   flex-direction: column;
   align-items: center; */
@@ -890,7 +890,7 @@ input.workouts-workout-exercise-grid-item {
   min-width: 30rem;
   max-width: 70rem;
   max-height: 70vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   /*   display: flex;
    flex-direction: column;
    align-items: center; */
@@ -1920,8 +1920,8 @@ div.profile-post-title {
 .workoutSearch-container {
   margin-bottom: 1rem;
 }
-.workouts-no-workouts-yet,
-.posts-no-posts-yet {
+#workouts-no-workouts-yet,
+#posts-no-posts-yet {
   width: 100%;
   text-align: center;
   color: gray;

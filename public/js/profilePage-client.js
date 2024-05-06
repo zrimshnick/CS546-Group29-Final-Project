@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   placeholders.forEach(function (placeholder) {
     placeholder.addEventListener("click", function () {
       let commentsContainer = placeholder.nextElementSibling;
-      
 
       if (commentsContainer.classList.contains("hidden")) {
         commentsContainer.classList.remove("hidden");
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (openPostForm === true) {
       return;
     } else {
+      document.getElementById("posts-no-posts-yet").textContent = "";
       let postUsername = document
         .getElementById("profile-personal-username")
         .textContent.slice(1)
@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const cancelNewPostButton = document.getElementById("cancelPostButton");
       cancelNewPostButton.addEventListener("click", function (event) {
+        document.getElementById("posts-no-posts-yet").textContent =
+          "No posts yet";
         openPostForm = false;
         event.preventDefault();
         let newPostForm = document.getElementById("new-post-form");

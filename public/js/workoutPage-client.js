@@ -28,6 +28,7 @@ addWorkoutButton.addEventListener("click", function () {
   if (openWorkoutForm === true || editButtonAlreadyOpen === true) {
     return;
   } else {
+    document.getElementById("workouts-no-workouts-yet").textContent = "";
     let newWorkoutForm = `
     <form action="/workouts" method="POST" name="new-workout-form" id="new-workout-form" class="workouts-workout-individual">
         <div class="workouts-workout-title">
@@ -203,6 +204,8 @@ addWorkoutButton.addEventListener("click", function () {
     );
 
     cancelNewWorkoutButton.addEventListener("click", function (event) {
+      document.getElementById("workouts-no-workouts-yet").textContent =
+        "No workouts yet";
       openWorkoutForm = false;
       event.preventDefault();
       let newWorkoutForm = document.getElementById("new-workout-form");
@@ -321,9 +324,12 @@ addWorkoutButton.addEventListener("click", function () {
           dateElement.classList.add("errorBorder");
           badFields = true;
         } else {
-          const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+          const momentDate = moment(dateValue, "YYYY-MM-DD", true);
 
-          if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+          if (
+            !momentDate.isValid() ||
+            !momentDate.isSameOrBefore(moment(), "day")
+          ) {
             dateError.textContent = "Invalid Date";
             dateElement.classList.add("errorBorder");
             badFields = true;
@@ -990,9 +996,12 @@ editButtons.forEach((button) => {
             dateElement.classList.add("errorBorder");
             badFields = true;
           } else {
-            const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+            const momentDate = moment(dateValue, "YYYY-MM-DD", true);
 
-            if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+            if (
+              !momentDate.isValid() ||
+              !momentDate.isSameOrBefore(moment(), "day")
+            ) {
               dateError.textContent = "Invalid Date";
               dateElement.classList.add("errorBorder");
               badFields = true;

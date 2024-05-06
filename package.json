@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "seed" : "node tasks/seed.js"
+    "seed": "node tasks/seed.js"
   },
   "author": "Thomas LaPinta",
   "license": "ISC",
