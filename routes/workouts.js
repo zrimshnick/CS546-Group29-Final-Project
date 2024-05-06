@@ -273,14 +273,13 @@ router
   .post(async (req, res) => {
     const editWorkoutFormData = req.body;
     const workoutId = req.params.workoutId;
-    checkDate(editWorkoutFormData.date, "date");
     const dateArr = editWorkoutFormData.date.split("-");
     const dateY = dateArr[0];
     const dateM = dateArr[1];
     const dateD = dateArr[2];
     /* console.log(editWorkoutFormData); */
-
     try {
+      checkDate(`${dateM}/${dateD}/${dateY}`, "date");
       const currUser = await getUserByUsername(req.session.user.username);
 
       let hours = editWorkoutFormData.timeElapsedH.trim();
