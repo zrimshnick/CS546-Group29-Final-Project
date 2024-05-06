@@ -5,11 +5,11 @@
     <form action="/login" method="POST" name="signin-form" id="signin-form">
 
         <label for="username" id="usernameLabel">Username</label>
-        <input id="username" class="{{errorClass}}" name="username" type="text"/>
+        <input id="username" class="{{errorClass}}" name="username" type="text">
         {{!-- <div id="usernameError" class="loginError">{{usernameError}}</div> --}}
 
         <label for="password" id="passwordLabel">Password</label>
-        <input id="password" class="{{errorClass}}" name="password" type="password"/>
+        <input id="password" class="{{errorClass}}" name="password" type="password">
         {{!-- <div id="passwordError" class="loginError">{{passwordError}}</div> --}}
 
         <div id="loginError">{{errorMessage}}</div>
