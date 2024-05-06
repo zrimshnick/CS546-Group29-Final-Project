@@ -13,7 +13,7 @@ router.route("/").get(async (req, res) => {
   } else {
     res.render("home", {
       title: "Tracklete | Home",
-      divOra: "a",
+      divOra: "div",
       hidden: "hidden",
     });
   }
