@@ -1246,6 +1246,11 @@ div.profile-post-title {
   width: 1.5rem;
 }
 
+#workoutSearch-Error{
+  text-align: center;
+}
+
+#workoutSearch-Error,
 #filter-tagError {
   color: rgb(255, 74, 74);
   font-size: 0.9em;
