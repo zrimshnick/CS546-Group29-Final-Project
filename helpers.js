@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import moment from "moment";
 
 function checkString(param, name) {
   if (param === undefined || typeof param !== "string") {
@@ -111,29 +112,40 @@ function checkID(id, varName) {
 }
 
 function checkDate(value, variableName) {
-  const date = value.split("/");
-  if (date.length !== 3) {
-    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  // const date = value.split("/");
+  // if (date.length !== 3) {
+  //   throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  // }
+  // const [month, day, year] = date.map(Number);
+  // if (isNaN(month) || isNaN(day) || isNaN(year)) {
+  //   throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  // }
+  // if (year > 2024 || year < 1000) {
+  //   throw `Error: Invalid year`;
+  // }
+  // if (!(month >= 1 && month <= 12 && day >= 1 && day <= 31)) {
+  //   throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+  // }
+  // if (
+  //   (month === 4 || month === 6 || month === 9 || month === 11) &&
+  //   day === 31
+  // ) {
+  //   throw `Error: Invalid date. There are not 31 days in this month`;
+  // }
+  // if (month === 2 && day > 29) {
+  //   throw `Error: Invalid date. February doesn't have more than 29 days`;
+  // }
+  const momentDate = moment(value, 'YYYY-MM-DD');
+
+  if (!momentDate.isValid()){
+    throw `Error: Invalid date. This date is not a possible date.`;
   }
-  const [month, day, year] = date.map(Number);
-  if (isNaN(month) || isNaN(day) || isNaN(year)) {
-    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
+
+  if (!momentDate.isSameOrBefore(moment(), 'day')){
+    throw `Error: Invalid date. Cannot use a future date`;
   }
-  if (year > 2024 || year < 1000) {
-    throw `Error: Invalid year`;
-  }
-  if (!(month >= 1 && month <= 12 && day >= 1 && day <= 31)) {
-    throw `Error: Invalide date format. ${variableName} must be a valid date in mm/dd/yyy format`;
-  }
-  if (
-    (month === 4 || month === 6 || month === 9 || month === 11) &&
-    day === 31
-  ) {
-    throw `Error: Invalid date. There are not 31 days in this month`;
-  }
-  if (month === 2 && day > 29) {
-    throw `Error: Invalid date. February doesn't have more than 29 days`;
-  }
+
+  return value;
 }
 
 function checkTime(value, varName) {

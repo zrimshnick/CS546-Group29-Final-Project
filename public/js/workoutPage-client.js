@@ -321,6 +321,14 @@ addWorkoutButton.addEventListener("click", function () {
           dateElement.classList.add("errorBorder");
           badFields = true;
         } else {
+          const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+
+          if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+            dateError.textContent = "Invalid Date";
+            dateElement.classList.add("errorBorder");
+            badFields = true;
+          }
+
           let dateArr = dateValue.split("-");
           let dateY = parseInt(dateArr[0]);
           let dateM = parseInt(dateArr[1]);
@@ -982,6 +990,14 @@ editButtons.forEach((button) => {
             dateElement.classList.add("errorBorder");
             badFields = true;
           } else {
+            const momentDate = moment(dateValue, 'YYYY-MM-DD', true);
+
+            if (!momentDate.isValid() || !momentDate.isSameOrBefore(moment(), 'day')){
+              dateError.textContent = "Invalid Date";
+              dateElement.classList.add("errorBorder");
+              badFields = true;
+            }
+
             let dateArr = dateValue.split("-");
             let dateY = parseInt(dateArr[0]);
             let dateM = parseInt(dateArr[1]);

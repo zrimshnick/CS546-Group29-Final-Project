@@ -16,6 +16,7 @@ import {
   deleteAllExercises,
 } from "../data/exercise.js";
 import { getUserByUsername, getUser } from "../data/users.js";
+import { checkDate } from "../helpers.js"
 
 router
   .route("/")
@@ -80,6 +81,7 @@ router
       /// date
       let dateArr = date.split("-");
       date = `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
+      checkDate(date, "date");
 
       /// time elapsed
       if (timeElapsedH === "") {
@@ -271,6 +273,7 @@ router
   .post(async (req, res) => {
     const editWorkoutFormData = req.body;
     const workoutId = req.params.workoutId;
+    checkDate(editWorkoutFormData.date, "date");
     const dateArr = editWorkoutFormData.date.split("-");
     const dateY = dateArr[0];
     const dateM = dateArr[1];
