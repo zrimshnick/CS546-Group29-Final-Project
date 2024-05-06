@@ -36,7 +36,7 @@
         <div class="profile-post-caption-username individual">@ {{post.username}}</div>
         <div class="profile-post-likes individual">
             <form name="likeForm" id="likeForm" action="/feed/{{postId}}/like" method="POST">
-                <button type="submit" id="likeButton" class="like-button"><img src="/public/images/heart.png"></button>{{post.likes}} likes
+                <button type="submit" id="likeButton" class="like-button"><img src="/public/images/heart.png" alt="heart"></button>{{post.likes}} likes
             </form>            
         </div>
     <div class="comments individual">
