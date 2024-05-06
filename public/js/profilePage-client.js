@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <input id="post-tag" name="tags" type="text" placeholder="sport1,sport2" class="post-tag"></input>
     </div>
     <div id="post-tagError"></div>
+    <p id="tag-description">Valid tag: any sport, weightlifting/weight training, or cardio</p>
     <div class="profile-post-button-container">
       <button id="cancelPostButton" name="cancelPostButton" type="submit" class="profile-post-delete-button flex">
         <img src="/public/images/trashIcon.png" alt="cancel-post">

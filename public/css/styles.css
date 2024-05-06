@@ -1839,6 +1839,12 @@ div.profile-post-title {
   text-align: center;
 }
 
+#tag-description{
+  font-size: 0.8em;
+  color: #9e9e9e;
+  /* text-align: center; */
+}
+
 /* INDIVIDUAL POSTS */
 .profile-post.individual {
   margin-top: 2rem;
