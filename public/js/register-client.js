@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let signUpFormElement = document.getElementById("signup-form");
   if (signUpFormElement !== null) {
     signUpFormElement.addEventListener("submit", (event) => {
-      if (!isFormValid(event)) {
+      if (!isFormValid()) {
         event.preventDefault();
       }
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
           weightNum: weightNum,
           weightUnit: weightUnit,
           sports: sports,
-          healthInformation: healthInformation
+          healthInformation: healthInformation,
         },
       })
         .done(function (repsone) {
@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.replace("/login");
         })
         .fail(function (xhr, status, errorThrown) {
-          console.log("Error: " + errorThrown);
-          console.log("Status: " + status);
+          /* console.log("Error: " + errorThrown);
+          console.log("Status: " + status); */
           let errorMessage;
           if (xhr.responseJSON && xhr.responseJSON.message) {
             errorMessage = xhr.responseJSON.message;
@@ -86,9 +86,8 @@ function clearError(event) {
   }
 }
 
-function isFormValid(event) {
+function isFormValid() {
   let badFields = false;
-  event.preventDefault();
   /// firstName
   let firstNameField = document.getElementById("firstName");
   if (firstNameField !== null) {
@@ -200,8 +199,7 @@ function isFormValid(event) {
       badFields = true;
     }
     passwordValue = passwordValue.trim();
-    let regex = /\s/;
-    if (regex.test(passwordValue)) {
+    if (/\s/.test(passwordValue)) {
       passwordError.textContent = "Password cannot contain spaces";
       badFields = true;
     }
@@ -233,13 +231,8 @@ function isFormValid(event) {
 
   /// confirm password
   let confirmPasswordField = document.getElementById("confirmPassword");
-  let confirmPasswordValue = confirmPasswordField.value.trim();
-  if(confirmPasswordValue.length === 0){
-    let confirmPasswordError = document.getElementById("confirmPasswordError");
-    confirmPasswordError.textContent = "Please Confirm Your Password";
-    badFields = true;
-  }
-  else {
+  if (confirmPasswordField !== null) {
+    let confirmPasswordValue = confirmPasswordField.value;
     let confirmPasswordError = document.getElementById("confirmPasswordError");
     let passwordField = document.getElementById("password");
     let passwordValue = passwordField.value;
@@ -267,7 +260,6 @@ function isFormValid(event) {
 
     if (isNaN(ageValue)) {
       ageError.textContent = "Age must be a number";
-      badFields = true;
     } else {
       if (ageValue % 1 !== 0) {
         ageError.textContent = "You must enter a whole number";
@@ -377,14 +369,6 @@ function isFormValid(event) {
         weightError.textContent = "Weight must be a valid number";
         badFields = true;
       }
-    }
-
-    //sports
-    let sportsOption = document.getElementById("sports").value;
-    if(sportsOption.length === 0){
-      let sportsError = document.getElementById("sportsError");
-      sportsError.textContent = "Please select a sport";
-      badFields = true;
     }
   }
 

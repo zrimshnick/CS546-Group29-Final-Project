@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href("/home");
           })
           .fail(function (xhr, status, errorThrown) {
-            console.log("Error: " + errorThrown);
-            console.log("Status: " + status);
+            /* console.log("Error: " + errorThrown);
+            console.log("Status: " + status); */
             let errorMessage;
             if (xhr.responseJSON && xhr.responseJSON.message) {
               errorMessage = xhr.responseJSON.message;
