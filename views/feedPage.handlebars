@@ -10,8 +10,9 @@
         </form>
         <div id="filter-tagError"></div>
     </div>
-    {{#each posts}}
+    
     <div class="profile-posts-container">
+        {{#each posts}}
         <div class="profile-posts">
                 <div class="profile-post">
                     <div class="profile-post-title"><a href="/feed/{{this.id}}">{{title}}</a></div>
@@ -42,7 +43,7 @@
                         {{/if}}
                    </div>
                 </div>
-                </div>
+                
             </div>
             {{/each}}
             </div>

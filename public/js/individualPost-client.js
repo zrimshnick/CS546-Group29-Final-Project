@@ -10,13 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const liked = individualPost.getAttribute("data-liked");
 
   if (liked === "true") {
-    likeButton.style.backgroundColor = "white";
-    likeButton.style.color = "#77c9d4";
+    likeButton.style.backgroundColor = "rgb(255, 74, 74)";
   }
 
   if (liked === "false") {
-    likeButton.style.backgroundColor = "black";
-    likeButton.style.color = "white";
+    likeButton.style.backgroundColor = "transparent";
   }
 
   commentForm.addEventListener("submit", function () {

@@ -16,8 +16,8 @@
             <div class="profile-personal-meta-sport">{{this}}</div>
             {{/each}}
         </div>
-        <p>Optional Health Information:</p>
-        <div id="profile-personal-meta-healthInformation">{{healthInformation}}</div>
+        <a id="progressButton" href="/progress">View Progress</a>
+        <div id="profile-personal-meta-healthInformation">{{!-- Optional Health Information:<br> --}}{{healthInformation}}</div>
         {{!-- <a id="profile-personal-edit-button" href="/profile/edit">Edit Profile</a> --}}
         <a id="logoutButton" href="/logout">Log Out</a>
     </div>
@@ -26,6 +26,13 @@
             <h1>Posts</h1>
             <button id="profile-posts-create-button">Create +</button>
         </div>
+
+        {{#if posts.length}}
+        {{else}}
+            <div class="posts-no-posts-yet">
+                No posts yet
+            </div>
+        {{/if}}
 
 
         <div id="all-posts-container">

@@ -29,18 +29,20 @@
         </div>
     </div>
 </div> --}}
+<div id="individual-post-container">
+    <a href="/feed" class="return-feed-link">Return to feed</a>
 
-<div class="profile-post individual" data-liked="{{liked}}">
+    <div class="profile-post individual" data-liked="{{liked}}">
         <div class="profile-post-title individual">{{post.title}}</div>
         <div class="profile-post-content individual">{{post.body}}</div>
-        <div class="profile-post-caption-username individual">@ {{post.username}}</div>
+        <div class="profile-post-caption-username individual">@{{post.username}}</div>
         <div class="profile-post-likes individual">
             <form name="likeForm" id="likeForm" action="/feed/{{postId}}/like" method="POST">
                 <button type="submit" id="likeButton" class="like-button"><img src="/public/images/heart.png" alt="heart"></button>{{post.likes}} likes
             </form>            
         </div>
     <div class="comments individual">
-        <h3 class="comment-header individual">Comments:</h3>
+        <h3 class="comment-header individual">Comments</h3>
         
         <div class="profile-post-comments-container individual">
             {{#each comments}}
@@ -59,6 +61,8 @@
         </div>
         <div id="commentError"></div>
     </div>
+    </div>
 </div>
+
 
 <script src="/public/js/individualPost-client.js"></script>
