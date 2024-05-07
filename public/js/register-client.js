@@ -379,6 +379,13 @@ function isFormValid() {
         badFields = true;
       }
     }
+    //sports
+    let sportsOption = document.getElementById("sports").value;
+    if(sportsOption.length === 0){
+      let sportsError = document.getElementById("sportsError");
+      sportsError.textContent = "Please select a sport";
+      badFields = true;
+    }
   }
 
   ////////////////////
