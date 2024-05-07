@@ -53,8 +53,11 @@ router
     workoutType = workoutType.trim();
     let date = xss(addWorkoutFormData.date);
     let timeElapsedH = xss(addWorkoutFormData.timeElapsedH);
+    timeElapsedH = timeElapsedH.trim();
     let timeElapsedM = xss(addWorkoutFormData.timeElapsedM);
+    timeElapsedM = timeElapsedM.trim();
     let timeElapsedS = xss(addWorkoutFormData.timeElapsedS);
+    timeElapsedS = timeElapsedS.trim();
     let timeElapsed;
     let caloriesBurned = xss(addWorkoutFormData.caloriesBurned);
     let comments = xss(addWorkoutFormData.comments);

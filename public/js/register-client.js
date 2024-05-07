@@ -22,43 +22,45 @@ document.addEventListener("DOMContentLoaded", function () {
       let weightUnit = formData.get("weightUnit");
       let sports = formData.get("sports");
       let healthInformation = formData.get("healthInformation");
-      $.ajax({
-        type: "POST",
-        url: "/register",
-        dataType: json,
-        data: {
-          firstName: firstName,
-          lastName: lastName,
-          username: username,
-          password: password,
-          confirmPassword: confirmPassword,
-          email: email,
-          age: age,
-          gender: gender,
-          heightFt: heightFt,
-          heightIn: heightIn,
-          weightNum: weightNum,
-          weightUnit: weightUnit,
-          sports: sports,
-          healthInformation: healthInformation,
-        },
-      })
-        .done(function (repsone) {
-          console.log("Registration successful");
-          window.location.replace("/login");
-        })
-        .fail(function (xhr, status, errorThrown) {
-          /* console.log("Error: " + errorThrown);
-          console.log("Status: " + status); */
-          let errorMessage;
-          if (xhr.responseJSON && xhr.responseJSON.message) {
-            errorMessage = xhr.responseJSON.message;
-          } else {
-            errorMessage =
-              "An error occured when trying to register. Please try again";
-          }
-          $(".registerError").text(errorMessage);
-        });
+      
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/register",
+    //     dataType: json,
+    //     data: {
+    //       firstName: firstName,
+    //       lastName: lastName,
+    //       username: username,
+    //       password: password,
+    //       confirmPassword: confirmPassword,
+    //       email: email,
+    //       age: age,
+    //       gender: gender,
+    //       heightFt: heightFt,
+    //       heightIn: heightIn,
+    //       weightNum: weightNum,
+    //       weightUnit: weightUnit,
+    //       sports: sports,
+    //       healthInformation: healthInformation
+    //     },
+    //   })
+    //     .done(function (repsone) {
+    //       console.log("Registration successful");
+    //       window.location.replace("/login");
+    //     })
+    //     .fail(function (xhr, status, errorThrown) {
+    //       console.log("Error: " + errorThrown);
+    //       console.log("Status: " + status);
+    //       let errorMessage;
+    //       if (xhr.responseJSON && xhr.responseJSON.message) {
+    //         errorMessage = xhr.responseJSON.message;
+    //       } else {
+    //         errorMessage =
+    //           "An error occured when trying to register. Please try again";
+    //       }
+    //       $(".registerError").text(errorMessage);
+    //     });
+    // });
     });
   }
 
@@ -156,7 +158,7 @@ function isFormValid() {
       badFields = true;
     }
     usernameValue = usernameValue.trim().toLowerCase();
-    if (usernameValue.length < 5 || usernameValue.length > 10) {
+    if (usernameValue.length < 3 || usernameValue.length > 12) {
       usernameError.textContent =
         "Username must be between 3 and 12 characters";
       badFields = true;
@@ -166,11 +168,17 @@ function isFormValid() {
       badFields = true;
     }
 
-    const usernameRegex = /^[^a-zA-Z0-9]+$/;
+    const usernameRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
     if (usernameRegex.test(usernameValue)) {
       usernameError.textContent =
-        "Username cannot only contain special characters";
+        "Username cannot contain any special characters";
+      badFields = true;
+    }
+
+    let regexUsername = /\s/;
+    if(regexUsername.test(usernameValue)){
+      usernameError.textContent = "Username cannot contain spaces";
       badFields = true;
     }
   }
@@ -295,6 +303,7 @@ function isFormValid() {
 
     if (isNaN(heightFtValue)) {
       heightError.textContent = "Height (Feet) must be a number";
+      badFields = true;
     } else {
       if (heightFtValue % 1 !== 0) {
         heightError.textContent = "Feet must be a whole number";
@@ -369,6 +378,13 @@ function isFormValid() {
         weightError.textContent = "Weight must be a valid number";
         badFields = true;
       }
+    }
+    //sports
+    let sportsOption = document.getElementById("sports").value;
+    if(sportsOption.length === 0){
+      let sportsError = document.getElementById("sportsError");
+      sportsError.textContent = "Please select a sport";
+      badFields = true;
     }
   }
 

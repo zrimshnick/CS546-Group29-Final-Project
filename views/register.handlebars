@@ -15,7 +15,7 @@
         <label for="username" id="usernameLabel">Username</label>
         <input id="username" name="username" type="text" placeholder="Create a Username">
         <div id="usernameError" class="registerError">{{usernameError}}</div>
-        <div class="registerSubDiv">Must be between 3 and 12 characters long</div>
+        <div class="registerSubDiv">Must be between 3 and 12 characters long and cannot contain special characters</div>
 
         <label for="email" id="emailLabel">Email</label>
         <input id="email" name="email" type="text" placeholder="Enter Email">
@@ -124,3 +124,4 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="/public/js/register-client.js"></script>
+<script src="/public/js/register-ajax.js"></script>
