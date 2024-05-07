@@ -32,28 +32,28 @@ document.addEventListener("DOMContentLoaded", function () {
       if (weightNum) data.weightNum = weightNum;
       if (sports) data.sports = sports;
 
-      $.ajax({
-        type: "PATCH",
-        url: "profile/edit",
-        dataType: json,
-        data: data,
-      })
-        .done(function (response) {
-          console.log("Edit successful");
-          window.location.replace("/profile");
-        })
-        .fail(function (xhr, status, errorThrown) {
-          console.log("Error: " + errorThrown);
-          console.log("Status: " + status);
-          let errorMessage;
-          if (xhr.responseJSON && xhr.responseJSON.message) {
-            errorMessage = xhr.responseJSON.message;
-          } else {
-            errorMessage =
-              "An error occured when trying to edit. Please try again";
-          }
-          $(".registerError").text(errorMessage);
-        });
+      // $.ajax({
+      //   type: "PATCH",
+      //   url: "profile/edit",
+      //   dataType: json,
+      //   data: data,
+      // })
+      //   .done(function (response) {
+      //     console.log("Edit successful");
+      //     window.location.replace("/profile");
+      //   })
+      //   .fail(function (xhr, status, errorThrown) {
+      //     console.log("Error: " + errorThrown);
+      //     console.log("Status: " + status);
+      //     let errorMessage;
+      //     if (xhr.responseJSON && xhr.responseJSON.message) {
+      //       errorMessage = xhr.responseJSON.message;
+      //     } else {
+      //       errorMessage =
+      //         "An error occured when trying to edit. Please try again";
+      //     }
+      //     $(".registerError").text(errorMessage);
+      //   });
     });
   }
 
@@ -345,7 +345,7 @@ function isFormValid() {
   }
 
   ////////////////////
-  if (badFields == true) {
+  if (badFields === true) {
     return false;
   } else {
     return true;
