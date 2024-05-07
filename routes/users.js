@@ -8,6 +8,16 @@ import {
   deleteUser,
   updateUser,
 } from "../data/users.js";
+import {
+  checkString,
+  checkArray,
+  checkValidEmail,
+  checkValidPassword,
+  checkGender,
+  checkValidAge,
+  checkValidName,
+  checkValidUsername,
+} from "../helpers.js";
 import { ObjectId } from "mongodb";
 import { deletePost, getAllPosts, getPost } from "../data/posts.js";
 import { getAllComments } from "../data/comments.js";
@@ -73,6 +83,13 @@ router
     );
     let heightparts = currUserData.height.toString().split("'");
     let inches = heightparts[1].split('"');
+    let sportsOptions = ["Archery", "Badminton", "Baseball", "Basketball", "Bobsleigh", "Boxing", "Bouldering", "Canoeing/Kayaking", "Climbing", "Cricket", "Curling", "Cycling", "Equestrian Sports", "Field Hockey", "Field Lacrosse", "Fencing", "Football", "Golf", "Gymnastics", "Handball", "Ice Hockey", "Judo", "Lacrosse", "Martial Arts", "Polo", "Roller Skating/Inline Skating", "Rowing", "Rugby", "Rugby Sevens", "Sailing", "Shooting", "Skiing", "Skateboarding", "Snowboarding", "Softball", "Squash", "Surfing", "Swimming", "Table Tennis", "Tennis", "Track and Field", "Trampoline", "Triathlon", "Ultimate Frisbee", "Volleyball", "Water Polo", "Weightlifting", "Wrestling"]
+    let preSelect = sportsOptions.map(a => {
+      return {
+          name: a,
+          selected: currUserData.sports.includes(a)
+      };
+  });
     try {
       res.render("edit", {
         title: "Tracklete | Edit Profile",
@@ -84,6 +101,7 @@ router
         heightIn: inches[0],
         weight: currUserData.weight,
         gender: currUserData.gender,
+        sportsOptions: preSelect,
       });
     } catch (e) {
       console.log(e);
@@ -91,6 +109,7 @@ router
   })
   .patch(async (req, res) => {
     const editFormData = req.body;
+    console.log('req body', req.body);
     let firstName = xss(editFormData.firstName);
     firstName = firstName.trim();
     let lastName = xss(editFormData.lastName);
@@ -114,30 +133,67 @@ router
     let heightUnit = "standard";
     let weight = xss(editFormData.weightNum);
     let weightUnit = editFormData.weightUnit;
+    try {
+      if (username!=='') checkString(username, "username");
+      if (firstName!=='')checkString(firstName, "firstName");
+      if (lastName!=='')checkString(lastName, "lastName");
+      if (email!=='')checkString(email, "email");
+      if (password!=='')checkString(password, "password");
+      if (confirmPassword!=='')checkString(confirmPassword, "confirmPassword");
+      if (gender!=='')checkString(gender, "gender");
+      if (height!=='')checkString(height, "height");
+      if (heightUnit!=='')checkString(heightUnit, "heightUnit");
+      if (weight!=='')checkString(weight, "weight");
+      if (gender!=='') checkGender(gender, "gender");
+      if (firstName!=='')checkValidName(firstName, "firstName");
+      if (lastName!=='')checkValidName(lastName, "lastName");
+      if (username!=='')checkValidUsername(username);
+      if (email!=='')checkValidEmail(email, "email");
+      if (password!=='')checkValidPassword(password, "password");
+    } catch (e) {
+      const currUserData = await getUserByUsername(
+        `${req.session.user.username}`
+      );
+      let heightparts = currUserData.height.toString().split("'");
+      let inches = heightparts[1].split('"');
+      return res.status(400).render("edit", {
+        errorMessage: e,
+        title: "Tracklete | Edit Profile",
+        firstName: currUserData.firstName,
+        lastName: currUserData.lastName,
+        username: currUserData.username,
+        email: currUserData.email,
+        heightFt: heightparts[0],
+        heightIn: inches[0],
+        weight: currUserData.weight,
+        gender: currUserData.gender,
+      });
+    }
 
     try {
       const currUserData = await getUserByUsername(
         `${req.session.user.username}`
       );
       let updateObj = {};
-      if (firstName) updateObj.firstName = firstName;
-      if (lastName) updateObj.lastName = lastName;
-      if (username) updateObj.username = username;
-      if (email) updateObj.email = email;
-      if (password) updateObj.password = password;
-      if (gender) updateObj.gender = gender;
-      if (sports) updateObj.sports = sports;
-      if (height) updateObj.height = height;
-      if (heightUnit) updateObj.heightUnit = heightUnit;
-      if (weight) updateObj.weight = weight;
-      if (weightUnit) updateObj.weightUnit = weightUnit;
-
+      if (firstName!=='') updateObj.firstName = firstName;
+      if (lastName!=='') updateObj.lastName = lastName;
+      if (username!=='') updateObj.username = username;
+      if (email!=='') updateObj.email = email;
+      if (password!=='') updateObj.password = password;
+      if (gender!=='') updateObj.gender = gender;
+      if (sports!=='') updateObj.sports = sports;
+      if (height!=='') updateObj.height = height;
+      if (heightUnit!=='') updateObj.heightUnit = heightUnit;
+      if (weight!=='') updateObj.weight = weight;
+      if (weightUnit!=='') updateObj.weightUnit = weightUnit;
+      console.log(updateObj);
       const updatedUser = await updateUser(
         currUserData._id.toString(),
         updateObj
       );
 
       if (updatedUser) {
+        req.session.user.username = updatedUser.username;
         return res.redirect("/profile");
       } else {
         return res.status(500).render("profile", {

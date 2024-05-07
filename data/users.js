@@ -208,16 +208,16 @@ export const updateUser = async (id, obj) => {
       checkGender(obj[key], "updatedGender");
     }
     if (key === "height") {
-      checkString(obj[key], "updatedGender");
+      checkString(obj[key], "updatedHeight");
     }
     if (key === "heightUnit") {
-      checkString(obj[key], "updatedGender");
+      checkString(obj[key], "updatedHeightUnit");
     }
     if (key === "weight") {
-      checkString(obj[key], "updatedGender");
+      checkString(obj[key], "updatedWeight");
     }
     if (key === "weightUnit") {
-      checkString(obj[key], "updatedGender");
+      checkString(obj[key], "updatedWeightUnit");
     }
     if(key === 'heealthInformation'){
       checkString(obj[key], "healthInformation");
@@ -232,7 +232,7 @@ export const updateUser = async (id, obj) => {
   });
 
   //not sure if you will update workouts, posts, and liked posts here
-
+  if (keys.includes("password")) obj["password"] = await bcrypt.hash(obj["password"], 10);
   const userCollection = await users();
   const user = await userCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },

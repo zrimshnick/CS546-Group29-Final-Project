@@ -32,28 +32,28 @@ document.addEventListener("DOMContentLoaded", function () {
       if (weightNum) data.weightNum = weightNum;
       if (sports) data.sports = sports;
 
-      $.ajax({
-        type: "PATCH",
-        url: "/edit",
-        dataType: "json",
-        data: data,
-      })
-        .done(function (response) {
-          console.log("Edit successful");
-          window.location.replace("/profile");
-        })
-        .fail(function (xhr, status, errorThrown) {
-          console.log("Error: " + errorThrown);
-          console.log("Status: " + status);
-          let errorMessage;
-          if (xhr.responseJSON && xhr.responseJSON.message) {
-            errorMessage = xhr.responseJSON.message;
-          } else {
-            errorMessage =
-              "An error occured when trying to edit. Please try again";
-          }
-          $(".registerError").text(errorMessage);
-        });
+      // $.ajax({
+      //   type: "PATCH",
+      //   url: "profile/edit",
+      //   dataType: json,
+      //   data: data,
+      // })
+      //   .done(function (response) {
+      //     console.log("Edit successful");
+      //     window.location.replace("/profile");
+      //   })
+      //   .fail(function (xhr, status, errorThrown) {
+      //     console.log("Error: " + errorThrown);
+      //     console.log("Status: " + status);
+      //     let errorMessage;
+      //     if (xhr.responseJSON && xhr.responseJSON.message) {
+      //       errorMessage = xhr.responseJSON.message;
+      //     } else {
+      //       errorMessage =
+      //         "An error occured when trying to edit. Please try again";
+      //     }
+      //     $(".registerError").text(errorMessage);
+      //   });
     });
   }
 
@@ -125,8 +125,7 @@ function isFormValid() {
       lastNameValue = lastNameValue.trim();
 
       if (lastNameValue.length < 2 || lastNameValue.length > 25) {
-        lastNameError.textContent =
-          "Last Name must be between 2 and 25 letters";
+        lastNameError.textContent = "Last Name must be between 2 and 25 letters";
         badFields = true;
       }
       if (lastNameValue.length === 0) {
@@ -147,13 +146,12 @@ function isFormValid() {
     if (!usernameValue) {
     } else {
       if (typeof usernameValue !== "string") {
-        // usernameError.textContent = "Username must be a string";
-        // badFields = true;
+        usernameError.textContent = "Username must be a string";
+        badFields = true;
       }
       usernameValue = usernameValue.trim().toLowerCase();
       if (usernameValue.length < 5 || usernameValue.length > 10) {
-        usernameError.textContent =
-          "Username must be between 5 and 10 characters";
+        usernameError.textContent = "Username must be between 5 and 10 characters";
         badFields = true;
       }
       if (usernameValue.length === 0) {
@@ -217,8 +215,7 @@ function isFormValid() {
         }
       });
       if (!hasUpp || !hasNum || !hasSpe) {
-        passwordError.textContent =
-          "Password must have at least 1 uppercase letter, 1 number, and 1 special character";
+        passwordError.textContent = "Password must have at least 1 uppercase letter, 1 number, and 1 special character";
         badFields = true;
       }
     }
