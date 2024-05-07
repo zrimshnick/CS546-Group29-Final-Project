@@ -173,8 +173,12 @@ document.addEventListener("DOMContentLoaded", function () {
           tagsElement.classList.add("errorBorder");
           badFields = true;
         } else {
-          let t = tagsValue.replace(/,/g, "");
-          let tagsArray = t.split(" ");
+          //let t = tagsValue.replace(/,/g, "");
+          let tagsArray = tagsValue.split(",");
+          for(let i = 0; i < tagsArray.length; i++){
+            tagsArray[i] = tagsArray[i].trim();
+          }
+          console.log(tagsArray);
           const sportsArray = [
             "archery",
             "badminton",
