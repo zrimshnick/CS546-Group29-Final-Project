@@ -127,10 +127,10 @@ router
           liked: liked,
         });
       } catch (e) {
-        res.status(500).render("500");
+        res.status(404).render("404");
       }
     } else {
-      res.status(500).render("500");
+      res.redirect('/home');
     }
   })
   .delete(async (req, res) => {
@@ -143,7 +143,18 @@ router
     }
   });
 
-router.route("/:postId/add-comment").post(async (req, res) => {
+router.route("/:postId/add-comment")
+.get(async (req, res) => {
+  const user = req.session.user;
+  const postId = req.params.postId;
+
+  if (user){
+    res.redirect(`/feed/${postId}`)
+  } else{
+    res.redirect('/home');
+  }
+})
+.post(async (req, res) => {
   const user = req.session.user;
   const postId = req.params.postId;
   const comment = xss(req.body.commentInput);
@@ -160,7 +171,18 @@ router.route("/:postId/add-comment").post(async (req, res) => {
   }
 });
 
-router.route("/:postId/like").post(async (req, res) => {
+router.route("/:postId/like")
+.get(async (req, res) => {
+  const user = req.session.user;
+  const postId = req.params.postId;
+
+  if (user){
+    res.redirect(`/feed/${postId}`)
+  } else{
+    res.redirect('/home');
+  }
+})
+.post(async (req, res) => {
   const user = req.session.user;
   const postId = req.params.postId;
   const curUser = await getUserByUsername(user.username);
