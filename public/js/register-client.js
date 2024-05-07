@@ -168,11 +168,11 @@ function isFormValid() {
       badFields = true;
     }
 
-    const usernameRegex = /^[^a-zA-Z0-9]+$/;
+    const usernameRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
     if (usernameRegex.test(usernameValue)) {
       usernameError.textContent =
-        "Username cannot only contain special characters";
+        "Username cannot contain any special characters";
       badFields = true;
     }
 

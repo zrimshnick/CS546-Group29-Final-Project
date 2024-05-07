@@ -42,11 +42,17 @@ function checkValidName(param, name){
 }
 
 function checkValidUsername(param){
-  const usernameRegex = /^[^a-zA-Z0-9]+$/;
+  const usernameRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+  if (param.length < 3 || param.length > 12){
+    throw 'username is too long or too short';
+  }
 
   if (usernameRegex.test(param)){
-    throw 'username cannot only contain special characters'
+    throw 'username cannot any contain special characters'
   }
+
+  return param;
 }
 
 function checkValidPassword(password, name) {
