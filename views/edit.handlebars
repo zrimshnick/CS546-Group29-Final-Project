@@ -35,11 +35,11 @@
         </select>
         <div id="genderError" class="registerError">{{genderError}}</div>
 
-        <label for="heightFt" id="heightLabel">Height</label>
-        <div id="height">
-            <input id="heightFt" name="heightFt" type="text" value="{{heightFt}}"/>
-            <input id="heightIn" name="heightIn" type="text" value="{{heightIn}}"/>
-        </div>        
+        <label for="heightFt" id="heightFtLabel">Height (Feet)</label>    
+        <input id="heightFt" name="heightFt" type="text" value="{{heightFt}}"/>
+        <label for="heightIn" id="heightInLabel">Height (Inches)</label>    
+        <input id="heightIn" name="heightIn" type="text" value="{{heightIn}}"/>
+        
         <div id="heightError" class="registerError">{{heightError}}</div>
 
         <label for="weightNum" id="weightLabel">Weight</label>
@@ -52,8 +52,16 @@
         </div>        
         <div id="weightError" class="registerError">{{weightError}}</div>
 
+
+
         <label for="sports" id="sportsLabel">Sports</label>
         <select id="sports" name="sports" multiple>
+            {{#each sportsOptions}}
+                <option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+            {{!-- <label for="sports" id="sportsLabel">Sports</label>
+            <select id="sports" name="sports" multiple>
             <option value="Archery">Archery</option>
             <option value="Badminton">Badminton</option>
             <option value="Baseball">Baseball</option>
@@ -103,10 +111,12 @@
             <option value="Weightlifting">Weightlifting</option>
             <option value="Wrestling">Wrestling</option>
 
-        </select>
+        </select> --}}
         <div id="sportsError" class="registerError">{{sportsError}}</div>
+        
         <input type="hidden" name='_method' value="PATCH" />
         <button id="submitButton" name="submitButton" type="submit">Submit</button>
+       
         
 
     </form>

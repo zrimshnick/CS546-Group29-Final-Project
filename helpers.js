@@ -42,10 +42,11 @@ function checkValidName(param, name){
 }
 
 function checkValidUsername(param){
+  if (param.length < 5 || param.length > 10) throw 'Username must be between 5 and 10 characters long';
   const usernameRegex = /^[^a-zA-Z0-9]+$/;
 
   if (usernameRegex.test(param)){
-    throw 'username cannot only contain special characters'
+    throw 'username cannot only contain special characters';
   }
 }
 
