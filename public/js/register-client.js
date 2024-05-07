@@ -207,8 +207,7 @@ function isFormValid() {
       badFields = true;
     }
     passwordValue = passwordValue.trim();
-    let regex = /\s/;
-    if (regex.test(passwordValue)) {
+    if (/\s/.test(passwordValue)) {
       passwordError.textContent = "Password cannot contain spaces";
       badFields = true;
     }
@@ -240,13 +239,8 @@ function isFormValid() {
 
   /// confirm password
   let confirmPasswordField = document.getElementById("confirmPassword");
-  let confirmPasswordValue = confirmPasswordField.value.trim();
-  if(confirmPasswordValue.length === 0){
-    let confirmPasswordError = document.getElementById("confirmPasswordError");
-    confirmPasswordError.textContent = "Please Confirm Your Password";
-    badFields = true;
-  }
-  else {
+  if (confirmPasswordField !== null) {
+    let confirmPasswordValue = confirmPasswordField.value;
     let confirmPasswordError = document.getElementById("confirmPasswordError");
     let passwordField = document.getElementById("password");
     let passwordValue = passwordField.value;
@@ -274,7 +268,6 @@ function isFormValid() {
 
     if (isNaN(ageValue)) {
       ageError.textContent = "Age must be a number";
-      badFields = true;
     } else {
       if (ageValue % 1 !== 0) {
         ageError.textContent = "You must enter a whole number";
@@ -385,14 +378,6 @@ function isFormValid() {
         weightError.textContent = "Weight must be a valid number";
         badFields = true;
       }
-    }
-
-    //sports
-    let sportsOption = document.getElementById("sports").value;
-    if(sportsOption.length === 0){
-      let sportsError = document.getElementById("sportsError");
-      sportsError.textContent = "Please select a sport";
-      badFields = true;
     }
   }
 
