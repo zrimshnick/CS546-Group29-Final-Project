@@ -37,6 +37,16 @@ const ensureAuthenticationMiddleware = (req, res, next) => {
     next();
   }
 };
+
+const loginAndRegisterMiddleware = (req, res, next) => {
+  const user = req.session.user;
+
+  if (user){
+    res.redirect("/home");
+  } else {
+    next();
+  }
+}
 //
 app.use("/public", express.static("public"));
 app.use(express.json());
@@ -186,6 +196,8 @@ app.use("/progress", ensureAuthenticationMiddleware);
 app.use("/calorie-data", ensureAuthenticationMiddleware);
 app.use("/time-data", ensureAuthenticationMiddleware);
 app.use("/profile", ensureAuthenticationMiddleware);
+app.use("/login", loginAndRegisterMiddleware);
+app.use("/register", loginAndRegisterMiddleware);
 app.use(AuthenitcatedUserMiddleware)
 
 ///////////////////////////////////////////////////////
