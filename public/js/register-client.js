@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let signUpFormElement = document.getElementById("signup-form");
   if (signUpFormElement !== null) {
     signUpFormElement.addEventListener("submit", (event) => {
-      if (!isFormValid(event)) {
+      if (!isFormValid()) {
         event.preventDefault();
       }
 
@@ -22,43 +22,45 @@ document.addEventListener("DOMContentLoaded", function () {
       let weightUnit = formData.get("weightUnit");
       let sports = formData.get("sports");
       let healthInformation = formData.get("healthInformation");
-      $.ajax({
-        type: "POST",
-        url: "/register",
-        dataType: json,
-        data: {
-          firstName: firstName,
-          lastName: lastName,
-          username: username,
-          password: password,
-          confirmPassword: confirmPassword,
-          email: email,
-          age: age,
-          gender: gender,
-          heightFt: heightFt,
-          heightIn: heightIn,
-          weightNum: weightNum,
-          weightUnit: weightUnit,
-          sports: sports,
-          healthInformation: healthInformation
-        },
-      })
-        .done(function (repsone) {
-          console.log("Registration successful");
-          window.location.replace("/login");
-        })
-        .fail(function (xhr, status, errorThrown) {
-          console.log("Error: " + errorThrown);
-          console.log("Status: " + status);
-          let errorMessage;
-          if (xhr.responseJSON && xhr.responseJSON.message) {
-            errorMessage = xhr.responseJSON.message;
-          } else {
-            errorMessage =
-              "An error occured when trying to register. Please try again";
-          }
-          $(".registerError").text(errorMessage);
-        });
+      
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/register",
+    //     dataType: json,
+    //     data: {
+    //       firstName: firstName,
+    //       lastName: lastName,
+    //       username: username,
+    //       password: password,
+    //       confirmPassword: confirmPassword,
+    //       email: email,
+    //       age: age,
+    //       gender: gender,
+    //       heightFt: heightFt,
+    //       heightIn: heightIn,
+    //       weightNum: weightNum,
+    //       weightUnit: weightUnit,
+    //       sports: sports,
+    //       healthInformation: healthInformation
+    //     },
+    //   })
+    //     .done(function (repsone) {
+    //       console.log("Registration successful");
+    //       window.location.replace("/login");
+    //     })
+    //     .fail(function (xhr, status, errorThrown) {
+    //       console.log("Error: " + errorThrown);
+    //       console.log("Status: " + status);
+    //       let errorMessage;
+    //       if (xhr.responseJSON && xhr.responseJSON.message) {
+    //         errorMessage = xhr.responseJSON.message;
+    //       } else {
+    //         errorMessage =
+    //           "An error occured when trying to register. Please try again";
+    //       }
+    //       $(".registerError").text(errorMessage);
+    //     });
+    // });
     });
   }
 
@@ -86,9 +88,8 @@ function clearError(event) {
   }
 }
 
-function isFormValid(event) {
+function isFormValid() {
   let badFields = false;
-  event.preventDefault();
   /// firstName
   let firstNameField = document.getElementById("firstName");
   if (firstNameField !== null) {
@@ -157,7 +158,7 @@ function isFormValid(event) {
       badFields = true;
     }
     usernameValue = usernameValue.trim().toLowerCase();
-    if (usernameValue.length < 5 || usernameValue.length > 10) {
+    if (usernameValue.length < 3 || usernameValue.length > 12) {
       usernameError.textContent =
         "Username must be between 3 and 12 characters";
       badFields = true;
@@ -172,6 +173,12 @@ function isFormValid(event) {
     if (usernameRegex.test(usernameValue)) {
       usernameError.textContent =
         "Username cannot only contain special characters";
+      badFields = true;
+    }
+
+    let regexUsername = /\s/;
+    if(regexUsername.test(usernameValue)){
+      usernameError.textContent = "Username cannot contain spaces";
       badFields = true;
     }
   }
@@ -303,6 +310,7 @@ function isFormValid(event) {
 
     if (isNaN(heightFtValue)) {
       heightError.textContent = "Height (Feet) must be a number";
+      badFields = true;
     } else {
       if (heightFtValue % 1 !== 0) {
         heightError.textContent = "Feet must be a whole number";
