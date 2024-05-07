@@ -262,6 +262,9 @@ router
 
 router
   .route("/:workoutId")
+  .get(async (req, res) => {
+    res.redirect('/workouts')
+  })
   .delete(async (req, res) => {
     const workoutId = req.params.workoutId;
     try {

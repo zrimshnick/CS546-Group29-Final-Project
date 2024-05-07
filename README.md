@@ -22,6 +22,76 @@ This website acts as a tool for athletes to organize their training plan and pro
 
 You will navigate to http://localhost:3000
 
+## Sports: Here are all the available sports a user can pick from to sign up or use as tags
+
+    "archery",
+    "badminton",
+    "baseball",
+    "basketball",
+    "bobsleigh",
+    "boxing",
+    "bouldering",
+    "canoeing",
+    "cardio",
+    "kayaking",
+    "climbing",
+    "cricket",
+    "curling",
+    "cycling",
+    "equestrian sports",
+    "field hockey",
+    "field lacrosse",
+    "fencing",
+    "football",
+    "golf",
+    "gymnastics",
+    "handball",
+    "ice hockey",
+    "judo",
+    "lacrosse",
+    "martial arts",
+    "polo",
+    "roller skating",
+    "inline skating",
+    "rowing",
+    "rugby",
+    "rugby sevens",
+    "running",
+    "sailing",
+    "shooting",
+    "skiing",
+    "skateboarding",
+    "snowboarding",
+    "softball",
+    "squash",
+    "surfing",
+    "swimming",
+    "table tennis",
+    "tennis",
+    "track and field",
+    "trampoline",
+    "triathlon",
+    "ultimate frisbee",
+    "volleyball",
+    "water polo",
+    "weightlifting",
+    "wrestling",
+
+## Create a post:
+    - Navigate to the profile page after logging in and create a post by clicking the Create+ icon
+    - User can post any workout plans or accomplishments they have made
+
+## Create a workout:
+    - Navigate to the workout page and click the Add+ icon to create a workout
+    - You can create a workout for weight training or cardio
+    - You can add the duration in time of the workout, date, calories burned, the workout itself and any notes
+    - You can search for workouts based on the workout type
+
+## Feed
+    - Navigate to the feed page where all the posts will be displayed
+    - You can sort posts based on tags
+    - Click the title of the post to view, like and add comments
+
 ## Group members
 
 Sean Maida, Thomas LaPinta, Katherine Shagalov, Yiwei Zhang, Zachary Rimshnick
