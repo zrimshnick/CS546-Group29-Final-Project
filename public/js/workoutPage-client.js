@@ -408,16 +408,16 @@ addWorkoutButton.addEventListener("click", function () {
       const timeElementS = document.getElementById("timeElapsedS");
 
       if (timeElementH !== null) {
-        let timeElementHValue = timeElementH.value;
-        let timeElementMValue = timeElementM.value;
-        let timeElementSValue = timeElementS.value;
+        let timeElementHValue = timeElementH.value.trim();
+        let timeElementMValue = timeElementM.value.trim();
+        let timeElementSValue = timeElementS.value.trim();
         let timeElapsedError = document.getElementById(
           "workouts-timeElapsedError"
         );
 
-        timeElementHValue.trim();
-        timeElementMValue.trim();
-        timeElementSValue.trim();
+        // timeElementHValue = timeElementHValue.trim();
+        // timeElementMValue = timeElementMValue.trim();
+        // timeElementSValue = timeElementSValue.trim();
         if (timeElementHValue === "") {
           timeElapsedError.textContent = "Invalid time";
           timeElementH.classList.add("errorBorder");
